@@ -14,6 +14,7 @@ https://github.com/yzyyyyy2048/mujoco.git
 ```
 ## 3.quadruped_ros2_control
 ros2版本的legged_control，并且集中了其他形式的控制器，配置的过程中同时需要安装unitree_ros2
+另，编译成功后运行ocs2控制器出现卡顿需要手动调整controller_manager的频率
 ```
 https://github.com/yzyyyyy2048/quadruped_ros2_control
 ```
