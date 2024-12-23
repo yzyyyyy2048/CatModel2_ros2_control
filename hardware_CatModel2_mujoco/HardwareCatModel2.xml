@@ -1,0 +1,9 @@
+<library path="hardware_CatModel2_mujoco">
+  <class name="hardware_CatModel2_mujoco/HardwareCatModel2"
+         type="HardwareCatModel2"
+         base_class_type="hardware_interface::SystemInterface">
+    <description>
+      Robot System for CatModel2 quadruped robot.
+    </description>
+  </class>
+</library>
