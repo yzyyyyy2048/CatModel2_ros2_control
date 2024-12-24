@@ -20,4 +20,6 @@ https://github.com/yzyyyyy2048/quadruped_ros2_control
 ```
 
 ## 4.CatModel2 ROS2 Control
-coming soon
+### 1.dummy
+```
+ros2 launch CatModel2_v2_dummy CatModel2_sqp.launch.py
