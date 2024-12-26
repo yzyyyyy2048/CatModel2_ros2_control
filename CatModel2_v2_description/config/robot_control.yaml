@@ -14,7 +14,7 @@ controller_manager:
       type: unitree_guide_controller/UnitreeGuideController
 
     CatModel2_v2_controller:
-      type: CatModel2_v2_controller/Ocs2QuadrupedController
+      type: legged/CatModel2Controller
 
     rl_quadruped_controller:
       type: rl_quadruped_controller/LeggedGymController
@@ -79,18 +79,20 @@ CatModel2_v2_controller:
     update_rate: 100  # Hz
 
     joints:
-      - FL_hip_joint
-      - FL_thigh_joint
-      - FL_calf_joint
-      - FR_hip_joint
-      - FR_thigh_joint
-      - FR_calf_joint
-      - RL_hip_joint
-      - RL_thigh_joint
-      - RL_calf_joint
-      - RR_hip_joint
-      - RR_thigh_joint
-      - RR_calf_joint
+      - bodyb_yaw_joint
+      - LH_HAA
+      - LH_HFE
+      - LH_KFE
+      - RH_HAA
+      - RH_HFE
+      - RH_KFE
+      - bodyf_pitch_joint
+      - LF_HAA
+      - LF_HFE
+      - LF_KFE
+      - RF_HAA
+      - RF_HFE
+      - RF_KFE
 
     command_interfaces:
       - effort
@@ -105,10 +107,10 @@ CatModel2_v2_controller:
       - velocity
 
     feet:
-      - FL_foot
-      - FR_foot
-      - RL_foot
-      - RR_foot
+      - LH_foot
+      - RH_foot
+      - LF_foot
+      - RF_foot
 
     imu_name: "imu_sensor"
     base_name: "base"
@@ -127,10 +129,10 @@ CatModel2_v2_controller:
 
     foot_force_name: "foot_force"
     foot_force_interfaces:
-      - FL
-      - RL
-      - FR
-      - RR
+      - LH
+      - RH
+      - LF
+      - RF
 
 rl_quadruped_controller:
   ros__parameters:

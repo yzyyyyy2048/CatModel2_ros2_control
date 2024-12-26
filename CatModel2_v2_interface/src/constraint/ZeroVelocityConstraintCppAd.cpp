@@ -27,8 +27,7 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ******************************************************************************/
 
-#include <CatModel2_v2_interface/constraint/ZeroVelocityConstraintCppAd.h>
-
+#include "CatModel2_v2_interface/constraint/ZeroVelocityConstraintCppAd.h"
 
 namespace ocs2::legged_robot {
     ZeroVelocityConstraintCppAd::ZeroVelocityConstraintCppAd(const SwitchedModelReferenceManager &referenceManager,
@@ -68,4 +67,4 @@ namespace ocs2::legged_robot {
         const PreComputation &preComp) const {
         return eeLinearConstraintPtr_->getLinearApproximation(time, state, input, preComp);
     }
-} // namespace ocs2::legged_robot
+}

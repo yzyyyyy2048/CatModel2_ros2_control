@@ -35,14 +35,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <ocs2_robotic_tools/end_effector/EndEffectorKinematics.h>
 
-
 namespace ocs2::legged_robot {
     /**
-     * Defines a linear constraint on an end-effector position (xee) and linear velocity (vee).
-     * g(xee, vee) = Ax * xee + Av * vee + b
-     * - For defining constraint of type g(xee), set Av to matrix_t(0, 0)
-     * - For defining constraint of type g(vee), set Ax to matrix_t(0, 0)
-     */
+    * Defines a linear constraint on an end-effector position (xee) and linear velocity (vee).
+    * g(xee, vee) = Ax * xee + Av * vee + b
+    * - For defining constraint of type g(xee), set Av to matrix_t(0, 0)
+    * - For defining constraint of type g(vee), set Ax to matrix_t(0, 0)
+    */
     class EndEffectorLinearConstraint final : public StateInputConstraint {
     public:
         /**
@@ -93,4 +92,4 @@ namespace ocs2::legged_robot {
         const size_t numConstraints_;
         Config config_;
     };
-} // namespace ocs2::legged_robot
+}

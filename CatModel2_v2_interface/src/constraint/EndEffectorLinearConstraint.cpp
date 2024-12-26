@@ -39,7 +39,8 @@ namespace ocs2::legged_robot {
           numConstraints_(numConstraints),
           config_(std::move(config)) {
         if (endEffectorKinematicsPtr_->getIds().size() != 1) {
-            throw std::runtime_error("[EndEffectorLinearConstraint] this class only accepts a single end-effector!");
+            throw std::runtime_error(
+                "[EndEffectorLinearConstraint] this class only accepts a single end-effector!");
         }
     }
 
@@ -92,7 +93,8 @@ namespace ocs2::legged_robot {
         }
 
         if (config_.Av.size() > 0) {
-            const auto velocityApprox = endEffectorKinematicsPtr_->getVelocityLinearApproximation(state, input).front();
+            const auto velocityApprox = endEffectorKinematicsPtr_->getVelocityLinearApproximation(state, input).
+                    front();
             linearApproximation.f.noalias() += config_.Av * velocityApprox.f;
             linearApproximation.dfdx.noalias() += config_.Av * velocityApprox.dfdx;
             linearApproximation.dfdu.noalias() += config_.Av * velocityApprox.dfdu;
