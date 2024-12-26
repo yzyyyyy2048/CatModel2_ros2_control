@@ -82,7 +82,7 @@ install(TARGETS
 CatModel2_motion_command
   DESTINATION lib/${PROJECT_NAME}
 )
-install(DIRECTORY config
+install(DIRECTORY config launch
   DESTINATION share/${PROJECT_NAME}/
 )
 
