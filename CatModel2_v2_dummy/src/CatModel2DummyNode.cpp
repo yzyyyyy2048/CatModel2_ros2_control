@@ -56,7 +56,9 @@ int main(int argc, char **argv) {
             node->get_parameter("referenceFile").as_string();
 
     // Robot interface
-    LeggedInterface interface(taskFile, urdfFile, referenceFile);
+    legged::LeggedInterface interface(taskFile, urdfFile, referenceFile);
+    bool verbose = false;
+    interface.setupOptimalControlProblem(taskFile, urdfFile, referenceFile, verbose);
 
     // MRT
     MRT_ROS_Interface mrt(robotName);
@@ -69,7 +71,7 @@ int main(int argc, char **argv) {
     PinocchioEndEffectorKinematics endEffectorKinematics(
         interface.getPinocchioInterface(), pinocchioMapping,
         interface.modelSettings().contactNames3DoF);
-    auto leggedRobotVisualizer = std::make_shared<LeggedRobotVisualizer>(
+    auto catModel2Visualizer = std::make_shared<CatModel2Visualizer>(
         interface.getPinocchioInterface(), interface.getCentroidalModelInfo(),
         endEffectorKinematics, node);
 
@@ -77,7 +79,7 @@ int main(int argc, char **argv) {
     MRT_ROS_Dummy_Loop leggedRobotDummySimulator(
         mrt, interface.mpcSettings().mrtDesiredFrequency_,
         interface.mpcSettings().mpcDesiredFrequency_);
-    leggedRobotDummySimulator.subscribeObservers({leggedRobotVisualizer});
+    leggedRobotDummySimulator.subscribeObservers({catModel2Visualizer});
 
     // Initial state
     SystemObservation initObservation;

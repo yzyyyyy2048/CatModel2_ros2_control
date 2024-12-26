@@ -44,7 +44,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <rclcpp_lifecycle/lifecycle_node.hpp>
 
 namespace ocs2::legged_robot {
-    class LeggedRobotVisualizer : public DummyObserver {
+    class CatModel2Visualizer : public DummyObserver {
     public:
         /** Visualization settings (publicly available) */
         std::string frameId_ = "odom"; // Frame name all messages are published in
@@ -67,19 +67,19 @@ namespace ocs2::legged_robot {
         * @param pinocchioInterface
         * @param maxUpdateFrequency : maximum publish frequency measured in MPC time.
         */
-        LeggedRobotVisualizer(
+        CatModel2Visualizer(
             PinocchioInterface pinocchioInterface,
             CentroidalModelInfo centroidalModelInfo,
             const PinocchioEndEffectorKinematics &endEffectorKinematics,
             const rclcpp::Node::SharedPtr &node, scalar_t maxUpdateFrequency = 100.0);
 
-        LeggedRobotVisualizer(
+        CatModel2Visualizer(
             PinocchioInterface pinocchioInterface,
             CentroidalModelInfo centroidalModelInfo,
             const PinocchioEndEffectorKinematics &endEffectorKinematics,
             const rclcpp_lifecycle::LifecycleNode::SharedPtr &node, scalar_t maxUpdateFrequency = 100.0);
 
-        ~LeggedRobotVisualizer() override = default;
+        ~CatModel2Visualizer() override = default;
 
         void update(const SystemObservation &observation,
                     const PrimalSolution &primalSolution,
@@ -104,7 +104,7 @@ namespace ocs2::legged_robot {
         rclcpp::Clock::SharedPtr clock_;
 
     private:
-        LeggedRobotVisualizer(const LeggedRobotVisualizer &) = delete;
+        CatModel2Visualizer(const CatModel2Visualizer &) = delete;
 
         void publishJointTransforms(const rclcpp::Time& timeStamp,
                                     const vector_t &jointAngles) const;

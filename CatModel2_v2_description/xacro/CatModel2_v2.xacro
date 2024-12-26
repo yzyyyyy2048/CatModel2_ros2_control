@@ -2,6 +2,7 @@
 
 	<xacro:arg name="DEBUG" default="false"/>
   <xacro:include filename="$(find CatModel2_v2_description)/xacro/imu.xacro"/>
+  <xacro:include filename="$(find CatModel2_v2_description)/xacro/ros2_control.xacro"/>
 
 	<xacro:if value="$(arg DEBUG)">
 		<link name="world"/>
@@ -888,6 +889,6 @@
     <child link="RH_FOOT"/>
   </joint>
 
-  <xacro:IMU connected_to="base_link" imu_name="base_imu" xyz=" 0.05 0. 0.08" rpy="0. 0. 0."/> 
+  <xacro:IMU connected_to="base_link" imu_name="imu_link" xyz=" 0. 0. 0.08" rpy="0. 0. 0."/> 
 
 </robot>

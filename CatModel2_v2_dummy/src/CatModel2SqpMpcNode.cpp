@@ -57,7 +57,10 @@ int main(int argc, char **argv) {
             node->get_parameter("referenceFile").as_string();
 
     // Robot interface
-    LeggedInterface interface(taskFile, urdfFile, referenceFile);
+    legged::LeggedInterface interface(taskFile, urdfFile, referenceFile);
+    bool verbose = false;
+    interface.setupOptimalControlProblem(taskFile, urdfFile, referenceFile, verbose);
+    
 
     // Gait receiver
     auto gaitReceiverPtr = std::make_shared<GaitReceiver>(

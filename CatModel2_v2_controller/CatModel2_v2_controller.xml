@@ -1,0 +1,9 @@
+<library path="CatModel2_v2_controller">
+  <class name="legged/CatModel2Controller"
+         type="legged::CatModel2Controller"
+         base_class_type="controller_interface::ControllerInterface">
+    <description>
+      Quadruped Controller based on CatModel2 Legged Control.
+    </description>
+  </class>
+</library>

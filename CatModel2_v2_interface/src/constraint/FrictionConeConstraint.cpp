@@ -27,7 +27,7 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ******************************************************************************/
 
-#include <CatModel2_v2_interface/constraint/FrictionConeConstraint.h>
+#include "CatModel2_v2_interface/constraint/FrictionConeConstraint.h"
 
 #include <ocs2_centroidal_model/AccessHelperFunctions.h>
 
@@ -37,7 +37,7 @@ namespace ocs2::legged_robot {
                                                    size_t contactPointIndex, CentroidalModelInfo info)
         : StateInputConstraint(ConstraintOrder::Quadratic),
           referenceManagerPtr_(&referenceManager),
-          config_(config),
+          config_(std::move(config)),
           contactPointIndex_(contactPointIndex),
           info_(std::move(info)) {
     }

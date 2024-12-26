@@ -27,15 +27,15 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ******************************************************************************/
 
-#include <CatModel2_v2_interface/constraint/NormalVelocityConstraintCppAd.h>
-#include <CatModel2_v2_interface/LeggedRobotPreComputation.h>
+#include "CatModel2_v2_interface/constraint/NormalVelocityConstraintCppAd.h"
+#include "CatModel2_v2_interface/LeggedRobotPreComputation.h"
 
 
 namespace ocs2::legged_robot {
-    NormalVelocityConstraintCppAd::NormalVelocityConstraintCppAd(
-        const SwitchedModelReferenceManager &referenceManager,
-        const EndEffectorKinematics<scalar_t> &endEffectorKinematics,
-        size_t contactPointIndex)
+    NormalVelocityConstraintCppAd::NormalVelocityConstraintCppAd(const SwitchedModelReferenceManager &referenceManager,
+                                                                 const EndEffectorKinematics<scalar_t> &
+                                                                 endEffectorKinematics,
+                                                                 size_t contactPointIndex)
         : StateInputConstraint(ConstraintOrder::Linear),
           referenceManagerPtr_(&referenceManager),
           eeLinearConstraintPtr_(new EndEffectorLinearConstraint(endEffectorKinematics, 1)),

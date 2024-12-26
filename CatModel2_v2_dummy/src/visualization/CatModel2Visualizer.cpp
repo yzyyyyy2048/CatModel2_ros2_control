@@ -50,7 +50,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 namespace ocs2::legged_robot {
-    LeggedRobotVisualizer::LeggedRobotVisualizer(
+    CatModel2Visualizer::CatModel2Visualizer(
         PinocchioInterface pinocchioInterface,
         CentroidalModelInfo centroidalModelInfo,
         const PinocchioEndEffectorKinematics &endEffectorKinematics,
@@ -92,7 +92,7 @@ namespace ocs2::legged_robot {
                 node->create_publisher<sensor_msgs::msg::JointState>("joint_states", 1);
     }
 
-    LeggedRobotVisualizer::LeggedRobotVisualizer(PinocchioInterface pinocchioInterface,
+    CatModel2Visualizer::CatModel2Visualizer(PinocchioInterface pinocchioInterface,
                                                  CentroidalModelInfo centroidalModelInfo,
                                                  const PinocchioEndEffectorKinematics &endEffectorKinematics,
                                                  const rclcpp_lifecycle::LifecycleNode::SharedPtr &node,
@@ -131,7 +131,7 @@ namespace ocs2::legged_robot {
     };
 
 
-    void LeggedRobotVisualizer::update(const SystemObservation &observation,
+    void CatModel2Visualizer::update(const SystemObservation &observation,
                                        const PrimalSolution &primalSolution,
                                        const CommandData &command) {
         if (observation.time - lastTime_ > minPublishTimeDifference_) {
@@ -153,7 +153,7 @@ namespace ocs2::legged_robot {
     }
 
 
-    void LeggedRobotVisualizer::publishObservation(
+    void CatModel2Visualizer::publishObservation(
         const rclcpp::Time& timeStamp, const SystemObservation &observation) {
         // Extract components from state
         const auto basePose =
@@ -178,7 +178,7 @@ namespace ocs2::legged_robot {
     }
 
 
-    void LeggedRobotVisualizer::publishJointTransforms(
+    void CatModel2Visualizer::publishJointTransforms(
         const rclcpp::Time& timeStamp, const vector_t &jointAngles) const {
         if (jointPublisher_ != nullptr) {
             sensor_msgs::msg::JointState joint_state;
@@ -218,7 +218,7 @@ namespace ocs2::legged_robot {
     }
 
 
-    void LeggedRobotVisualizer::publishBaseTransform(const rclcpp::Time& timeStamp,
+    void CatModel2Visualizer::publishBaseTransform(const rclcpp::Time& timeStamp,
                                                      const vector_t &basePose) {
         geometry_msgs::msg::TransformStamped baseToWorldTransform;
         baseToWorldTransform.header = getHeaderMsg(frameId_, timeStamp);
@@ -233,7 +233,7 @@ namespace ocs2::legged_robot {
     }
 
 
-    void LeggedRobotVisualizer::publishTrajectory(
+    void CatModel2Visualizer::publishTrajectory(
         const std::vector<SystemObservation> &system_observation_array,
         scalar_t speed) {
         for (size_t k = 0; k < system_observation_array.size() - 1; k++) {
@@ -252,7 +252,7 @@ namespace ocs2::legged_robot {
     }
 
 
-    void LeggedRobotVisualizer::publishCartesianMarkers(
+    void CatModel2Visualizer::publishCartesianMarkers(
         const rclcpp::Time &timeStamp, const contact_flag_t &contactFlags,
         const std::vector<vector3_t> &feetPositions,
         const std::vector<vector3_t> &feetForces) const {
@@ -291,7 +291,7 @@ namespace ocs2::legged_robot {
     }
 
 
-    void LeggedRobotVisualizer::publishDesiredTrajectory(
+    void CatModel2Visualizer::publishDesiredTrajectory(
         const rclcpp::Time &timeStamp, const TargetTrajectories &targetTrajectories) {
         const auto &stateTrajectory = targetTrajectories.stateTrajectory;
         const auto &inputTrajectory = targetTrajectories.inputTrajectory;
@@ -358,7 +358,7 @@ namespace ocs2::legged_robot {
     }
 
 
-    void LeggedRobotVisualizer::publishOptimizedStateTrajectory(
+    void CatModel2Visualizer::publishOptimizedStateTrajectory(
         const rclcpp::Time &timeStamp, const scalar_array_t &mpcTimeTrajectory,
         const vector_array_t &mpcStateTrajectory,
         const ModeSchedule &modeSchedule) {
