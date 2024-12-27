@@ -55,6 +55,7 @@ ament_export_include_directories(${QPOASES_INCLUDE_DIR})
 ament_export_libraries(qpOASES)
 
 install(TARGETS qpOASES
+        EXPORT qpOASES
         LIBRARY DESTINATION lib)
 
 ament_package()
