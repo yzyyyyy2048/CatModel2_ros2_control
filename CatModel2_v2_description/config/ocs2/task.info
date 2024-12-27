@@ -288,20 +288,20 @@ selfCollision
 ; Whole body control
 torqueLimitsTask
 {
-   (0,0)   23.7   ; 
-   (1,0)   23.7   ; LF_HAA
-   (2,0)   23.7   ; LF_HFE
-   (3,0)   23.7   ; LF_KFE
-   (4,0)   23.7   ; RF_HAA
-   (5,0)   23.7   ; RF_HFE
-   (6,0)   23.7   ; RF_KFE
-   (7,0)   23.7   ; 
-   (8,0)   23.7   ; LH_HAA
-   (9,0)   23.7   ; LH_HFE
-   (10,0)  23.7   ; LH_KFE
-   (11,0)  23.7   ; RH_HAA
-   (12,0)  23.7   ; RH_HFE
-   (13,0)  23.7   ; RH_KFE
+   (0,0)   15.0   ; bodyb_yaw_joint
+   (1,0)   20.0   ; LF_HAA
+   (2,0)   20.0   ; LF_HFE
+   (3,0)   20.0   ; LF_KFE
+   (4,0)   20.0   ; RF_HAA
+   (5,0)   20.0   ; RF_HFE
+   (6,0)   20.0   ; RF_KFE
+   (7,0)   15.0   ; bodyf_pitch_joint
+   (8,0)   20.0   ; LH_HAA
+   (9,0)   20.0   ; LH_HFE
+   (10,0)  20.0   ; LH_KFE
+   (11,0)  20.0   ; RH_HAA
+   (12,0)  20.0   ; RH_HFE
+   (13,0)  20.0   ; RH_KFE
 }
 
 frictionConeTask
@@ -318,7 +318,7 @@ swingLegTask
 weight
 {
     swingLeg        100
-    baseAccel       0.5
+    baseAccel       1
     contactForce    0.1
 }
 

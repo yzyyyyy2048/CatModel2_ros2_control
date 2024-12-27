@@ -13,6 +13,7 @@
 #include <ocs2_msgs/msg/mpc_observation.hpp>
 #include "SafetyChecker.h"
 #include "CatModel2_v2_controller/control/CtrlComponent.h"
+#include "std_msgs/msg/float32_multi_array.hpp"
 
 namespace legged {
 using namespace ocs2;
@@ -106,6 +107,17 @@ using namespace legged_robot;
 
         rclcpp::Subscription<control_input_msgs::msg::Inputs>::SharedPtr control_input_subscription_;
         rclcpp::Publisher<ocs2_msgs::msg::MpcObservation>::SharedPtr observation_publisher_;
+
+        rclcpp::Publisher<std_msgs::msg::Float32MultiArray>::SharedPtr posDes_pub;
+        rclcpp::Publisher<std_msgs::msg::Float32MultiArray>::SharedPtr velDes_pub;
+
+        rclcpp::Publisher<std_msgs::msg::Float32MultiArray>::SharedPtr posCur_pub;
+        rclcpp::Publisher<std_msgs::msg::Float32MultiArray>::SharedPtr velCur_pub;
+
+        rclcpp::Publisher<std_msgs::msg::Float32MultiArray>::SharedPtr wbc_pub;
+
+
+
 
         std::string task_file_;
         std::string urdf_file_;
