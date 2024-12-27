@@ -273,8 +273,11 @@ namespace legged {
 
     void CatModel2Controller::setupLeggedInterface() {
         legged_interface_ = std::make_shared<LeggedInterface>(task_file_, urdf_file_, reference_file_);
+        // std::cerr << " 1 " << std::endl;
         legged_interface_->setupJointNames(joint_names_, feet_names_);
+        std::cerr << " 1 " << std::endl;
         legged_interface_->setupOptimalControlProblem(task_file_, urdf_file_, reference_file_, verbose_);
+        std::cerr << " 2 " << std::endl;
     }
 
     void CatModel2Controller::setupMpc() {

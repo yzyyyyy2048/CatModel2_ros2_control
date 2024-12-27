@@ -4,7 +4,7 @@
 	<ros2_control name="CatModel2System" type="system">
 
 		<hardware>
-			<plugin>hardware_CatModel2_mujoco/HardwareCatMdoel2</plugin>
+			<plugin>hardware_CatModel2_mujoco/HardwareCatModel2</plugin>
 		</hardware>
 
 		<joint name="bodyb_yaw_joint">

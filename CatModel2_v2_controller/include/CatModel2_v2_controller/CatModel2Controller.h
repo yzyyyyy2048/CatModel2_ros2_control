@@ -102,7 +102,7 @@ using namespace legged_robot;
         std::vector<std::string> foot_force_interface_types_;
 
         double default_kp_ = 0;
-        double default_kd_ = 6;
+        double default_kd_ = 3;
 
         rclcpp::Subscription<control_input_msgs::msg::Inputs>::SharedPtr control_input_subscription_;
         rclcpp::Publisher<ocs2_msgs::msg::MpcObservation>::SharedPtr observation_publisher_;
