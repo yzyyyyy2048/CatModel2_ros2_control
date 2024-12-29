@@ -124,8 +124,9 @@ namespace ocs2::legged_robot {
                 info_.actuatedDofNum,
                 info_.actuatedDofNum) = -i;
         vector_t f(2 * info_.actuatedDofNum);
-        for (size_t l = 0; l < 2 * info_.actuatedDofNum / 3; ++l) {
-            f.segment<3>(3 * l) = torque_limits_;
+
+        for (size_t l = 0; l < 2 ; ++l) {
+            f.segment<14>(14 * l) = torque_limits_;
         }
 
         return {matrix_t(), vector_t(), d, f};
@@ -252,7 +253,7 @@ namespace ocs2::legged_robot {
 
     void WbcBase::loadTasksSetting(const std::string &taskFile, const bool verbose) {
         // Load task file
-        torque_limits_ = vector_t(info_.actuatedDofNum / 4);
+        torque_limits_ = vector_t(info_.actuatedDofNum);
         loadData::loadEigenMatrix(taskFile, "torqueLimitsTask", torque_limits_);
         if (verbose) {
             std::cerr << "\n #### Torque Limits Task:";

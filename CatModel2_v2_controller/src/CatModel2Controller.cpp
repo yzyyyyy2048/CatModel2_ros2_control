@@ -11,6 +11,8 @@
 #include <ocs2_sqp/SqpMpc.h>
 #include <angles/angles.h>
 #include <CatModel2_v2_controller/control/GaitManager.h>
+#include "std_msgs/msg/float32_multi_array.hpp"
+
 
 namespace legged {
     using config_type = controller_interface::interface_configuration_type;
@@ -84,6 +86,26 @@ namespace legged {
         vector_t vel_des = centroidal_model::getJointVelocities(optimized_input,
                                                                 legged_interface_->getCentroidalModelInfo());
 
+        // 创建消息
+        std_msgs::msg::Float32MultiArray posDes_msg;
+        std_msgs::msg::Float32MultiArray velDes_msg;
+        std_msgs::msg::Float32MultiArray posCur_msg;
+        std_msgs::msg::Float32MultiArray velCur_msg;
+
+        vector_t posCur = ctrl_comp_.observation_.state;
+        vector_t velCur = measured_rbd_state_.tail(14);
+
+
+        posDes_msg.data = std::vector<float>(pos_des.data(), pos_des.data() + pos_des.size());
+        velDes_msg.data = std::vector<float>(vel_des.data(), vel_des.data() + vel_des.size());
+        posCur_msg.data = std::vector<float>(posCur.data(), posCur.data() + posCur.size());
+        velCur_msg.data = std::vector<float>(velCur.data(), velCur.data() + velCur.size());
+
+        posDes_pub->publish(posDes_msg);
+        velDes_pub->publish(velDes_msg);
+        posCur_pub->publish(posCur_msg);
+        velCur_pub->publish(velCur_msg);
+
         // Safety check, if failed, stop the controller
         if (!safety_checker_->check(ctrl_comp_.observation_, optimized_state, optimized_input)) {
             RCLCPP_ERROR(get_node()->get_logger(), "[Legged Controller] Safety check failed, stopping the controller.");
@@ -104,6 +126,8 @@ namespace legged {
             ctrl_comp_.joint_kp_command_interface_[i].get().set_value(default_kp_);
             ctrl_comp_.joint_kd_command_interface_[i].get().set_value(default_kd_);
         }
+
+        
 
         // Visualization
         ctrl_comp_.visualizer_->update(ctrl_comp_.observation_, mpc_mrt_interface_->getPolicy(),
@@ -192,6 +216,14 @@ namespace legged {
         observation_publisher_ = get_node()->create_publisher<ocs2_msgs::msg::MpcObservation>(
             "legged_robot_mpc_observation", 10);
 
+        posDes_pub = get_node()->create_publisher<std_msgs::msg::Float32MultiArray>("posDes", 10);
+        velDes_pub = get_node()->create_publisher<std_msgs::msg::Float32MultiArray>("velDes", 10);
+
+        posCur_pub = get_node()->create_publisher<std_msgs::msg::Float32MultiArray>("posCur", 10);
+        velCur_pub = get_node()->create_publisher<std_msgs::msg::Float32MultiArray>("velCur", 10);
+
+
+
         return CallbackReturn::SUCCESS;
     }
 
@@ -273,8 +305,11 @@ namespace legged {
 
     void CatModel2Controller::setupLeggedInterface() {
         legged_interface_ = std::make_shared<LeggedInterface>(task_file_, urdf_file_, reference_file_);
+        // std::cerr << " 1 " << std::endl;
         legged_interface_->setupJointNames(joint_names_, feet_names_);
+        std::cerr << " 1 " << std::endl;
         legged_interface_->setupOptimalControlProblem(task_file_, urdf_file_, reference_file_, verbose_);
+        std::cerr << " 2 " << std::endl;
     }
 
     void CatModel2Controller::setupMpc() {

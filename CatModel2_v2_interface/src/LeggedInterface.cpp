@@ -79,6 +79,9 @@ namespace legged {
                                           const std::vector<std::string> &foot_names) {
         model_settings_.jointNames = joint_names;
         model_settings_.contactNames3DoF = foot_names;
+        // for (const auto& name : joint_names) {
+        //     std::cout << name << " ";
+        //     }
     }
 
     void LeggedInterface::setupOptimalControlProblem(const std::string &task_file,
@@ -93,6 +96,7 @@ namespace legged {
 
         setupReferenceManager(task_file, urdf_file, reference_file, verbose);
 
+
         // Optimal control problem
         problem_ptr_ = std::make_unique<OptimalControlProblem>();
 
@@ -102,8 +106,10 @@ namespace legged {
             model_settings_);
         problem_ptr_->dynamicsPtr = std::move(dynamicsPtr);
 
+
         // Cost terms
         problem_ptr_->costPtr->add("baseTrackingCost", getBaseTrackingCost(task_file, centroidal_model_info_, verbose));
+
 
         // Constraint terms
         // friction cone settings
@@ -113,8 +119,12 @@ namespace legged {
 
         for (size_t i = 0; i < centroidal_model_info_.numThreeDofContacts; i++) {
             const std::string &footName = model_settings_.contactNames3DoF[i];
+            std::cout << "Foot name: " << footName << std::endl;
+            
             std::unique_ptr<EndEffectorKinematics<scalar_t> > eeKinematicsPtr =
                     getEeKinematicsPtr({footName}, footName);
+
+            
 
             if (use_hard_friction_cone_constraint_) {
                 problem_ptr_->inequalityConstraintPtr->add(footName + "_frictionCone",
@@ -132,6 +142,7 @@ namespace legged {
                 footName + "_normalVelocity",
                 std::make_unique<NormalVelocityConstraintCppAd>(*reference_manager_ptr_, *eeKinematicsPtr, i));
         }
+ 
 
         // Self-collision avoidance constraint
         // problem_ptr_->stateSoftConstraintPtr->add("selfCollision",
@@ -140,6 +151,7 @@ namespace legged {
 
         setupPreComputation(task_file, urdf_file, reference_file, verbose);
 
+
         // Rollout
         rollout_ptr_ = std::make_unique<TimeTriggeredRollout>(*problem_ptr_->dynamicsPtr, rollout_settings_);
 
@@ -147,6 +159,7 @@ namespace legged {
         constexpr bool extend_normalized_momentum = true;
         initializer_ptr_ = std::make_unique<LeggedRobotInitializer>(centroidal_model_info_, *reference_manager_ptr_,
                                                                     extend_normalized_momentum);
+        
     }
 
 
@@ -312,11 +325,13 @@ namespace legged {
         const std::string &model_name) {
         const auto infoCppAd = centroidal_model_info_.toCppAd();
         const CentroidalModelPinocchioMappingCppAd pinocchioMappingCppAd(infoCppAd);
+        
         auto velocityUpdateCallback = [&infoCppAd](const ad_vector_t &state,
                                                    PinocchioInterfaceCppAd &pinocchioInterfaceAd) {
             const ad_vector_t q = centroidal_model::getGeneralizedCoordinates(state, infoCppAd);
             updateCentroidalDynamics(pinocchioInterfaceAd, infoCppAd, q);
         };
+        
         std::unique_ptr<EndEffectorKinematics<scalar_t> > end_effector_kinematics = std::make_unique<
             PinocchioEndEffectorKinematicsCppAd>(
             *pinocchio_interface_ptr_, pinocchioMappingCppAd,
@@ -327,6 +342,7 @@ namespace legged {
             model_settings_.modelFolderCppAd,
             model_settings_.recompileLibrariesCppAd,
             model_settings_.verboseCppAd);
+        
 
         return end_effector_kinematics;
     }

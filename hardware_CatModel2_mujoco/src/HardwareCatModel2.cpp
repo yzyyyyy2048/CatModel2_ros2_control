@@ -164,7 +164,7 @@ void HardwareCatModel2::initLowCmd() {
     low_cmd_.level_flag() = 0xFF;
     low_cmd_.gpio() = 0;
 
-    for (int i = 0; i < 20; i++) {
+    for (int i = 0; i < 14; i++) {
         low_cmd_.motor_cmd()[i].mode() =
                 0x01; // motor switch to servo (PMSM) mode
         low_cmd_.motor_cmd()[i].q() = 0;
