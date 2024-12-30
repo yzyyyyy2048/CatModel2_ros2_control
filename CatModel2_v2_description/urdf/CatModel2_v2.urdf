@@ -8,16 +8,6 @@
     <hardware>
       <plugin>hardware_CatModel2_mujoco/HardwareCatModel2</plugin>
     </hardware>
-    <joint name="bodyb_yaw_joint">
-      <command_interface name="position"/>
-      <command_interface name="velocity"/>
-      <command_interface name="effort"/>
-      <command_interface name="kp"/>
-      <command_interface name="kd"/>
-      <state_interface name="position"/>
-      <state_interface name="velocity"/>
-      <state_interface name="effort"/>
-    </joint>
     <joint name="LH_HAA">
       <command_interface name="position"/>
       <command_interface name="velocity"/>
@@ -69,16 +59,6 @@
       <state_interface name="effort"/>
     </joint>
     <joint name="RH_KFE">
-      <command_interface name="position"/>
-      <command_interface name="velocity"/>
-      <command_interface name="effort"/>
-      <command_interface name="kp"/>
-      <command_interface name="kd"/>
-      <state_interface name="position"/>
-      <state_interface name="velocity"/>
-      <state_interface name="effort"/>
-    </joint>
-    <joint name="bodyf_pitch_joint">
       <command_interface name="position"/>
       <command_interface name="velocity"/>
       <command_interface name="effort"/>
@@ -205,7 +185,7 @@
       </geometry>
     </collision>
   </link>
-  <joint name="bodyf_pitch_joint" type="revolute">
+  <joint name="bodyf_pitch_joint" type="fixed">
     <origin rpy="0 0 0" xyz="0 0 0"/>
     <parent link="base_link"/>
     <child link="BF_Link"/>
@@ -234,7 +214,7 @@
       </geometry>
     </collision>
   </link>
-  <joint name="bodyb_yaw_joint" type="revolute">
+  <joint name="bodyb_yaw_joint" type="fixed">
     <origin rpy="0 0 0" xyz="0 0 0"/>
     <parent link="base_link"/>
     <child link="BB_Link"/>

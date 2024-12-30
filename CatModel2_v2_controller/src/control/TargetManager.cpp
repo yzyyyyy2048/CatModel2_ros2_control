@@ -16,7 +16,7 @@ namespace ocs2::legged_robot {
                                  const std::string &reference_file)
         : ctrl_component_(ctrl_component),
           referenceManagerPtr_(referenceManagerPtr) {
-        default_joint_state_ = vector_t::Zero(14);
+        default_joint_state_ = vector_t::Zero(12);
         loadData::loadCppDataType(reference_file, "comHeight", command_height_);
         loadData::loadEigenMatrix(reference_file, "defaultJointState", default_joint_state_);
         loadData::loadCppDataType(task_file, "mpc.timeHorizon", time_to_target_);

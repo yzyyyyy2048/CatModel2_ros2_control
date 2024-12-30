@@ -53,6 +53,8 @@ namespace legged {
 
     controller_interface::return_type CatModel2Controller::update(const rclcpp::Time &time,
                                                                       const rclcpp::Duration &period) {
+
+        //  RCLCPP_INFO(get_node()->get_logger(), "mpc updating.");                                                              
         // State Estimate
         updateStateEstimation(time, period);
 
@@ -79,7 +81,7 @@ namespace legged {
                                   period.seconds());
         wbc_timer_.endTimer();
 
-        vector_t torque = x.tail(14);
+        vector_t torque = x.tail(12);
 
         vector_t pos_des = centroidal_model::getJointAngles(optimized_state,
                                                             legged_interface_->getCentroidalModelInfo());
@@ -93,7 +95,7 @@ namespace legged {
         std_msgs::msg::Float32MultiArray velCur_msg;
 
         vector_t posCur = ctrl_comp_.observation_.state;
-        vector_t velCur = measured_rbd_state_.tail(14);
+        vector_t velCur = measured_rbd_state_.tail(12);
 
 
         posDes_msg.data = std::vector<float>(pos_des.data(), pos_des.data() + pos_des.size());

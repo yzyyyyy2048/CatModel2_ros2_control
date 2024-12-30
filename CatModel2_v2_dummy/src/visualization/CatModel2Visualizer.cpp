@@ -183,22 +183,20 @@ namespace ocs2::legged_robot {
         if (jointPublisher_ != nullptr) {
             sensor_msgs::msg::JointState joint_state;
             joint_state.header.stamp = clock_->now();
-            joint_state.name.resize(14);
-            joint_state.position.resize(14);
-            joint_state.name[0] = "bodyb_yaw_joint";
-            joint_state.name[1] = "LH_HAA";
-            joint_state.name[2] = "LH_HFE";
-            joint_state.name[3] = "LH_KFE";
-            joint_state.name[4] = "RH_HAA";
-            joint_state.name[5] = "RH_HFE";
-            joint_state.name[6] = "RH_KFE";
-            joint_state.name[7] = "bodyf_pitch_joint";
-            joint_state.name[8] = "LF_HAA";
-            joint_state.name[9] = "LF_HFE";
-            joint_state.name[10] = "LF_KFE";
-            joint_state.name[11] = "RF_HAA";
-            joint_state.name[12] = "RF_HFE";
-            joint_state.name[13] = "RF_KFE";
+            joint_state.name.resize(12);
+            joint_state.position.resize(12);
+            joint_state.name[0] = "LH_HAA";
+            joint_state.name[1] = "LH_HFE";
+            joint_state.name[2] = "LH_KFE";
+            joint_state.name[3] = "RH_HAA";
+            joint_state.name[4] = "RH_HFE";
+            joint_state.name[5] = "RH_KFE";
+            joint_state.name[6] = "LF_HAA";
+            joint_state.name[7] = "LF_HFE";
+            joint_state.name[8] = "LF_KFE";
+            joint_state.name[9] = "RF_HAA";
+            joint_state.name[10] = "RF_HFE";
+            joint_state.name[11] = "RF_KFE";
             joint_state.position[0] = jointAngles[0];
             joint_state.position[1] = jointAngles[1];
             joint_state.position[2] = jointAngles[2];
@@ -211,8 +209,6 @@ namespace ocs2::legged_robot {
             joint_state.position[9] = jointAngles[9];
             joint_state.position[10] = jointAngles[10];
             joint_state.position[11] = jointAngles[11];
-            joint_state.position[12] = jointAngles[12];
-            joint_state.position[13] = jointAngles[13];
             jointPublisher_->publish(joint_state);
         }
     }

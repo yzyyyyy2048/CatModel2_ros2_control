@@ -14,15 +14,15 @@ rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn Hardwa
         return CallbackReturn::ERROR;
     }
 
-    joint_torque_command_.assign(14, 0);
-    joint_position_command_.assign(14, 0);
-    joint_velocities_command_.assign(14, 0);
-    joint_kp_command_.assign(14, 0);
-    joint_kd_command_.assign(14, 0);
+    joint_torque_command_.assign(12, 0);
+    joint_position_command_.assign(12, 0);
+    joint_velocities_command_.assign(12, 0);
+    joint_kp_command_.assign(12, 0);
+    joint_kd_command_.assign(12, 0);
 
-    joint_position_.assign(14, 0);
-    joint_velocities_.assign(14, 0);
-    joint_effort_.assign(14, 0);
+    joint_position_.assign(12, 0);
+    joint_velocities_.assign(12, 0);
+    joint_effort_.assign(12, 0);
 
     imu_states_.assign(10, 0);
     foot_force_.assign(4, 0);
@@ -114,7 +114,7 @@ std::vector<hardware_interface::CommandInterface> HardwareCatModel2::export_comm
 
 return_type HardwareCatModel2::read(const rclcpp::Time & /*time*/, const rclcpp::Duration & /*period*/) {
     // joint states
-    for (int i(0); i < 14; ++i) {
+    for (int i(0); i < 12; ++i) {
         joint_position_[i] = low_state_.motor_state()[i].q();
         joint_velocities_[i] = low_state_.motor_state()[i].dq();
         joint_effort_[i] = low_state_.motor_state()[i].tau_est();
@@ -143,7 +143,7 @@ return_type HardwareCatModel2::read(const rclcpp::Time & /*time*/, const rclcpp:
 
 return_type HardwareCatModel2::write(const rclcpp::Time & /*time*/, const rclcpp::Duration & /*period*/) {
     // send command
-    for (int i(0); i < 14; ++i) {
+    for (int i(0); i < 12; ++i) {
         low_cmd_.motor_cmd()[i].mode() = 0x01;
         low_cmd_.motor_cmd()[i].q() = static_cast<float>(joint_position_command_[i]);
         low_cmd_.motor_cmd()[i].dq() = static_cast<float>(joint_velocities_command_[i]);
@@ -164,7 +164,7 @@ void HardwareCatModel2::initLowCmd() {
     low_cmd_.level_flag() = 0xFF;
     low_cmd_.gpio() = 0;
 
-    for (int i = 0; i < 14; i++) {
+    for (int i = 0; i < 12; i++) {
         low_cmd_.motor_cmd()[i].mode() =
                 0x01; // motor switch to servo (PMSM) mode
         low_cmd_.motor_cmd()[i].q() = 0;

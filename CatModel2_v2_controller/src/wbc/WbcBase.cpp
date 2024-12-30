@@ -126,7 +126,7 @@ namespace ocs2::legged_robot {
         vector_t f(2 * info_.actuatedDofNum);
 
         for (size_t l = 0; l < 2 ; ++l) {
-            f.segment<14>(14 * l) = torque_limits_;
+            f.segment<12>(12 * l) = torque_limits_;
         }
 
         return {matrix_t(), vector_t(), d, f};
