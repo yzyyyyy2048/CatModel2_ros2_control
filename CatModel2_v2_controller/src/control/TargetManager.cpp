@@ -27,11 +27,9 @@ namespace ocs2::legged_robot {
         
         auto motionTrajectoriesCallback =
                 [this](const ocs2_msgs::msg::MpcTargetTrajectories &msg) {
-            motion_targetTrajectories =
-                    ros_msg_conversions::readTargetTrajectoriesMsg(msg);
+            std::lock_guard<std::mutex> lock(motionTrajectoryMutex_);
+            motionTrajectoryPtr_.reset(new TargetTrajectories(ros_msg_conversions::readTargetTrajectoriesMsg(msg)));
             RCLCPP_INFO(rclcpp::get_logger("target_manager"), "Motion Trajectory is received.!!!!!");
-            RCLCPP_INFO(rclcpp::get_logger("target_manager"), "Time size: %d", motion_targetTrajectories.timeTrajectory.size());
-            motionTrajectoryReceived_ = true;
         };
 
         motion_trajectories_subscriber_ =
@@ -42,16 +40,26 @@ namespace ocs2::legged_robot {
     }
 
     void TargetManager::update() {
-        if (motionTrajectoryReceived_) {
-            RCLCPP_INFO(rclcpp::get_logger("target_manager"), "Time size2: %d", motion_targetTrajectories.timeTrajectory.size());
-            referenceManagerPtr_->setTargetTrajectories(std::move(motion_targetTrajectories));
-            motionTrajectoryRunning_ = true;
-            motionTrajectoryReceived_ = false;
-            return;
+        TargetTrajectories motion_targetTrajectories;
+        {
+            std::lock_guard<std::mutex> lock(motionTrajectoryMutex_);
+            if (motionTrajectoryPtr_) {
+                motion_targetTrajectories = *motionTrajectoryPtr_;
+                motionTrajectoryPtr_.reset();
+            }else if (motionTrajectoryRunning_) {
+                return;
+            }else {
+                defalut_update();
+                return;
+            }
         }
-        if (motionTrajectoryRunning_) {
-            return;
-        }
+
+        referenceManagerPtr_->setTargetTrajectories(std::move(motion_targetTrajectories));
+        motionTrajectoryRunning_ = true;
+        
+    }
+
+    void TargetManager::defalut_update() {
         vector_t cmdGoal = vector_t::Zero(6);
         cmdGoal[0] = ctrl_component_.control_inputs_.ly * target_displacement_velocity_;
         cmdGoal[1] = -ctrl_component_.control_inputs_.lx * target_displacement_velocity_;

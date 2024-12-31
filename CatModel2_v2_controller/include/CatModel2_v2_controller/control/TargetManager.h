@@ -26,6 +26,7 @@ namespace ocs2::legged_robot {
         ~TargetManager() = default;
 
         void update();
+        void defalut_update();
 
     private:
         TargetTrajectories targetPoseToTargetTrajectories(const vector_t &targetPose,
@@ -57,9 +58,9 @@ namespace ocs2::legged_robot {
         scalar_t target_displacement_velocity_;
         scalar_t target_rotation_velocity_;
 
-        bool motionTrajectoryReceived_{false};
         bool motionTrajectoryRunning_{false};
-        TargetTrajectories motion_targetTrajectories;
+        std::mutex motionTrajectoryMutex_;
+        std::unique_ptr<TargetTrajectories> motionTrajectoryPtr_;
         rclcpp::Subscription<ocs2_msgs::msg::MpcTargetTrajectories>::SharedPtr motion_trajectories_subscriber_;
     };
 }
