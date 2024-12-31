@@ -14,23 +14,23 @@ JoystickInput::JoystickInput() : Node("joysick_input_node") {
 
 void JoystickInput::joy_callback(sensor_msgs::msg::Joy::SharedPtr msg) {
     if (msg->buttons[1] && msg->buttons[4]) {
-        inputs_.command = 1; // LB + B
+        inputs_.command = 1; // LB + B stance
     } else if (msg->buttons[0] && msg->buttons[4]) {
-        inputs_.command = 2; // LB + A
+        inputs_.command = 2; // LB + A trot
     } else if (msg->buttons[2] && msg->buttons[4]) {
-        inputs_.command = 3; // LB + X
+        inputs_.command = 3; // LB + X standing_trot
     } else if (msg->buttons[3] && msg->buttons[4]) {
-        inputs_.command = 4; // LB + Y
+        inputs_.command = 4; // LB + Y flying_trot
     } else if (msg->axes[2] != 1 && msg->buttons[1]) {
-        inputs_.command = 5; // LT + B
+        inputs_.command = 5; // LT + B pace
     } else if (msg->axes[2] != 1 && msg->buttons[0]) {
-        inputs_.command = 6; // LT + A
+        inputs_.command = 6; // LT + A standint_pace
     } else if (msg->axes[2] != 1 && msg->buttons[2]) {
-        inputs_.command = 7; // LT + X
+        inputs_.command = 7; // LT + X dynamic_walk
     } else if (msg->axes[2] != 1 && msg->buttons[3]) {
-        inputs_.command = 8; // LT + Y
+        inputs_.command = 8; // LT + Y static_walk
     } else if (msg->buttons[7]) {
-        inputs_.command = 9; // START
+        inputs_.command = 9; // amble
     } else {
         inputs_.command = 0;
         inputs_.lx = -msg->axes[0];

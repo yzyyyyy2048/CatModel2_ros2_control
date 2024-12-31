@@ -9,12 +9,18 @@
 #include <memory>
 #include <ocs2_mpc/SystemObservation.h>
 #include <ocs2_oc/synchronized_module/ReferenceManagerInterface.h>
+#include "rclcpp/rclcpp.hpp"
+
+#include <ocs2_msgs/msg/mpc_observation.hpp>
 
 struct CtrlComponent;
 
 namespace ocs2::legged_robot {
     class TargetManager {
     public:
+
+        using CmdToTargetTrajectories = std::function<TargetTrajectories(const vector_t& cmd, const SystemObservation& observation)>;
+
         TargetManager(CtrlComponent &ctrl_component,
                       const std::shared_ptr<ReferenceManagerInterface> &referenceManagerPtr,
                       const std::string& task_file,
@@ -48,11 +54,28 @@ namespace ocs2::legged_robot {
         CtrlComponent &ctrl_component_;
         std::shared_ptr<ReferenceManagerInterface> referenceManagerPtr_;
 
+        CmdToTargetTrajectories setup_behavior_;
+        bool flag_setup_;
+        vector_t z_coeff_;
+
+        rclcpp::Subscription<ocs2_msgs::msg::MpcObservation>::SharedPtr
+        observationSubscriber_;
+
         vector_t default_joint_state_{};
         scalar_t command_height_{};
         scalar_t time_to_target_{};
         scalar_t target_displacement_velocity_;
         scalar_t target_rotation_velocity_;
+
+
+        scalar_t z_coeff = 0.0;
+
+        // 新增成员变量
+        bool first_start_ = true;              // 标志是否为第一次启动
+        double ramp_duration_ = 10.0;          // 缓慢达到目标高度的持续时间（秒），从5.0增加到10.0
+        double ramp_start_time_ = 0.0;         // 缓慢启动的开始时间
+        double initial_height_ = 0.0;          // 启动时的初始高度
+        double target_height_speed_ = 0.0;     // 高度变化的速度（m/s）
     };
 }
 
