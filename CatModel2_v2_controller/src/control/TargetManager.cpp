@@ -70,16 +70,58 @@ namespace ocs2::legged_robot {
         const Eigen::Matrix<scalar_t, 3, 1> zyx = currentPose.tail(3);
         vector_t cmd_vel_rot = getRotationMatrixFromZyxEulerAngles(zyx) * cmdGoal.head(3);
 
-        const vector_t targetPose = [&]() {
-            vector_t target(6);
-            target(0) = currentPose(0) + cmd_vel_rot(0) * time_to_target_;
-            target(1) = currentPose(1) + cmd_vel_rot(1) * time_to_target_;
-            target(2) = command_height_;
-            target(3) = currentPose(3) + cmdGoal(3) * time_to_target_;
-            target(4) = 0;
-            target(5) = 0;
-            return target;
-        }();
+        vector_t targetPose(6);
+
+        if (first_start_) {
+            // 记录初始高度和启动时间
+            ramp_start_time_ = ctrl_component_.observation_.time;
+            initial_height_ = currentPose(2);
+            // 计算高度变化的速度
+            target_height_speed_ = (command_height_ - initial_height_) / ramp_duration_;
+
+            first_start_ = false;
+
+            std::cout << "Starting ramp-up: Initial height = " << initial_height_
+            << ", Target height = " << command_height_
+            << ", Ramp duration = " << ramp_duration_
+            << ", Ramp_start_time_ = " << ramp_start_time_
+            << " seconds, Target height speed = " << target_height_speed_
+            << " m/s" << std::endl;
+        }
+
+        double elapsed_time = ctrl_component_.observation_.time - ramp_start_time_;
+        if (elapsed_time < ramp_duration_) {
+            // 计算目标高度：初始高度 + 速度 * 经过的时间
+            double target_height = initial_height_ + target_height_speed_ * elapsed_time;
+        
+        std::cout << "Target Height: " << target_height << std::endl;
+
+            targetPose(0) = currentPose(0);
+            targetPose(1) = currentPose(1);
+            targetPose(2) = target_height;
+            targetPose(3) = currentPose(3);
+            targetPose(4) = 0;
+            targetPose(5) = 0;
+        }
+        else {
+            // std::cout << "Ramp-up finished, setting target height to " << command_height_ << std::endl;
+            // 达到缓慢启动时间后，设置为正常目标高度
+            targetPose = [&]() {
+                vector_t target(6);
+                target(0) = currentPose(0) + cmd_vel_rot(0) * time_to_target_;
+                target(1) = currentPose(1) + cmd_vel_rot(1) * time_to_target_;
+                target(2) = command_height_ + ctrl_component_.control_inputs_.ry * command_height_ * 3.0;
+                target(3) = currentPose(3) + cmdGoal(3) * time_to_target_;
+                target(4) = 0;
+                target(5) = 0;
+
+                // std::cout << "Z方向期望位置: " << target(2) << std::endl;
+
+                return target;
+            }();
+        }
+
+        // std::cout << "Z方向的位置: " << currentPose(2) << std::endl;
 
         const scalar_t targetReachingTime = ctrl_component_.observation_.time + time_to_target_;
         auto trajectories =

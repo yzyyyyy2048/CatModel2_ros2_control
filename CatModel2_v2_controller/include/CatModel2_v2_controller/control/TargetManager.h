@@ -57,6 +57,13 @@ namespace ocs2::legged_robot {
         scalar_t time_to_target_{};
         scalar_t target_displacement_velocity_;
         scalar_t target_rotation_velocity_;
+        
+        // 新增成员变量
+        bool first_start_ = true;              // 标志是否为第一次启动
+        double ramp_duration_ = 10.0;          // 缓慢达到目标高度的持续时间（秒），从5.0增加到10.0
+        double ramp_start_time_ = 0.0;         // 缓慢启动的开始时间
+        double initial_height_ = 0.0;          // 启动时的初始高度
+        double target_height_speed_ = 0.0;     // 高度变化的速度（m/s）
 
         bool motionTrajectoryRunning_{false};
         std::mutex motionTrajectoryMutex_;

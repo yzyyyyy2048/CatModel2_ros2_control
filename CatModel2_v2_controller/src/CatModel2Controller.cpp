@@ -370,6 +370,12 @@ namespace legged {
     }
 
     void CatModel2Controller::updateStateEstimation(const rclcpp::Time &time, const rclcpp::Duration &period) {
+        const size_t size = ctrl_comp_.foot_force_state_interface_.size();
+        for (int i = 0; i < size; i++) {
+            // contact_flag_[i] = ctrl_component_.foot_force_state_interface_[i].get().get_value() > 0.1;
+            ctrl_comp_.estimator_->contact_flag_[i] = legged_interface_->getSwitchedModelReferenceManagerPtr()->getContactFlags(ctrl_comp_.observation_.time)[i];
+        }
+
         measured_rbd_state_ = ctrl_comp_.estimator_->update(time, period);
         ctrl_comp_.observation_.time += period.seconds();
         const scalar_t yaw_last = ctrl_comp_.observation_.state(9);
