@@ -38,6 +38,8 @@ namespace ocs2::legged_robot {
 
         size_t getMode() { return stanceLeg2ModeNumber(contact_flag_); }
 
+        contact_flag_t contact_flag_{};
+
     protected:
         void updateAngular(const vector3_t &zyx, const vector_t &angularVel);
 
@@ -53,7 +55,7 @@ namespace ocs2::legged_robot {
 
         vector3_t zyx_offset_ = vector3_t::Zero();
         vector_t rbd_state_;
-        contact_flag_t contact_flag_{};
+        
         Eigen::Quaternion<scalar_t> quat_;
         vector3_t angular_vel_local_, linear_accel_local_;
         matrix3_t orientationCovariance_, angularVelCovariance_, linearAccelCovariance_;
