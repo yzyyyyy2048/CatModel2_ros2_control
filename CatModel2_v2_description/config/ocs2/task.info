@@ -285,16 +285,16 @@ torqueLimitsTask
 {
    (0,0)   23.7   ; LH_HAA
    (1,0)   23.7   ; LH_HFE
-   (2,0)   23.7   ; LH_KFE
+   (2,0)   47.4   ; LH_KFE
    (3,0)   23.7   ; RH_HAA
    (4,0)   23.7   ; RH_HFE
-   (5,0)   23.7   ; RH_KFE
+   (5,0)   47.4   ; RH_KFE
    (6,0)   23.7   ; LF_HAA
    (7,0)   23.7   ; LF_HFE
-   (8,0)   23.7   ; LF_KFE
+   (8,0)   47.4   ; LF_KFE
    (9,0)   23.7   ; RF_HAA
    (10,0)  23.7   ; RF_HFE
-   (11,0)  23.7   ; RF_KFE
+   (11,0)  47.4   ; RF_KFE
 }
 
 frictionConeTask

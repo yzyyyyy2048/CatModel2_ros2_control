@@ -8,7 +8,7 @@
     <hardware>
       <plugin>hardware_CatModel2_mujoco/HardwareCatModel2</plugin>
     </hardware>
-    <joint name="LH_HAA">
+        <joint name="LH_HAA">
       <command_interface name="position"/>
       <command_interface name="velocity"/>
       <command_interface name="effort"/>
@@ -68,7 +68,7 @@
       <state_interface name="velocity"/>
       <state_interface name="effort"/>
     </joint>
-    <joint name="LF_HAA">
+        <joint name="LF_HAA">
       <command_interface name="position"/>
       <command_interface name="velocity"/>
       <command_interface name="effort"/>
@@ -242,7 +242,7 @@
     <parent link="BF_Link"/>
     <child link="LF_hip"/>
     <axis xyz="1 0 0"/>
-    <limit effort="23.7" lower="-0.785" upper="0.785" velocity="18"/>
+    <limit effort="23.7" lower="-0.785" upper="0.785" velocity="28.8"/>
   </joint>
   <link name="LF_thigh">
     <inertial>
@@ -265,7 +265,7 @@
     <parent link="LF_hip"/>
     <child link="LF_thigh"/>
     <axis xyz="0 1 0"/>
-    <limit effort="23.7" lower="-1.05" upper="3.14" velocity="18"/>
+    <limit effort="23.7" lower="-1.05" upper="3.14" velocity="28.8"/>
   </joint>
   <link name="LF_calf">
     <inertial>
@@ -294,7 +294,7 @@
     <parent link="LF_thigh"/>
     <child link="LF_calf"/>
     <axis xyz="0 1 0"/>
-    <limit effort="23.7" lower="-2.68" upper="-0.41" velocity="18"/>
+    <limit effort="47.4" lower="-2.68" upper="-0.41" velocity="14.4"/>
   </joint>
   <link name="LF_FOOT">
     <visual>
@@ -343,7 +343,7 @@
     <parent link="BF_Link"/>
     <child link="RF_hip"/>
     <axis xyz="1 0 0"/>
-    <limit effort="23.7" lower="-0.785" upper="0.785" velocity="18"/>
+    <limit effort="23.7" lower="-0.785" upper="0.785" velocity="28.8"/>
   </joint>
   <link name="RF_thigh">
     <inertial>
@@ -366,7 +366,7 @@
     <parent link="RF_hip"/>
     <child link="RF_thigh"/>
     <axis xyz="0 1 0"/>
-    <limit effort="23.7" lower="-1.05" upper="3.14" velocity="18"/>
+    <limit effort="23.7" lower="-1.05" upper="3.14" velocity="28.8"/>
   </joint>
   <link name="RF_calf">
     <inertial>
@@ -395,7 +395,7 @@
     <parent link="RF_thigh"/>
     <child link="RF_calf"/>
     <axis xyz="0 1 0"/>
-    <limit effort="23.7" lower="-2.68" upper="-0.41" velocity="18"/>
+    <limit effort="47.4" lower="-2.68" upper="-0.41" velocity="14.4"/>
   </joint>
   <link name="RF_FOOT">
     <visual>
@@ -444,7 +444,7 @@
     <parent link="BB_Link"/>
     <child link="LH_hip"/>
     <axis xyz="1 0 0"/>
-    <limit effort="23.7" lower="-0.785" upper="0.785" velocity="18"/>
+    <limit effort="23.7" lower="-0.785" upper="0.785" velocity="28.8"/>
   </joint>
   <link name="LH_thigh">
     <inertial>
@@ -467,7 +467,7 @@
     <parent link="LH_hip"/>
     <child link="LH_thigh"/>
     <axis xyz="0 1 0"/>
-    <limit effort="23.7" lower="-1.05" upper="3.14" velocity="18"/>
+    <limit effort="23.7" lower="-1.05" upper="3.14" velocity="28.8"/>
   </joint>
   <link name="LH_calf">
     <inertial>
@@ -496,7 +496,7 @@
     <parent link="LH_thigh"/>
     <child link="LH_calf"/>
     <axis xyz="0 1 0"/>
-    <limit effort="23.7" lower="-2.68" upper="-0.41" velocity="18"/>
+    <limit effort="47.4" lower="-2.68" upper="-0.41" velocity="14.4"/>
   </joint>
   <link name="LH_FOOT">
     <visual>
@@ -545,7 +545,7 @@
     <parent link="BB_Link"/>
     <child link="RH_hip"/>
     <axis xyz="1 0 0"/>
-    <limit effort="23.7" lower="-0.785" upper="0.785" velocity="18"/>
+    <limit effort="23.7" lower="-0.785" upper="0.785" velocity="28.8"/>
   </joint>
   <link name="RH_thigh">
     <inertial>
@@ -568,7 +568,7 @@
     <parent link="RH_hip"/>
     <child link="RH_thigh"/>
     <axis xyz="0 1 0"/>
-    <limit effort="23.7" lower="-1.05" upper="3.14" velocity="18"/>
+    <limit effort="23.7" lower="-1.05" upper="3.14" velocity="28.8"/>
   </joint>
   <link name="RH_calf">
     <inertial>
@@ -597,7 +597,7 @@
     <parent link="RH_thigh"/>
     <child link="RH_calf"/>
     <axis xyz="0 1 0"/>
-    <limit effort="23.7" lower="-2.68" upper="-0.41" velocity="18"/>
+    <limit effort="47.4" lower="-2.68" upper="-0.41" velocity="14.4"/>
   </joint>
   <link name="RH_FOOT">
     <visual>
