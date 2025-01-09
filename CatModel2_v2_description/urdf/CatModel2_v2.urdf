@@ -294,7 +294,7 @@
     <parent link="LF_thigh"/>
     <child link="LF_calf"/>
     <axis xyz="0 1 0"/>
-    <limit effort="23.7" lower="-2.70" upper="-0.92" velocity="18"/>
+    <limit effort="23.7" lower="-2.68" upper="-0.41" velocity="18"/>
   </joint>
   <link name="LF_FOOT">
     <visual>
@@ -395,7 +395,7 @@
     <parent link="RF_thigh"/>
     <child link="RF_calf"/>
     <axis xyz="0 1 0"/>
-    <limit effort="23.7" lower="-2.70" upper="-0.92" velocity="18"/>
+    <limit effort="23.7" lower="-2.68" upper="-0.41" velocity="18"/>
   </joint>
   <link name="RF_FOOT">
     <visual>
@@ -496,7 +496,7 @@
     <parent link="LH_thigh"/>
     <child link="LH_calf"/>
     <axis xyz="0 1 0"/>
-    <limit effort="23.7" lower="-2.70" upper="-0.92" velocity="18"/>
+    <limit effort="23.7" lower="-2.68" upper="-0.41" velocity="18"/>
   </joint>
   <link name="LH_FOOT">
     <visual>
@@ -597,7 +597,7 @@
     <parent link="RH_thigh"/>
     <child link="RH_calf"/>
     <axis xyz="0 1 0"/>
-    <limit effort="23.7" lower="-2.70" upper="-0.92" velocity="18"/>
+    <limit effort="23.7" lower="-2.68" upper="-0.41" velocity="18"/>
   </joint>
   <link name="RH_FOOT">
     <visual>
