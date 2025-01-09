@@ -98,7 +98,7 @@
       lower="-0.75"
       upper="0.75"
       effort="23.7"
-      velocity="18" />
+      velocity="28.8" />
   </joint>
 
     <link
@@ -155,7 +155,7 @@
       lower="-0.75"
       upper="0.75"
       effort="23.7"
-      velocity="18" />
+      velocity="28.8" />
   </joint>
   <link
     name="LF_hip">
@@ -205,7 +205,7 @@
       lower="-0.785"
       upper="0.785"
       effort="23.7"
-      velocity="18" />
+      velocity="28.8" />
   </joint>
   <link
     name="LF_thigh">
@@ -255,7 +255,7 @@
       lower="-1.05"
       upper="3.14"
       effort="23.7"
-      velocity="18" />
+      velocity="28.8" />
   </joint>
   <link
     name="LF_calf">
@@ -307,10 +307,10 @@
     <axis
       xyz="0 1 0" />
     <limit
-      lower="-2.70"
-      upper="-0.92"
-      effort="23.7"
-      velocity="18" />
+      lower="-2.68"
+      upper="-0.41"
+      effort="47.4"
+      velocity="14.4" />
   </joint>
   
   <link name="LF_FOOT">
@@ -387,7 +387,7 @@
       lower="-0.785"
       upper="0.785"
       effort="23.7"
-      velocity="18" />
+      velocity="28.8" />
   </joint>
   <link
     name="RF_thigh">
@@ -437,7 +437,7 @@
       lower="-1.05"
       upper="3.14"
       effort="23.7"
-      velocity="18" />
+      velocity="28.8" />
   </joint>
   <link
     name="RF_calf">
@@ -490,10 +490,10 @@
     <axis
       xyz="0 1 0" />
     <limit
-      lower="-2.70"
-      upper="-0.92"
-      effort="23.7"
-      velocity="18" />
+      lower="-2.68"
+      upper="-0.41"
+      effort="47.4"
+      velocity="14.4" />
   </joint>
   
   <link name="RF_FOOT">
@@ -570,7 +570,7 @@
       lower="-0.785"
       upper="0.785"
       effort="23.7"
-      velocity="18" />
+      velocity="28.8" />
   </joint>
   <link
     name="LH_thigh">
@@ -619,7 +619,7 @@
       lower="-1.05"
       upper="3.14"
       effort="23.7"
-      velocity="18" />
+      velocity="28.8" />
   </joint>
   <link
     name="LH_calf">
@@ -671,10 +671,10 @@
     <axis
       xyz="0 1 0" />
     <limit
-      lower="-2.70"
-      upper="-0.92"
-      effort="23.7"
-      velocity="18" />
+      lower="-2.68"
+      upper="-0.41"
+      effort="47.4"
+      velocity="14.4" />
   </joint>
   
   <link name="LH_FOOT">
@@ -752,7 +752,7 @@
       lower="-0.785"
       upper="0.785"
       effort="23.7"
-      velocity="18" />
+      velocity="28.8" />
   </joint>
 
   <link
@@ -802,7 +802,7 @@
       lower="-1.05"
       upper="3.14"
       effort="23.7"
-      velocity="18" />
+      velocity="28.8" />
   </joint>
 
   <link
@@ -855,10 +855,10 @@
     <axis
       xyz="0 1 0" />
     <limit
-      lower="-2.70"
-      upper="-0.92"
-      effort="23.7"
-      velocity="18" />
+      lower="-2.68"
+      upper="-0.41"
+      effort="47.4"
+      velocity="14.4" />
   </joint>
 
     <link name="RH_FOOT">
@@ -889,6 +889,6 @@
     <child link="RH_FOOT"/>
   </joint>
 
-  <xacro:IMU connected_to="base_link" imu_name="imu_link" xyz=" 0. 0. 0.08" rpy="0. 0. 0."/> 
+  <xacro:IMU connected_to="base_link" imu_name="imu_link" xyz=" 0. 0. -0.18" rpy="0. 0. 0."/> 
 
 </robot>

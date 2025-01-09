@@ -210,7 +210,7 @@
     <parent link="base_link"/>
     <child link="BF_Link"/>
     <axis xyz="0 -1 0"/>
-    <limit effort="23.7" lower="-0.75" upper="0.75" velocity="18"/>
+    <limit effort="23.7" lower="-0.75" upper="0.75" velocity="28.8"/>
   </joint>
   <link name="BB_Link">
     <inertial>
@@ -239,7 +239,7 @@
     <parent link="base_link"/>
     <child link="BB_Link"/>
     <axis xyz="0 0 1"/>
-    <limit effort="23.7" lower="-0.75" upper="0.75" velocity="18"/>
+    <limit effort="23.7" lower="-0.75" upper="0.75" velocity="28.8"/>
   </joint>
   <link name="LF_hip">
     <inertial>
@@ -262,7 +262,7 @@
     <parent link="BF_Link"/>
     <child link="LF_hip"/>
     <axis xyz="1 0 0"/>
-    <limit effort="23.7" lower="-0.785" upper="0.785" velocity="18"/>
+    <limit effort="23.7" lower="-0.785" upper="0.785" velocity="28.8"/>
   </joint>
   <link name="LF_thigh">
     <inertial>
@@ -285,7 +285,7 @@
     <parent link="LF_hip"/>
     <child link="LF_thigh"/>
     <axis xyz="0 1 0"/>
-    <limit effort="23.7" lower="-1.05" upper="3.14" velocity="18"/>
+    <limit effort="23.7" lower="-1.05" upper="3.14" velocity="28.8"/>
   </joint>
   <link name="LF_calf">
     <inertial>
@@ -314,7 +314,7 @@
     <parent link="LF_thigh"/>
     <child link="LF_calf"/>
     <axis xyz="0 1 0"/>
-    <limit effort="23.7" lower="-2.70" upper="-0.92" velocity="18"/>
+    <limit effort="47.4" lower="-2.68" upper="-0.41" velocity="14.4"/>
   </joint>
   <link name="LF_FOOT">
     <visual>
@@ -363,7 +363,7 @@
     <parent link="BF_Link"/>
     <child link="RF_hip"/>
     <axis xyz="1 0 0"/>
-    <limit effort="23.7" lower="-0.785" upper="0.785" velocity="18"/>
+    <limit effort="23.7" lower="-0.785" upper="0.785" velocity="28.8"/>
   </joint>
   <link name="RF_thigh">
     <inertial>
@@ -386,7 +386,7 @@
     <parent link="RF_hip"/>
     <child link="RF_thigh"/>
     <axis xyz="0 1 0"/>
-    <limit effort="23.7" lower="-1.05" upper="3.14" velocity="18"/>
+    <limit effort="23.7" lower="-1.05" upper="3.14" velocity="28.8"/>
   </joint>
   <link name="RF_calf">
     <inertial>
@@ -415,7 +415,7 @@
     <parent link="RF_thigh"/>
     <child link="RF_calf"/>
     <axis xyz="0 1 0"/>
-    <limit effort="23.7" lower="-2.70" upper="-0.92" velocity="18"/>
+    <limit effort="47.4" lower="-2.68" upper="-0.41" velocity="14.4"/>
   </joint>
   <link name="RF_FOOT">
     <visual>
@@ -464,7 +464,7 @@
     <parent link="BB_Link"/>
     <child link="LH_hip"/>
     <axis xyz="1 0 0"/>
-    <limit effort="23.7" lower="-0.785" upper="0.785" velocity="18"/>
+    <limit effort="23.7" lower="-0.785" upper="0.785" velocity="28.8"/>
   </joint>
   <link name="LH_thigh">
     <inertial>
@@ -487,7 +487,7 @@
     <parent link="LH_hip"/>
     <child link="LH_thigh"/>
     <axis xyz="0 1 0"/>
-    <limit effort="23.7" lower="-1.05" upper="3.14" velocity="18"/>
+    <limit effort="23.7" lower="-1.05" upper="3.14" velocity="28.8"/>
   </joint>
   <link name="LH_calf">
     <inertial>
@@ -516,7 +516,7 @@
     <parent link="LH_thigh"/>
     <child link="LH_calf"/>
     <axis xyz="0 1 0"/>
-    <limit effort="23.7" lower="-2.70" upper="-0.92" velocity="18"/>
+    <limit effort="47.4" lower="-2.68" upper="-0.41" velocity="14.4"/>
   </joint>
   <link name="LH_FOOT">
     <visual>
@@ -565,7 +565,7 @@
     <parent link="BB_Link"/>
     <child link="RH_hip"/>
     <axis xyz="1 0 0"/>
-    <limit effort="23.7" lower="-0.785" upper="0.785" velocity="18"/>
+    <limit effort="23.7" lower="-0.785" upper="0.785" velocity="28.8"/>
   </joint>
   <link name="RH_thigh">
     <inertial>
@@ -588,7 +588,7 @@
     <parent link="RH_hip"/>
     <child link="RH_thigh"/>
     <axis xyz="0 1 0"/>
-    <limit effort="23.7" lower="-1.05" upper="3.14" velocity="18"/>
+    <limit effort="23.7" lower="-1.05" upper="3.14" velocity="28.8"/>
   </joint>
   <link name="RH_calf">
     <inertial>
@@ -617,7 +617,7 @@
     <parent link="RH_thigh"/>
     <child link="RH_calf"/>
     <axis xyz="0 1 0"/>
-    <limit effort="23.7" lower="-2.70" upper="-0.92" velocity="18"/>
+    <limit effort="47.4" lower="-2.68" upper="-0.41" velocity="14.4"/>
   </joint>
   <link name="RH_FOOT">
     <visual>
@@ -647,7 +647,7 @@
   </joint>
   <!-- Imu is fixed to the base link -->
   <joint name="imu_link_joint" type="fixed">
-    <origin rpy="0. 0. 0." xyz=" 0. 0. 0.08"/>
+    <origin rpy="0. 0. 0." xyz=" 0. 0. -0.18"/>
     <parent link="base_link"/>
     <child link="imu_link"/>
   </joint>

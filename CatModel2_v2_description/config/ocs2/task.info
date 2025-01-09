@@ -291,17 +291,17 @@ torqueLimitsTask
    (0,0)   10.0   ; bodyb_yaw_joint
    (1,0)   23.7   ; LF_HAA
    (2,0)   23.7   ; LF_HFE
-   (3,0)   23.7   ; LF_KFE
+   (3,0)   47.4   ; LF_KFE
    (4,0)   23.7   ; RF_HAA
    (5,0)   23.7   ; RF_HFE
-   (6,0)   23.7   ; RF_KFE
+   (6,0)   47.4   ; RF_KFE
    (7,0)   5.0    ; bodyf_pitch_joint
    (8,0)   23.7   ; LH_HAA
    (9,0)   23.7   ; LH_HFE
-   (10,0)  23.7   ; LH_KFE
+   (10,0)  47.4   ; LH_KFE
    (11,0)  23.7   ; RH_HAA
    (12,0)  23.7   ; RH_HFE
-   (13,0)  23.7   ; RH_KFE
+   (13,0)  47.4   ; RH_KFE
 }
 
 frictionConeTask
