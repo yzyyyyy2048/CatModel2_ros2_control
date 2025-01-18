@@ -167,7 +167,7 @@ initialState
    (16,0)  0.20   ; RH_HAA
    (17,0)  0.72   ; RH_HFE
    (18,0) -1.44   ; RH_KFE
-   (19,0) -0.15   ; bodyf_pitch_joint
+   (19,0) -0.10   ; bodyf_pitch_joint
    (20,0) -0.20   ; LF_HAA
    (21,0)  0.72   ; LF_HFE
    (22,0) -1.44   ; LF_KFE

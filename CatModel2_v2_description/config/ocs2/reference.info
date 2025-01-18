@@ -12,7 +12,7 @@ defaultJointState
    (4,0)   0.20   ; RH_HAA
    (5,0)   0.72   ; RH_HFE
    (6,0)  -1.44   ; RH_KFE
-   (7,0)  -0.15   ; bodyf_pitch_joint
+   (7,0)  -0.10   ; bodyf_pitch_joint
    (8,0)  -0.20   ; LF_HAA
    (9,0)   0.72   ; LF_HFE
    (10,0) -1.44   ; LF_KFE
