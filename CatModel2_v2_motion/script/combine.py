@@ -269,17 +269,17 @@ if __name__ == '__main__':
     combined_df = combined_df.rolling(window=28, min_periods=1).mean()
 
     # 依次对每一列进行插值
-    for col in combined_df.columns:
-        if col not in ['base_euler_z',
-                       'jointAngle_LF_HAA', 'jointAngle_LF_HFE', 'jointAngle_LF_KFE',
-                       'jointAngle_RF_HAA', 'jointAngle_RF_HFE', 'jointAngle_RF_KFE',
-                       'jointAngle_pitch',
-                       'jointAngle_LH_HAA', 'jointAngle_LH_HFE', 'jointAngle_LH_KFE',
-                       'jointAngle_RH_HAA', 'jointAngle_RH_HFE', 'jointAngle_RH_KFE'
-                       ]:
-            continue
-        interpolated_df = interpolate_by_col(combined_df, threshold, col)
-        combined_df = interpolated_df
+    # for col in combined_df.columns:
+    #     if col not in ['base_euler_z',
+    #                    'jointAngle_LF_HAA', 'jointAngle_LF_HFE', 'jointAngle_LF_KFE',
+    #                    'jointAngle_RF_HAA', 'jointAngle_RF_HFE', 'jointAngle_RF_KFE',
+    #                    'jointAngle_pitch', 'jointAngle_yaw',
+    #                    'jointAngle_LH_HAA', 'jointAngle_LH_HFE', 'jointAngle_LH_KFE',
+    #                    'jointAngle_RH_HAA', 'jointAngle_RH_HFE', 'jointAngle_RH_KFE'
+    #                    ]:
+    #         continue
+    #     interpolated_df = interpolate_by_col(combined_df, threshold, col)
+    #     combined_df = interpolated_df
         
     combined_df = add_contact_flag(combined_df)
     combined_df = add_timestamp(combined_df)
