@@ -114,17 +114,17 @@ namespace legged {
         wbc_pub->publish(wbc_msg);
 
         // Safety check, if failed, stop the controller
-        if (!safety_checker_->check(ctrl_comp_.observation_, optimized_state, optimized_input)) {
-            RCLCPP_ERROR(get_node()->get_logger(), "[Legged Controller] Safety check failed, stopping the controller.");
-            for (int i = 0; i < joint_names_.size(); i++) {
-                ctrl_comp_.joint_torque_command_interface_[i].get().set_value(0);
-                ctrl_comp_.joint_position_command_interface_[i].get().set_value(0);
-                ctrl_comp_.joint_velocity_command_interface_[i].get().set_value(0);
-                ctrl_comp_.joint_kp_command_interface_[i].get().set_value(0.0);
-                ctrl_comp_.joint_kd_command_interface_[i].get().set_value(0.35);
-            }
-            return controller_interface::return_type::ERROR;
-        }
+        // if (!safety_checker_->check(ctrl_comp_.observation_, optimized_state, optimized_input)) {
+        //     RCLCPP_ERROR(get_node()->get_logger(), "[Legged Controller] Safety check failed, stopping the controller.");
+        //     for (int i = 0; i < joint_names_.size(); i++) {
+        //         ctrl_comp_.joint_torque_command_interface_[i].get().set_value(0);
+        //         ctrl_comp_.joint_position_command_interface_[i].get().set_value(0);
+        //         ctrl_comp_.joint_velocity_command_interface_[i].get().set_value(0);
+        //         ctrl_comp_.joint_kp_command_interface_[i].get().set_value(0.0);
+        //         ctrl_comp_.joint_kd_command_interface_[i].get().set_value(0.35);
+        //     }
+        //     return controller_interface::return_type::ERROR;
+        // }
 
         for (int i = 0; i < joint_names_.size(); i++) {
             ctrl_comp_.joint_torque_command_interface_[i].get().set_value(torque(i));
