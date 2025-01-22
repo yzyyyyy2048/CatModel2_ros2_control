@@ -94,6 +94,8 @@ namespace legged {
         std_msgs::msg::Float32MultiArray posCur_msg;
         std_msgs::msg::Float32MultiArray velCur_msg;
 
+        std_msgs::msg::Float32MultiArray wbc_msg;
+
         vector_t posCur = ctrl_comp_.observation_.state;
         vector_t velCur = measured_rbd_state_.tail(12);
 
@@ -103,10 +105,13 @@ namespace legged {
         posCur_msg.data = std::vector<float>(posCur.data(), posCur.data() + posCur.size());
         velCur_msg.data = std::vector<float>(velCur.data(), velCur.data() + velCur.size());
 
+        wbc_msg.data = std::vector<float>(x.data(), x.data() + x.size());
+
         posDes_pub->publish(posDes_msg);
         velDes_pub->publish(velDes_msg);
         posCur_pub->publish(posCur_msg);
         velCur_pub->publish(velCur_msg);
+        wbc_pub->publish(wbc_msg);
 
         // Safety check, if failed, stop the controller
         if (!safety_checker_->check(ctrl_comp_.observation_, optimized_state, optimized_input)) {
@@ -223,6 +228,8 @@ namespace legged {
 
         posCur_pub = get_node()->create_publisher<std_msgs::msg::Float32MultiArray>("posCur", 10);
         velCur_pub = get_node()->create_publisher<std_msgs::msg::Float32MultiArray>("velCur", 10);
+
+        wbc_pub = get_node()->create_publisher<std_msgs::msg::Float32MultiArray>("wbc", 10);
 
 
 

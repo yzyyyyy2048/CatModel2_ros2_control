@@ -116,6 +116,7 @@ void TargetManager::update() {
             target(1) = currentPose(1) + cmd_vel_rot(1) * time_to_target_;
             target(2) = command_height_ + ctrl_component_.control_inputs_.ry * command_height_ * 3.0;
             target(3) = currentPose(3) + cmdGoal(3) * time_to_target_;
+            // std::cout << "Target yaw: " << target(3) << std::endl;
             target(4) = 0;
             target(5) = 0;
 
@@ -123,7 +124,13 @@ void TargetManager::update() {
 
             return target;
         }();
+        if(std::abs(cmdGoal[0]) <= 1e-4 && std::abs(cmdGoal[1]) <= 1e-4 && std::abs(cmdGoal[2]) <= 1e-4 && std::abs(cmdGoal[3]) <= 1e-4){
+            targetPose = lasttargetPose;
+            // std::cout << "not change" << std::endl;
+            // std::cout << targetPose << std::endl;
+        }
     }
+    lasttargetPose = targetPose;
 
     // std::cout << "Z方向的位置: " << currentPose(2) << std::endl;
 

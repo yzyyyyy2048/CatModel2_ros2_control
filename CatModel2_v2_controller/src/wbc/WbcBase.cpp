@@ -28,22 +28,34 @@ namespace ocs2::legged_robot {
         v_measured_ = vector_t(info_.generalizedCoordinatesNum);
     }
 
-    vector_t WbcBase::update(const vector_t &stateDesired, const vector_t &inputDesired,
-                             const vector_t &rbdStateMeasured, size_t mode,
-                             scalar_t /*period*/) {
-        contact_flag_ = modeNumber2StanceLeg(mode);
-        num_contacts_ = 0;
-        for (const bool flag: contact_flag_) {
-            if (flag) {
-                num_contacts_++;
-            }
+vector_t WbcBase::update(const vector_t &stateDesired, const vector_t &inputDesired,
+                         const vector_t &rbdStateMeasured, size_t mode,
+                         scalar_t /*period*/) {
+    
+    contact_flag_ = modeNumber2StanceLeg(mode);
+    num_contacts_ = 0;
+    for (const bool flag: contact_flag_) {
+        if (flag) {
+            num_contacts_++;
         }
-
-        updateMeasured(rbdStateMeasured);
-        updateDesired(stateDesired, inputDesired);
-
-        return {};
     }
+
+    // 打印期望状态
+    // std::cout << "Desired State (stateDesired): [";
+    // for (size_t i = 0; i < stateDesired.size(); ++i) {
+    //     std::cout << stateDesired[i];
+    //     if (i < stateDesired.size() - 1) {
+    //         std::cout << ", ";
+    //     }
+    // }
+    // std::cout << "]" << std::endl;
+
+    updateMeasured(rbdStateMeasured);
+    updateDesired(stateDesired, inputDesired);
+
+    return {};
+}
+
 
     void WbcBase::updateMeasured(const vector_t &rbdStateMeasured) {
         q_measured_.head<3>() = rbdStateMeasured.segment<3>(3);

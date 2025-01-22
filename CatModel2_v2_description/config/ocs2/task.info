@@ -197,10 +197,10 @@ Q
 
   ;; Joint Positions: [LH, RH, LF, RF] ;;
   (12,12)  5.0     ; LH_HAA
-  (13,13)  2.5     ; LH_HFE
+  (13,13)  5.0     ; LH_HFE
   (14,14)  2.5     ; LH_KFE
   (15,15)  5.0     ; RH_HAA
-  (16,16)  2.5     ; RH_HFE
+  (16,16)  5.0     ; RH_HFE
   (17,17)  2.5     ; RH_KFE
   (18,18)  5.0     ; LF_HAA
   (19,19)  5.0     ; LF_HFE
@@ -218,16 +218,16 @@ R
   ;; Feet Contact Forces: [LH, RH, LF, RR] ;;
   (0,0)   1.0       ; left_hind_force
   (1,1)   1.0       ; left_hind_force
-  (2,2)   2.5       ; left_hind_force
+  (2,2)   1.0       ; left_hind_force
   (3,3)   1.0       ; right_hind_force
   (4,4)   1.0       ; right_hind_force
-  (5,5)   2.5       ; right_hind_force
+  (5,5)   1.0       ; right_hind_force
   (6,6)   1.0       ; left_front_force
   (7,7)   1.0       ; left_front_force
-  (8,8)   2.5       ; left_front_force
+  (8,8)   1.0       ; left_front_force
   (9,9)   1.0       ; right_front_force
   (10,10) 1.0       ; right_front_force
-  (11,11) 2.5       ; right_front_force
+  (11,11) 1.0       ; right_front_force
 
   ;; foot velocity relative to base: [LF, LH, RF, RH] (uses the Jacobian at nominal configuration) ;;
   (12,12) 5000.0    ; x
@@ -312,7 +312,7 @@ weight
 {
     swingLeg        100
     baseAccel       1
-    contactForce    0.1
+    contactForce    0.01
 }
 
 ; State Estimation

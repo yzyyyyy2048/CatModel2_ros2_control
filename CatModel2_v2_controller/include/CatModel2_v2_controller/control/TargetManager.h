@@ -69,6 +69,7 @@ namespace ocs2::legged_robot {
 
 
         scalar_t z_coeff = 0.0;
+        vector_t lasttargetPose;
 
         // 新增成员变量
         bool first_start_ = true;              // 标志是否为第一次启动
