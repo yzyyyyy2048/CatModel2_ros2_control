@@ -57,7 +57,8 @@ namespace ocs2::legged_robot {
         scalar_t time_to_target_{};
         scalar_t target_displacement_velocity_;
         scalar_t target_rotation_velocity_;
-        
+
+        vector_t lasttargetPose;
         // 新增成员变量
         bool first_start_ = true;              // 标志是否为第一次启动
         double ramp_duration_ = 10.0;          // 缓慢达到目标高度的持续时间（秒），从5.0增加到10.0

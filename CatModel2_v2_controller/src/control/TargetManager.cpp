@@ -119,7 +119,13 @@ namespace ocs2::legged_robot {
 
                 return target;
             }();
+            if(std::abs(cmdGoal[0]) <= 1e-4 && std::abs(cmdGoal[1]) <= 1e-4 && std::abs(cmdGoal[2]) <= 1e-4 && std::abs(cmdGoal[3]) <= 1e-4){
+            targetPose = lasttargetPose;
+            std::cout << "not change" << std::endl;
+            std::cout << targetPose << std::endl;
         }
+    }
+    lasttargetPose = targetPose;
 
         // std::cout << "Z方向的位置: " << currentPose(2) << std::endl;
 
