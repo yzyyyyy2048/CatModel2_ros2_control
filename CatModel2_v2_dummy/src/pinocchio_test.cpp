@@ -8,7 +8,7 @@
 
 int main()
 {
-    std::string path = "/home/yzy/CatModel2_ros2_control_ws/src/CatModel2_v2_description/urdf/CatModel2_v2.urdf";
+    std::string path = "/home/yzy2/CatModel2_ros2_control_ws/src/CatModel2_v2_description/urdf/CatModel2_v2.urdf";
     std::cout << path << std::endl;
 
     pinocchio::Model model_;

@@ -86,7 +86,7 @@
     name="bodyf_pitch_joint"
     type="revolute">
     <origin
-      xyz="0 0 0"
+      xyz="0.02 0 0"
       rpy="0 0 0" />
     <parent
       link="base_link" />
@@ -143,7 +143,7 @@
     name="bodyb_yaw_joint"
     type="revolute">
     <origin
-      xyz="0 0 0"
+      xyz="-0.015 0 0"
       rpy="0 0 0" />
     <parent
       link="base_link" />

@@ -133,6 +133,9 @@ namespace legged {
             ctrl_comp_.joint_velocity_command_interface_[i].get().set_value(vel_des(i));
             ctrl_comp_.joint_kp_command_interface_[i].get().set_value(default_kp_);
             ctrl_comp_.joint_kd_command_interface_[i].get().set_value(default_kd_);
+            // if (i == 0 || i==7) {
+            //     ctrl_comp_.joint_torque_command_interface_[i].get().set_value(0);
+            // }
         }
 
         
