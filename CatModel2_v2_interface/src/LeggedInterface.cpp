@@ -248,6 +248,7 @@ namespace legged {
         }
 
         matrix_t rTaskspace(info.inputDim, info.inputDim);
+        std::cout << "info.inputDim 的值是: " << info.inputDim << std::endl;
         loadData::loadEigenMatrix(taskFile, "R", rTaskspace);
         matrix_t r = rTaskspace;
         // Joint velocities
@@ -255,6 +256,18 @@ namespace legged {
                 base2feetJac.transpose() * rTaskspace.block(totalContactDim, totalContactDim, info.actuatedDofNum,
                                                             info.actuatedDofNum) *
                 base2feetJac;
+        std::cout << "r 矩阵内容：" << std::endl;
+        std::cout << r << std::endl;
+        // 计算 SVD
+        Eigen::JacobiSVD<Eigen::MatrixXd> svd(r, Eigen::ComputeThinU | Eigen::ComputeThinV);
+        Eigen::MatrixXd U = svd.matrixU();
+        Eigen::MatrixXd V = svd.matrixV();
+        Eigen::VectorXd S = svd.singularValues();
+
+        // 输出 SVD 结果
+        std::cout << "U 矩阵: " << std::endl << U << std::endl;
+        std::cout << "奇异值: " << std::endl << S << std::endl;
+        std::cout << "V 矩阵: " << std::endl << V << std::endl;
         return r;
     }
 

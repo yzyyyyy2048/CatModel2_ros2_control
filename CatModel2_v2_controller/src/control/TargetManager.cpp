@@ -94,7 +94,7 @@ namespace ocs2::legged_robot {
             // 计算目标高度：初始高度 + 速度 * 经过的时间
             double target_height = initial_height_ + target_height_speed_ * elapsed_time;
         
-        std::cout << "Target Height: " << target_height << std::endl;
+        // std::cout << "Target Height: " << target_height << std::endl;
 
             targetPose(0) = currentPose(0);
             targetPose(1) = currentPose(1);
@@ -119,13 +119,13 @@ namespace ocs2::legged_robot {
 
                 return target;
             }();
-            if(std::abs(cmdGoal[0]) <= 1e-4 && std::abs(cmdGoal[1]) <= 1e-4 && std::abs(cmdGoal[2]) <= 1e-4 && std::abs(cmdGoal[3]) <= 1e-4){
-            targetPose = lasttargetPose;
-            // std::cout << "not change" << std::endl;
-            // std::cout << targetPose << std::endl;
-        }
+        //     if(std::abs(cmdGoal[0]) <= 1e-4 && std::abs(cmdGoal[1]) <= 1e-4 && std::abs(cmdGoal[2]) <= 1e-4 && std::abs(cmdGoal[3]) <= 1e-4){
+        //     targetPose = lasttargetPose;
+        //     // std::cout << "not change" << std::endl;
+        //     // std::cout << targetPose << std::endl;
+        // }
     }
-    lasttargetPose = targetPose;
+    // lasttargetPose = targetPose;
 
         // std::cout << "Z方向的位置: " << currentPose(2) << std::endl;
 

@@ -161,13 +161,13 @@ initialState
 
    ;; Joint Positions: [Spine,LF, LH, RF, RH] ;;
    (12,0)  0.00   ; bodyb_yaw_joint
-   (13,0) -0.20   ; LH_HAA
+   (13,0) -0.10   ; LH_HAA
    (14,0)  0.72   ; LH_HFE
    (15,0) -1.44   ; LH_KFE
-   (16,0)  0.20   ; RH_HAA
+   (16,0)  0.10   ; RH_HAA
    (17,0)  0.72   ; RH_HFE
    (18,0) -1.44   ; RH_KFE
-   (19,0)  0.00   ; bodyf_pitch_joint
+   (19,0) -0.10   ; bodyf_pitch_joint
    (20,0) -0.10   ; LF_HAA
    (21,0)  0.72   ; LF_HFE
    (22,0) -1.44   ; LF_KFE

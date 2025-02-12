@@ -13,66 +13,36 @@
 		</joint>
 	</xacro:if>
 
-  <link
-    name="base_link">
+<link name="base_link">
     <inertial>
-      <origin
-        xyz="0.0027732 -0.00068363 0.00099437"
-        rpy="0 0 0" />
-      <mass
-        value="0.29241" />
-      <inertia
-        ixx="0.00035365"
-        ixy="-9.4553E-08"
-        ixz="3.37E-07"
-        iyy="0.00014633"
-        iyz="4.7012E-07"
-        izz="0.00023997" />
+      <origin xyz="0.00277323920478635 -0.000683626781969149 0.000994370734501378" rpy="0 0 0" />
+      <mass value="0.292406383722703" />
+      <inertia ixx="0.00068891" ixy="0.0000208" ixz="-0.00000311" iyy="0.00029552" iyz="0.00002205" izz="0.00050294"/>
     </inertial>
     <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://CatModel2_v2_description/meshes/base_link.STL" />
+        <mesh filename="package://CatModel2_v2_description/meshes/base_link.STL" />
       </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      <material name="">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
       </material>
     </visual>
   </link>
-  
-  <link
-    name="BF_Link">
+
+  <link name="BF_Link">
     <inertial>
-      <origin
-        xyz="0.12955 -8.3804E-05 -0.0013141"
-        rpy="0 0 0" />
-      <mass
-        value="3.1773" />
-      <inertia
-        ixx="0.0048776"
-        ixy="-5.0175E-06"
-        ixz="-2.0519E-06"
-        iyy="0.0043656"
-        iyz="2.0409E-06"
-        izz="0.0063374" />
+      <origin xyz="0.104546659634399 -8.3815686581723E-05 0.00461080163728378" rpy="0 0 0" />
+      <mass value="3.17726715851683" />
+      <inertia ixx="0.01223609" ixy="0.00015361" ixz="-0.00025349" iyy="0.01896068" iyz="0.00002408" izz="0.02400362"/>
     </inertial>
     <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://CatModel2_v2_description/meshes/BF_Link.STL" />
+        <mesh filename="package://CatModel2_v2_description/meshes/BF_Link.STL" />
       </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      <material name="">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
       </material>
     </visual>
     <collision>
@@ -82,51 +52,26 @@
       </geometry>
     </collision>
   </link>
-  <joint
-    name="bodyf_pitch_joint"
-    type="revolute">
-    <origin
-      xyz="0.02 0 0"
-      rpy="0 0 0" />
-    <parent
-      link="base_link" />
-    <child
-      link="BF_Link" />
-    <axis
-      xyz="0 -1 0" />
-    <limit
-      lower="-0.75"
-      upper="0.75"
-      effort="23.7"
-      velocity="28.8" />
+  <joint name="bodyf_pitch_joint" type="revolute">
+    <origin xyz="0.025 0 -0.0059249" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="BF_Link" />
+    <axis xyz="0 -1 0" />
+    <limit effort="23.7" lower="-0.75" upper="0.75" velocity="28.8"/>
   </joint>
-
-    <link
-    name="BB_Link">
+  <link name="BB_Link">
     <inertial>
       <origin
-        xyz="-0.155121047880281 -0.00203708989369605 -0.00355151701603064"
-        rpy="0 0 0" />
-      <mass
-        value="3.23275137200683" />
-      <inertia
-        ixx="0.00514719625702028"
-        ixy="1.12565222116179E-06"
-        ixz="-1.95082644973759E-08"
-        iyy="0.00417841726459602"
-        iyz="-4.35796353082797E-06"
-        izz="0.0068065106450055" />
+        xyz="-0.135121078104581 -0.00203711414555835 -0.0035515309194496" rpy="0 0 0" />
+      <mass value="3.2327577415008" />
+      <inertia ixx="0.01332327" ixy="-0.00015743" ixz="0.00064507" iyy="0.01663537" iyz="0.00007687" izz="0.02166595"/>
     </inertial>
     <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://CatModel2_v2_description/meshes/BB_Link.STL" />
+        <mesh filename="package://CatModel2_v2_description/meshes/BB_Link.STL" />
       </geometry>
-      <material
-        name="">
+      <material name="">
         <color
           rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
       </material>
@@ -138,153 +83,73 @@
       </geometry>
     </collision>
   </link>
-
-  <joint
-    name="bodyb_yaw_joint"
-    type="revolute">
-    <origin
-      xyz="-0.015 0 0"
-      rpy="0 0 0" />
-    <parent
-      link="base_link" />
-    <child
-      link="BB_Link" />
-    <axis
-      xyz="0 0 1" />
-    <limit
-      lower="-0.75"
-      upper="0.75"
-      effort="23.7"
-      velocity="28.8" />
+  <joint name="bodyb_yaw_joint" type="revolute">
+    <origin xyz="-0.02 0 0" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="BB_Link" />
+    <axis xyz="0 0 1" />
+    <limit effort="23.7" lower="-0.75" upper="0.75" velocity="28.8"/>
   </joint>
-  <link
-    name="LF_hip">
+  <link name="LF_hip">
     <inertial>
-      <origin
-        xyz="0.059149 0.00048753 5.429E-05"
-        rpy="0 0 0" />
-      <mass
-        value="0.64023" />
-      <inertia
-        ixx="0.00043421"
-        ixy="-7.3517E-08"
-        ixz="-9.9092E-07"
-        iyy="0.00072036"
-        iyz="6.9084E-08"
-        izz="0.00034295" />
+      <origin xyz="0.0591490110411442 0.000487509404874964 5.42936748087162E-05" rpy="0 0 0" />
+      <mass value="0.640227659563685" />
+      <inertia ixx="0.00047481" ixy="-0.00000256" ixz="0.00000072" iyy="0.00085561" iyz="0.00000037" izz="0.00051370"/>
     </inertial>
     <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://CatModel2_v2_description/meshes/LF_hip.STL" />
+        <mesh filename="package://CatModel2_v2_description/meshes/LF_hip.STL" />
       </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      <material name="">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
       </material>
     </visual>
-
   </link>
-  <joint
-    name="LF_HAA"
-    type="revolute">
-    <origin
-      xyz="0.2106 0.05498 -0.00027501"
-      rpy="0 0 0" />
-    <parent
-      link="BF_Link" />
-    <child
-      link="LF_hip" />
-    <axis
-      xyz="1 0 0" />
-    <limit
-      lower="-0.785"
-      upper="0.785"
-      effort="23.7"
-      velocity="28.8" />
+  <joint name="LF_HAA" type="revolute">
+    <origin xyz="0.1856 0.05498 0.0056499" rpy="0 0 0" />
+    <parent link="BF_Link" />
+    <child link="LF_hip" />
+    <axis xyz="1 0 0" />
+    <limit effort="23.7" lower="-0.785" upper="0.785" velocity="28.8"/>
   </joint>
-  <link
-    name="LF_thigh">
+  <link name="LF_thigh">
     <inertial>
-      <origin
-        xyz="-0.0032907 0.041874 -0.028566"
-        rpy="0 0 0" />
-      <mass
-        value="0.90246" />
-      <inertia
-        ixx="0.0018817"
-        ixy="-1.6738E-07"
-        ixz="8.646E-05"
-        iyy="0.0023903"
-        iyz="-3.6595E-07"
-        izz="0.00056291" />
+      <origin xyz="-0.00319263255603119 0.0418746682211462 -0.0295109488745784" rpy="0 0 0" />
+      <mass value="0.902429382815121" />
+      <inertia ixx="0.00398244" ixy="0.00005541" ixz="-0.00029231" iyy="0.00422439" iyz="0.00052841" izz="0.00089724"/>
     </inertial>
     <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://CatModel2_v2_description/meshes/LF_thigh.STL" />
+        <mesh filename="package://CatModel2_v2_description/meshes/LF_thigh.STL" />
       </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      <material name="">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
       </material>
     </visual>
-
   </link>
-  <joint
-    name="LF_HFE"
-    type="revolute">
-    <origin
-      xyz="0.065399 0.02005 0"
-      rpy="0 0 0" />
-    <parent
-      link="LF_hip" />
-    <child
-      link="LF_thigh" />
-    <axis
-      xyz="0 1 0" />
-    <limit
-      lower="-1.05"
-      upper="3.14"
-      effort="23.7"
-      velocity="28.8" />
+  <joint name="LF_HFE" type="revolute">
+    <origin xyz="0.065399 0.02005 0" rpy="0 0 0" />
+    <parent link="LF_hip" />
+    <child link="LF_thigh" />
+    <axis xyz="0 1 0" />
+    <limit effort="23.7" lower="-1.05" upper="3.14" velocity="28.8"/>
   </joint>
-  <link
-    name="LF_calf">
+  <link name="LF_calf">
     <inertial>
-      <origin
-        xyz="0 -3.1641E-15 -0.052658"
-        rpy="0 0 0" />
-      <mass
-        value="0.14476" />
-      <inertia
-        ixx="0.00035039"
-        ixy="1.2339E-20"
-        ixz="3.6484E-19"
-        iyy="0.00037167"
-        iyz="2.4131E-18"
-        izz="2.3499E-05" />
+      <origin xyz="5.55111512312578E-16 1.66533453693773E-16 -0.0526579498337892" rpy="0 0 0" />
+      <mass value="0.144759009545625" />
+      <inertia ixx="0.00056050" ixy="0.00000000" ixz="0.00000000" iyy="0.00057453" iyz="0.00000000" izz="0.00003075"/>
     </inertial>
     <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
         <mesh
           filename="package://CatModel2_v2_description/meshes/LF_calf.STL" />
       </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.101960784313725 0.101960784313725 0.101960784313725 1" />
+      <material name="">
+        <color rgba="0.101960784313725 0.101960784313725 0.101960784313725 1" />
       </material>
     </visual>
     <collision>
@@ -294,23 +159,12 @@
       </geometry>
     </collision>
   </link>
-  <joint
-    name="LF_KFE"
-    type="revolute">
-    <origin
-      xyz="0 0.0617 -0.22"
-      rpy="0 0 0" />
-    <parent
-      link="LF_thigh" />
-    <child
-      link="LF_calf" />
-    <axis
-      xyz="0 1 0" />
-    <limit
-      lower="-2.68"
-      upper="-0.41"
-      effort="47.4"
-      velocity="14.4" />
+  <joint name="LF_KFE" type="revolute">
+    <origin xyz="0 0.0617 -0.22" rpy="0 0 0" />
+    <parent link="LF_thigh" />
+    <child link="LF_calf" />
+    <axis xyz="0 1 0" />
+    <limit effort="47.4" lower="-2.68" upper="-0.41" velocity="14.4"/>
   </joint>
   
   <link name="LF_FOOT">
@@ -340,120 +194,61 @@
     <child link="LF_FOOT"/>
   </joint>
 
-  <link
-    name="RF_hip">
+  <link name="RF_hip">
     <inertial>
-      <origin
-        xyz="0.0591490581019896 -0.000487525970476965 -5.42903367248861E-05"
-        rpy="0 0 0" />
-      <mass
-        value="0.640225051482545" />
-      <inertia
-        ixx="0.000434212543234904"
-        ixy="7.35174336445234E-08"
-        ixz="9.90921151292404E-07"
-        iyy="0.000720360810738487"
-        iyz="6.90839528752722E-08"
-        izz="0.000342952443359203" />
+      <origin xyz="0.0591490110411442 -0.000487509404874728 -5.42936748088585E-05" rpy="0 0 0" />
+      <mass value="0.640227659563686" />
+      <inertia ixx="0.00047481" ixy="0.00000256" ixz="-0.00000072" iyy="0.00085561" iyz="0.00000037" izz="0.00051370"/>
     </inertial>
     <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
         <mesh
           filename="package://CatModel2_v2_description/meshes/RF_hip.STL" />
       </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      <material name="">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
       </material>
     </visual>
   </link>
-  <joint
-    name="RF_HAA"
+  <joint name="RF_HAA"
     type="revolute">
-    <origin
-      xyz="0.2106 -0.05502 -0.00027501"
-      rpy="0 0 0" />
-    <parent
-      link="BF_Link" />
-    <child
-      link="RF_hip" />
+    <origin xyz="0.1856 -0.05502 0.0056499" rpy="0 0 0" />
+    <parent link="BF_Link" />
+    <child link="RF_hip" />
     <axis
       xyz="1 0 0" />
-    <limit
-      lower="-0.785"
-      upper="0.785"
-      effort="23.7"
-      velocity="28.8" />
+    <limit effort="23.7" lower="-0.785" upper="0.785" velocity="28.8"/>
   </joint>
-  <link
-    name="RF_thigh">
+  <link name="RF_thigh">
     <inertial>
-      <origin
-        xyz="-0.00317848322957781 -0.0418855537001225 -0.0284736552743077"
-        rpy="0 0 0" />
-      <mass
-        value="0.902455135679806" />
-      <inertia
-        ixx="0.0018815550203863"
-        ixy="-1.67383947337767E-07"
-        ixz="8.24129006656969E-05"
-        iyy="0.00239029186292115"
-        iyz="-5.15964742906776E-07"
-        izz="0.000563095477798709" />
+      <origin xyz="-0.00317857966332252 -0.041886419364066 -0.0284744095663136" rpy="0 0 0" />
+      <mass value="0.902429400703756" />
+      <inertia ixx="0.00379972" ixy="-0.00005854" ixz="-0.00029335" iyy="0.00405804" iyz="-0.00050925" izz="0.00091445"/>
     </inertial>
     <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://CatModel2_v2_description/meshes/RF_thigh.STL" />
+        <mesh filename="package://CatModel2_v2_description/meshes/RF_thigh.STL" />
       </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      <material name="">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
       </material>
     </visual>
   </link>
-
-  <joint
-    name="RF_HFE"
-    type="revolute">
-    <origin
-      xyz="0.065399 -0.02005 0"
-      rpy="0 0 0" />
-    <parent
-      link="RF_hip" />
-    <child
-      link="RF_thigh" />
-    <axis
-      xyz="0 1 0" />
-    <limit
-      lower="-1.05"
-      upper="3.14"
-      effort="23.7"
-      velocity="28.8" />
+  <joint name="RF_HFE" type="revolute">
+    <origin xyz="0.065399 -0.02005 0" rpy="0 0 0" />
+    <parent link="RF_hip" />
+    <child link="RF_thigh" />
+    <axis xyz="0 1 0" />
+    <limit effort="23.7" lower="-1.05" upper="3.14" velocity="28.8"/>
   </joint>
-  <link
-    name="RF_calf">
+  <link name="RF_calf">
     <inertial>
       <origin
-        xyz="6.66133814775094E-16 -6.22765727875674E-15 -0.0526579498337946"
-        rpy="0 0 0" />
-      <mass
-        value="0.144759009545624" />
-      <inertia
-        ixx="0.000350393411843135"
-        ixy="2.0050448906824E-20"
-        ixz="4.21763248200571E-19"
-        iyy="0.000371665464074352"
-        iyz="2.01157508959523E-18"
-        izz="2.34988672673909E-05" />
+        xyz="6.10622663543836E-16 -6.22765727875674E-15 -0.0526579498337945" rpy="0 0 0" />
+      <mass value="0.144759009545624" />
+      <inertia ixx="0.00056050" ixy="0.00000000" ixz="0.00000000" iyy="0.00057453" iyz="0.00000000" izz="0.00003075"/>
     </inertial>
     <visual>
       <origin
@@ -476,24 +271,12 @@
       </geometry>
     </collision>
   </link>
-
-  <joint
-    name="RF_KFE"
-    type="revolute">
-    <origin
-      xyz="0 -0.0617 -0.22"
-      rpy="0 0 0" />
-    <parent
-      link="RF_thigh" />
-    <child
-      link="RF_calf" />
-    <axis
-      xyz="0 1 0" />
-    <limit
-      lower="-2.68"
-      upper="-0.41"
-      effort="47.4"
-      velocity="14.4" />
+  <joint name="RF_KFE" type="revolute">
+    <origin xyz="0 -0.0617 -0.22" rpy="0 0 0" />
+    <parent link="RF_thigh" />
+    <child link="RF_calf" />
+    <axis xyz="0 1 0" />
+   <limit effort="47.4" lower="-2.68" upper="-0.41" velocity="14.4"/>
   </joint>
   
   <link name="RF_FOOT">
@@ -523,132 +306,68 @@
     <child link="RF_FOOT"/>
   </joint>
 
-  <link
-    name="LH_hip">
+ <link name="LH_hip">
     <inertial>
-      <origin
-        xyz="-0.0591490581019898 0.000487525970477076 -5.42903367247473E-05"
-        rpy="0 0 0" />
-      <mass
-        value="0.64022505148254" />
-      <inertia
-        ixx="0.0004342125432349"
-        ixy="7.35174336447589E-08"
-        ixz="-9.90921151293637E-07"
-        iyy="0.000720360810738482"
-        iyz="-6.90839528781593E-08"
-        izz="0.000342952443359201" />
+      <origin xyz="-0.0591490110415742 0.000487509404416969 -5.42936755635916E-05" rpy="0 0 0" />
+      <mass value="0.640227659584975" />
+      <inertia ixx="0.00047481" ixy="0.00000256" ixz="0.00000072" iyy="0.00085561" iyz="-0.00000037" izz="0.0005137"/>
     </inertial>
     <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://CatModel2_v2_description/meshes/LH_hip.STL" />
+        <mesh filename="package://CatModel2_v2_description/meshes/LH_hip.STL" />
       </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      <material name="">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
       </material>
     </visual>
   </link>
-  <joint
-    name="LH_HAA"
-    type="revolute">
-    <origin
-      xyz="-0.2306 0.05498 -0.00027501"
-      rpy="0 0 0" />
-    <parent
-      link="BB_Link" />
-    <child
-      link="LH_hip" />
-    <axis
-      xyz="1 0 0" />
-    <limit
-      lower="-0.785"
-      upper="0.785"
-      effort="23.7"
-      velocity="28.8" />
+  <joint name="LH_HAA" type="revolute">
+    <origin xyz="-0.2106 0.05498 -0.00027501" rpy="0 0 0" />
+    <parent link="BB_Link" />
+    <child link="LH_hip" />
+    <axis xyz="1 0 0" />
+    <limit effort="23.7" lower="-0.785" upper="0.785" velocity="28.8"/>
   </joint>
-  <link
-    name="LH_thigh">
+  <link name="LH_thigh">
     <inertial>
-      <origin
-        xyz="-0.00326537744186078 0.0418738032783046 -0.0284484128464969"
-        rpy="0 0 0" />
-      <mass
-        value="0.90245513578387" />
-      <inertia
-        ixx="0.00188150914405838"
-        ixy="-1.67383947515894E-07"
-        ixz="8.60940761571269E-05"
-        iyy="0.0023902918629742"
-        iyz="-3.65953825948848E-07"
-        izz="0.000563141354181181" />
+      <origin xyz="-0.00326546257514837 0.0418746686481974 -0.0284491664387176" rpy="0 0 0" />
+      <mass value="0.902429402319732" />
+      <inertia ixx="0.00379496" ixy="0.00005671" ixz="-0.00029481" iyy="0.00405320" iyz="0.00050942" izz="0.00091353"/>
     </inertial>
     <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
         <mesh
           filename="package://CatModel2_v2_description/meshes/LH_thigh.STL" />
       </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      <material name="">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
       </material>
     </visual>
   </link>
-  <joint
-    name="LH_HFE"
-    type="revolute">
-    <origin
-      xyz="-0.065399 0.02005 0"
-      rpy="0 0 0" />
-    <parent
-      link="LH_hip" />
-    <child
-      link="LH_thigh" />
-    <axis
-      xyz="0 1 0" />
-    <limit
-      lower="-1.05"
-      upper="3.14"
-      effort="23.7"
-      velocity="28.8" />
+  <joint name="LH_HFE" type="revolute">
+    <origin xyz="-0.065399 0.02005 0" rpy="0 0 0" />
+    <parent link="LH_hip" />
+    <child link="LH_thigh" />
+    <axis xyz="0 1 0" />
+    <limit effort="23.7" lower="-1.05" upper="3.14" velocity="28.8"/>
   </joint>
-  <link
-    name="LH_calf">
+  <link name="LH_calf">
     <inertial>
       <origin
-        xyz="1.11022302462516E-16 8.88178419700125E-16 -0.0526579498337902"
+        xyz="5.55111512312578E-17 8.88178419700125E-16 -0.0526579498337901"
         rpy="0 0 0" />
-      <mass
-        value="0.144759009545624" />
-      <inertia
-        ixx="0.000350393411843134"
-        ixy="2.56586676497705E-20"
-        ixz="6.47243391334494E-21"
-        iyy="0.000371665464074352"
-        iyz="-2.65071817579223E-18"
-        izz="2.34988672673909E-05" />
+      <mass value="0.144759009545624" />
+      <inertia ixx="0.00056050" ixy="0.00000000" ixz="0.00000000" iyy="0.00057453" iyz="0.00000000" izz="0.00003075"/>
     </inertial>
     <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://CatModel2_v2_description/meshes/LH_calf.STL" />
+        <mesh filename="package://CatModel2_v2_description/meshes/LH_calf.STL" />
       </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.101960784313725 0.101960784313725 0.101960784313725 1" />
+      <material name="">
+        <color rgba="0.101960784313725 0.101960784313725 0.101960784313725 1" />
       </material>
     </visual>
     <collision>
@@ -658,23 +377,12 @@
       </geometry>
     </collision>
   </link>
-  <joint
-    name="LH_KFE"
-    type="revolute">
-    <origin
-      xyz="0 0.0617 -0.22"
-      rpy="0 0 0" />
-    <parent
-      link="LH_thigh" />
-    <child
-      link="LH_calf" />
-    <axis
-      xyz="0 1 0" />
-    <limit
-      lower="-2.68"
-      upper="-0.41"
-      effort="47.4"
-      velocity="14.4" />
+  <joint name="LH_KFE" type="revolute">
+    <origin xyz="0 0.0617 -0.22" rpy="0 0 0" />
+    <parent link="LH_thigh"/>
+    <child link="LH_calf"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="47.4" lower="-2.68" upper="-0.41" velocity="14.4"/>
   </joint>
   
   <link name="LH_FOOT">
@@ -705,134 +413,65 @@
     <child link="LH_FOOT"/>
   </joint>
 
-  <link
-    name="RH_hip">
+  <link name="RH_hip">
     <inertial>
-      <origin
-        xyz="-0.0589998656454742 -0.000506527943530136 -1.58979394321024E-05"
-        rpy="0 0 0" />
-      <mass
-        value="0.642366646261419" />
-      <inertia
-        ixx="0.000434440011866329"
-        ixy="-7.3517433644117E-08"
-        ixz="9.90921151292079E-07"
-        iyy="0.000720364692882"
-        iyz="-6.90839528753E-08"
-        izz="0.000343179911990631" />
+      <origin xyz="-0.0591490110422438 -0.000487509402989514 5.42936760059946E-05" rpy="0 0 0" />
+      <mass value="0.640227659651105" />
+      <inertia ixx="0.00047605" ixy="-0.00000202" ixz="0.0000013" iyy="0.00086083" iyz="-0.00000063" izz="0.00051827"/>
     </inertial>
     <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh
-          filename="package://CatModel2_v2_description/meshes/RH_hip.STL" />
+        <mesh filename="package://CatModel2_v2_description/meshes/RH_hip.STL" />
       </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      <material name="">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
       </material>
     </visual>
   </link>
-  <joint
-    name="RH_HAA"
-    type="revolute">
-    <origin
-      xyz="-0.2306 -0.05502 -0.00027501"
-      rpy="0 0 0" />
-    <parent
-      link="BB_Link" />
-    <child
-      link="RH_hip" />
-    <axis
-      xyz="1 0 0" />
-    <limit
-      lower="-0.785"
-      upper="0.785"
-      effort="23.7"
-      velocity="28.8" />
+  <joint name="RH_HAA" type="revolute">
+    <origin xyz="-0.2106 -0.05502 -0.00027501" rpy="0 0 0" />
+    <parent link="BB_Link"/>
+    <child link="RH_hip"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="23.7" lower="-0.785" upper="0.785" velocity="28.8"/>
   </joint>
-
-  <link
-    name="RH_thigh">
+  <link name="RH_thigh">
     <inertial>
-      <origin
-        xyz="-0.00317232321632233 -0.0418855537024003 -0.028448412846502"
-        rpy="0 0 0" />
-      <mass
-        value="0.902455135783871" />
-      <inertia
-        ixx="0.00188150914405838"
-        ixy="-1.67383947516652E-07"
-        ixz="8.23311898038298E-05"
-        iyy="0.0023902918629742"
-        iyz="-5.15964720207777E-07"
-        izz="0.000563141354181178" />
+      <origin xyz="-0.00317241966705706 -0.0418864194068722 -0.0284491664381071" rpy="0 0 0" />
+      <mass value="0.902455135783871"/>
+      <inertia ixx="0.00379538" ixy="-0.00005843" ixz="-0.00029257" iyy="0.00405375" iyz="-0.0005088" izz="0.0009145"/>
     </inertial>
     <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh
-          filename="package://CatModel2_v2_description/meshes/RH_thigh.STL" />
+        <mesh filename="package://CatModel2_v2_description/meshes/RH_thigh.STL" />
       </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      <material name="">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
       </material>
     </visual>
   </link>
-  <joint
-    name="RH_HFE"
-    type="revolute">
-    <origin
-      xyz="-0.065399 -0.02005 0"
-      rpy="0 0 0" />
-    <parent
-      link="RH_hip" />
-    <child
-      link="RH_thigh" />
-    <axis
-      xyz="0 1 0" />
-    <limit
-      lower="-1.05"
-      upper="3.14"
-      effort="23.7"
-      velocity="28.8" />
+  <joint name="RH_HFE" type="revolute">
+    <origin xyz="-0.065399 -0.02005 0" rpy="0 0 0" />
+    <parent link="RH_hip"/>
+    <child link="RH_thigh"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="23.7" lower="-1.05" upper="3.14" velocity="28.8"/>
   </joint>
-
-  <link
-    name="RH_calf">
+  <link name="RH_calf">
     <inertial>
-      <origin
-        xyz="-4.9960036108132E-16 9.54097911787244E-16 -0.0526579498337933"
-        rpy="0 0 0" />
-      <mass
-        value="0.144759009545625" />
-      <inertia
-        ixx="0.000350393411843135"
-        ixy="2.1155328601958E-21"
-        ixz="3.60949306388038E-21"
-        iyy="0.000371665464074352"
-        iyz="-2.27593210856691E-18"
-        izz="2.34988672673909E-05" />
+      <origin xyz="0 5.72458747072346E-17 -0.0526579498337942" rpy="0 0 0" />
+      <mass value="0.144759009545625"/>
+      <inertia ixx="0.0005605" ixy="0" ixz="0" iyy="0.00057453" iyz="0" izz="0.00003075"/>
     </inertial>
     <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh
-          filename="package://CatModel2_v2_description/meshes/RH_calf.STL" />
+        <mesh filename="package://CatModel2_v2_description/meshes/RH_calf.STL" />
       </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.101960784313725 0.101960784313725 0.101960784313725 1" />
+      <material name="">
+        <color rgba="0.101960784313725 0.101960784313725 0.101960784313725 1" />
       </material>
     </visual>
     <collision>
@@ -842,23 +481,12 @@
       </geometry>
     </collision>
   </link>
-  <joint
-    name="RH_KFE"
-    type="revolute">
-    <origin
-      xyz="0 -0.0617 -0.22"
-      rpy="0 0 0" />
-    <parent
-      link="RH_thigh" />
-    <child
-      link="RH_calf" />
-    <axis
-      xyz="0 1 0" />
-    <limit
-      lower="-2.68"
-      upper="-0.41"
-      effort="47.4"
-      velocity="14.4" />
+  <joint name="RH_KFE" type="revolute">
+    <origin xyz="0 -0.0617 -0.22" rpy="0 0 0" />
+    <parent link="RH_thigh"/>
+    <child link="RH_calf"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="47.4" lower="-2.68" upper="-0.41" velocity="14.4"/>
   </joint>
 
     <link name="RH_FOOT">
@@ -888,7 +516,5 @@
     <parent link="RH_calf"/>
     <child link="RH_FOOT"/>
   </joint>
-
-  <xacro:IMU connected_to="base_link" imu_name="imu_link" xyz=" 0. 0. -0.18" rpy="0. 0. 0."/> 
 
 </robot>
