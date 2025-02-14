@@ -183,7 +183,7 @@ namespace ocs2::legged_robot {
     }
 
     Task WbcBase::formulateBaseAccelTask(const vector_t &stateDesired, const vector_t &inputDesired, scalar_t period) {
-        matrix_t a(6, num_decision_vars_);
+        matrix_t a(6+2, num_decision_vars_);
         a.setZero();
         a.block(0, 0, 6, 6) = matrix_t::Identity(6, 6);
 
@@ -206,7 +206,16 @@ namespace ocs2::legged_robot {
         centroidalMomentumRate.noalias() -= ADot * vDesired;
         centroidalMomentumRate.noalias() -= Aj * jointAccel;
 
-        Vector6 b = AbInv * centroidalMomentumRate;
+        Eigen::Matrix<scalar_t, 8, 1> b = Eigen::Matrix<scalar_t, 8, 1>::Zero();
+        b.segment<6>(0) = AbInv *centroidalMomentumRate;
+        
+        b(6) = jointAccel(0);
+        b(7) = jointAccel(7);
+
+        a(6,6)= 1;
+        a(7,13)= 1;
+
+        // Vector6 b = AbInv * centroidalMomentumRate;
 
         return {a, b, matrix_t(), vector_t()};
     }
