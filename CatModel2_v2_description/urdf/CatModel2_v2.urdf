@@ -8,6 +8,76 @@
     <hardware>
       <plugin>hardware_CatModel2_mujoco/HardwareCatModel2</plugin>
     </hardware>
+    <joint name="LF_HAA">
+      <command_interface name="position"/>
+      <command_interface name="velocity"/>
+      <command_interface name="effort"/>
+      <command_interface name="kp"/>
+      <command_interface name="kd"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
+    <joint name="LF_HFE">
+      <command_interface name="position"/>
+      <command_interface name="velocity"/>
+      <command_interface name="effort"/>
+      <command_interface name="kp"/>
+      <command_interface name="kd"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
+    <joint name="LF_KFE">
+      <command_interface name="position"/>
+      <command_interface name="velocity"/>
+      <command_interface name="effort"/>
+      <command_interface name="kp"/>
+      <command_interface name="kd"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
+    <joint name="RF_HAA">
+      <command_interface name="position"/>
+      <command_interface name="velocity"/>
+      <command_interface name="effort"/>
+      <command_interface name="kp"/>
+      <command_interface name="kd"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
+    <joint name="RF_HFE">
+      <command_interface name="position"/>
+      <command_interface name="velocity"/>
+      <command_interface name="effort"/>
+      <command_interface name="kp"/>
+      <command_interface name="kd"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
+    <joint name="RF_KFE">
+      <command_interface name="position"/>
+      <command_interface name="velocity"/>
+      <command_interface name="effort"/>
+      <command_interface name="kp"/>
+      <command_interface name="kd"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
+    <joint name="bodyf_pitch_joint">
+      <command_interface name="position"/>
+      <command_interface name="velocity"/>
+      <command_interface name="effort"/>
+      <command_interface name="kp"/>
+      <command_interface name="kd"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
     <joint name="bodyb_yaw_joint">
       <command_interface name="position"/>
       <command_interface name="velocity"/>
@@ -78,76 +148,6 @@
       <state_interface name="velocity"/>
       <state_interface name="effort"/>
     </joint>
-    <joint name="bodyf_pitch_joint">
-      <command_interface name="position"/>
-      <command_interface name="velocity"/>
-      <command_interface name="effort"/>
-      <command_interface name="kp"/>
-      <command_interface name="kd"/>
-      <state_interface name="position"/>
-      <state_interface name="velocity"/>
-      <state_interface name="effort"/>
-    </joint>
-    <joint name="LF_HAA">
-      <command_interface name="position"/>
-      <command_interface name="velocity"/>
-      <command_interface name="effort"/>
-      <command_interface name="kp"/>
-      <command_interface name="kd"/>
-      <state_interface name="position"/>
-      <state_interface name="velocity"/>
-      <state_interface name="effort"/>
-    </joint>
-    <joint name="LF_HFE">
-      <command_interface name="position"/>
-      <command_interface name="velocity"/>
-      <command_interface name="effort"/>
-      <command_interface name="kp"/>
-      <command_interface name="kd"/>
-      <state_interface name="position"/>
-      <state_interface name="velocity"/>
-      <state_interface name="effort"/>
-    </joint>
-    <joint name="LF_KFE">
-      <command_interface name="position"/>
-      <command_interface name="velocity"/>
-      <command_interface name="effort"/>
-      <command_interface name="kp"/>
-      <command_interface name="kd"/>
-      <state_interface name="position"/>
-      <state_interface name="velocity"/>
-      <state_interface name="effort"/>
-    </joint>
-    <joint name="RF_HAA">
-      <command_interface name="position"/>
-      <command_interface name="velocity"/>
-      <command_interface name="effort"/>
-      <command_interface name="kp"/>
-      <command_interface name="kd"/>
-      <state_interface name="position"/>
-      <state_interface name="velocity"/>
-      <state_interface name="effort"/>
-    </joint>
-    <joint name="RF_HFE">
-      <command_interface name="position"/>
-      <command_interface name="velocity"/>
-      <command_interface name="effort"/>
-      <command_interface name="kp"/>
-      <command_interface name="kd"/>
-      <state_interface name="position"/>
-      <state_interface name="velocity"/>
-      <state_interface name="effort"/>
-    </joint>
-    <joint name="RF_KFE">
-      <command_interface name="position"/>
-      <command_interface name="velocity"/>
-      <command_interface name="effort"/>
-      <command_interface name="kp"/>
-      <command_interface name="kd"/>
-      <state_interface name="position"/>
-      <state_interface name="velocity"/>
-      <state_interface name="effort"/>
-    </joint>
     <sensor name="imu_sensor">
       <state_interface name="orientation.w"/>
       <state_interface name="orientation.x"/>
@@ -161,31 +161,15 @@
       <state_interface name="linear_acceleration.z"/>
     </sensor>
     <sensor name="foot_force">
-      <state_interface name="LH"/>
-      <state_interface name="RH"/>
       <state_interface name="LF"/>
       <state_interface name="RF"/>
+      <state_interface name="LH"/>
+      <state_interface name="RH"/>
     </sensor>
   </ros2_control>
-  <link name="base_link">
-    <inertial>
-      <origin rpy="0 0 0" xyz="0.00277323920478635 -0.000683626781969149 0.000994370734501378"/>
-      <mass value="0.292406383722703"/>
-      <inertia ixx="0.00068891" ixy="0.0000208" ixz="-0.00000311" iyy="0.00029552" iyz="0.00002205" izz="0.00050294"/>
-    </inertial>
-    <visual>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <mesh filename="package://CatModel2_v2_description/meshes/base_link.STL"/>
-      </geometry>
-      <material name="">
-        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
-      </material>
-    </visual>
-  </link>
   <link name="BF_Link">
     <inertial>
-      <origin rpy="0 0 0" xyz="0.104546659634399 -8.3815686581723E-05 0.00461080163728378"/>
+      <origin rpy="0 0 0" xyz="-0.0029532330758115 -6.38809162634701E-05 0.00461007468124051"/>
       <mass value="3.17726715851683"/>
       <inertia ixx="0.01223609" ixy="0.00015361" ixz="-0.00025349" iyy="0.01896068" iyz="0.00002408" izz="0.02400362"/>
     </inertial>
@@ -199,22 +183,38 @@
       </material>
     </visual>
     <collision>
-      <origin rpy="0 0 0" xyz="0.13 0 0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
         <box size="0.16 0.2 0.12"/>
       </geometry>
     </collision>
   </link>
+  <link name="base_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.0222267607952137 -0.000683626781969149 0.00691927164285517"/>
+      <mass value="0.292406383722703"/>
+      <inertia ixx="0.00068891" ixy="0.0000208" ixz="-0.00000311" iyy="0.00029552" iyz="0.00002205" izz="0.00050294"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://CatModel2_v2_description/meshes/base_link.STL"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
+      </material>
+    </visual>
+  </link>
   <joint name="bodyf_pitch_joint" type="revolute">
-    <origin rpy="0 0 0" xyz="0.025 0 -0.0059249"/>
-    <parent link="base_link"/>
-    <child link="BF_Link"/>
-    <axis xyz="0 -1 0"/>
+    <origin rpy="0 0 0" xyz="-0.1075 1.9935E-05 0"/>
+    <parent link="BF_Link"/>
+    <child link="base_link"/>
+    <axis xyz="0 1 0"/>
     <limit effort="23.7" lower="-0.75" upper="0.75" velocity="28.8"/>
   </joint>
   <link name="BB_Link">
     <inertial>
-      <origin rpy="0 0 0" xyz="-0.135121078104581 -0.00203711414555835 -0.0035515309194496"/>
+      <origin rpy="0 0 0" xyz="-0.135121078104581 -0.00203711414555829 -0.00355153091944961"/>
       <mass value="3.2327577415008"/>
       <inertia ixx="0.01332327" ixy="-0.00015743" ixz="0.00064507" iyy="0.01663537" iyz="0.00007687" izz="0.02166595"/>
     </inertial>
@@ -235,7 +235,7 @@
     </collision>
   </link>
   <joint name="bodyb_yaw_joint" type="revolute">
-    <origin rpy="0 0 0" xyz="-0.02 0 0"/>
+    <origin rpy="0 0 0" xyz="-0.045 0 0.0059249"/>
     <parent link="base_link"/>
     <child link="BB_Link"/>
     <axis xyz="0 0 1"/>
@@ -243,7 +243,7 @@
   </joint>
   <link name="LF_hip">
     <inertial>
-      <origin rpy="0 0 0" xyz="0.0591490110411442 0.000487509404874964 5.42936748087162E-05"/>
+      <origin rpy="0 0 0" xyz="0.059149011041144 0.000487509404874797 5.42936748087336E-05"/>
       <mass value="0.640227659563685"/>
       <inertia ixx="0.00047481" ixy="-0.00000256" ixz="0.00000072" iyy="0.00085561" iyz="0.00000037" izz="0.00051370"/>
     </inertial>
@@ -258,7 +258,7 @@
     </visual>
   </link>
   <joint name="LF_HAA" type="revolute">
-    <origin rpy="0 0 0" xyz="0.1856 0.05498 0.0056499"/>
+    <origin rpy="0 0 0" xyz="0.0781 0.055 0.0056492"/>
     <parent link="BF_Link"/>
     <child link="LF_hip"/>
     <axis xyz="1 0 0"/>
@@ -266,8 +266,8 @@
   </joint>
   <link name="LF_thigh">
     <inertial>
-      <origin rpy="0 0 0" xyz="-0.00319263255603119 0.0418746682211462 -0.0295109488745784"/>
-      <mass value="0.902429382815121"/>
+      <origin rpy="0 0 0" xyz="-0.00319263255467078 0.0418746682198338 -0.0295109488729833"/>
+      <mass value="0.902429382860773"/>
       <inertia ixx="0.00398244" ixy="0.00005541" ixz="-0.00029231" iyy="0.00422439" iyz="0.00052841" izz="0.00089724"/>
     </inertial>
     <visual>
@@ -290,7 +290,7 @@
   <link name="LF_calf">
     <inertial>
       <origin rpy="0 0 0" xyz="5.55111512312578E-16 1.66533453693773E-16 -0.0526579498337892"/>
-      <mass value="0.144759009545625"/>
+      <mass value="0.144759009545624"/>
       <inertia ixx="0.00056050" ixy="0.00000000" ixz="0.00000000" iyy="0.00057453" iyz="0.00000000" izz="0.00003075"/>
     </inertial>
     <visual>
@@ -344,8 +344,8 @@
   </joint>
   <link name="RF_hip">
     <inertial>
-      <origin rpy="0 0 0" xyz="0.0591490110411442 -0.000487509404874728 -5.42936748088585E-05"/>
-      <mass value="0.640227659563686"/>
+      <origin rpy="0 0 0" xyz="0.059149011041144 -0.000487509404874728 -5.42936748088585E-05"/>
+      <mass value="0.640227659563685"/>
       <inertia ixx="0.00047481" ixy="0.00000256" ixz="-0.00000072" iyy="0.00085561" iyz="0.00000037" izz="0.00051370"/>
     </inertial>
     <visual>
@@ -359,7 +359,7 @@
     </visual>
   </link>
   <joint name="RF_HAA" type="revolute">
-    <origin rpy="0 0 0" xyz="0.1856 -0.05502 0.0056499"/>
+    <origin rpy="0 0 0" xyz="0.0781 -0.055 0.0056492"/>
     <parent link="BF_Link"/>
     <child link="RF_hip"/>
     <axis xyz="1 0 0"/>
@@ -367,7 +367,7 @@
   </joint>
   <link name="RF_thigh">
     <inertial>
-      <origin rpy="0 0 0" xyz="-0.00317857966332252 -0.041886419364066 -0.0284744095663136"/>
+      <origin rpy="0 0 0" xyz="-0.00317857966332236 -0.041886419364066 -0.0284744095663136"/>
       <mass value="0.902429400703756"/>
       <inertia ixx="0.00379972" ixy="-0.00005854" ixz="-0.00029335" iyy="0.00405804" iyz="-0.00050925" izz="0.00091445"/>
     </inertial>
@@ -390,8 +390,8 @@
   </joint>
   <link name="RF_calf">
     <inertial>
-      <origin rpy="0 0 0" xyz="6.10622663543836E-16 -6.22765727875674E-15 -0.0526579498337945"/>
-      <mass value="0.144759009545624"/>
+      <origin rpy="0 0 0" xyz="5.55111512312578E-16 -6.22765727875674E-15 -0.0526579498337946"/>
+      <mass value="0.144759009545625"/>
       <inertia ixx="0.00056050" ixy="0.00000000" ixz="0.00000000" iyy="0.00057453" iyz="0.00000000" izz="0.00003075"/>
     </inertial>
     <visual>
@@ -445,7 +445,7 @@
   </joint>
   <link name="LH_hip">
     <inertial>
-      <origin rpy="0 0 0" xyz="-0.0591490110415742 0.000487509404416969 -5.42936755635916E-05"/>
+      <origin rpy="0 0 0" xyz="-0.0591490110415743 0.000487509404417025 -5.42936755635985E-05"/>
       <mass value="0.640227659584975"/>
       <inertia ixx="0.00047481" ixy="0.00000256" ixz="0.00000072" iyy="0.00085561" iyz="-0.00000037" izz="0.0005137"/>
     </inertial>
@@ -468,7 +468,7 @@
   </joint>
   <link name="LH_thigh">
     <inertial>
-      <origin rpy="0 0 0" xyz="-0.00326546257514837 0.0418746686481974 -0.0284491664387176"/>
+      <origin rpy="0 0 0" xyz="-0.00326546257514826 0.0418746686481973 -0.0284491664387176"/>
       <mass value="0.902429402319732"/>
       <inertia ixx="0.00379496" ixy="0.00005671" ixz="-0.00029481" iyy="0.00405320" iyz="0.00050942" izz="0.00091353"/>
     </inertial>
@@ -491,7 +491,7 @@
   </joint>
   <link name="LH_calf">
     <inertial>
-      <origin rpy="0 0 0" xyz="5.55111512312578E-17 8.88178419700125E-16 -0.0526579498337901"/>
+      <origin rpy="0 0 0" xyz="1.66533453693773E-16 8.88178419700125E-16 -0.0526579498337901"/>
       <mass value="0.144759009545624"/>
       <inertia ixx="0.00056050" ixy="0.00000000" ixz="0.00000000" iyy="0.00057453" iyz="0.00000000" izz="0.00003075"/>
     </inertial>
@@ -546,7 +546,7 @@
   </joint>
   <link name="RH_hip">
     <inertial>
-      <origin rpy="0 0 0" xyz="-0.0591490110422438 -0.000487509402989514 5.42936760059946E-05"/>
+      <origin rpy="0 0 0" xyz="-0.0591490110422437 -0.000487509402989486 5.42936760059946E-05"/>
       <mass value="0.640227659651105"/>
       <inertia ixx="0.00047605" ixy="-0.00000202" ixz="0.0000013" iyy="0.00086083" iyz="-0.00000063" izz="0.00051827"/>
     </inertial>
@@ -569,8 +569,8 @@
   </joint>
   <link name="RH_thigh">
     <inertial>
-      <origin rpy="0 0 0" xyz="-0.00317241966705706 -0.0418864194068722 -0.0284491664381071"/>
-      <mass value="0.902455135783871"/>
+      <origin rpy="0 0 0" xyz="-0.00317241966705734 -0.0418864194068723 -0.0284491664381071"/>
+      <mass value="0.902429402336935"/>
       <inertia ixx="0.00379538" ixy="-0.00005843" ixz="-0.00029257" iyy="0.00405375" iyz="-0.0005088" izz="0.0009145"/>
     </inertial>
     <visual>
@@ -592,8 +592,8 @@
   </joint>
   <link name="RH_calf">
     <inertial>
-      <origin rpy="0 0 0" xyz="0 5.72458747072346E-17 -0.0526579498337942"/>
-      <mass value="0.144759009545625"/>
+      <origin rpy="0 0 0" xyz="0 5.72458747072346E-17 -0.0526579498337943"/>
+      <mass value="0.144759009545624"/>
       <inertia ixx="0.0005605" ixy="0" ixz="0" iyy="0.00057453" iyz="0" izz="0.00003075"/>
     </inertial>
     <visual>

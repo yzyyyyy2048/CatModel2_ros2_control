@@ -6,7 +6,89 @@
 		<hardware>
 			<plugin>hardware_CatModel2_mujoco/HardwareCatModel2</plugin>
 		</hardware>
+		<joint name="LF_HAA">
+			<command_interface name="position"/>
+			<command_interface name="velocity"/>
+			<command_interface name="effort"/>
+			<command_interface name="kp"/>
+			<command_interface name="kd"/>
 
+			<state_interface name="position"/>
+			<state_interface name="velocity"/>
+			<state_interface name="effort"/>
+		</joint>
+
+		<joint name="LF_HFE">
+			<command_interface name="position"/>
+			<command_interface name="velocity"/>
+			<command_interface name="effort"/>
+			<command_interface name="kp"/>
+			<command_interface name="kd"/>
+
+			<state_interface name="position"/>
+			<state_interface name="velocity"/>
+			<state_interface name="effort"/>
+		</joint>
+
+		<joint name="LF_KFE">
+			<command_interface name="position"/>
+			<command_interface name="velocity"/>
+			<command_interface name="effort"/>
+			<command_interface name="kp"/>
+			<command_interface name="kd"/>
+
+			<state_interface name="position"/>
+			<state_interface name="velocity"/>
+			<state_interface name="effort"/>
+		</joint>
+
+		<joint name="RF_HAA">
+			<command_interface name="position"/>
+			<command_interface name="velocity"/>
+			<command_interface name="effort"/>
+			<command_interface name="kp"/>
+			<command_interface name="kd"/>
+
+			<state_interface name="position"/>
+			<state_interface name="velocity"/>
+			<state_interface name="effort"/>
+		</joint>
+
+		<joint name="RF_HFE">
+			<command_interface name="position"/>
+			<command_interface name="velocity"/>
+			<command_interface name="effort"/>
+			<command_interface name="kp"/>
+			<command_interface name="kd"/>
+
+			<state_interface name="position"/>
+			<state_interface name="velocity"/>
+			<state_interface name="effort"/>
+		</joint>
+		
+		<joint name="RF_KFE">
+			<command_interface name="position"/>
+			<command_interface name="velocity"/>
+			<command_interface name="effort"/>
+			<command_interface name="kp"/>
+			<command_interface name="kd"/>
+
+			<state_interface name="position"/>
+			<state_interface name="velocity"/>
+			<state_interface name="effort"/>
+		</joint>
+
+		<joint name="bodyf_pitch_joint">
+			<command_interface name="position"/>
+			<command_interface name="velocity"/>
+			<command_interface name="effort"/>
+			<command_interface name="kp"/>
+			<command_interface name="kd"/>
+
+			<state_interface name="position"/>
+			<state_interface name="velocity"/>
+			<state_interface name="effort"/>
+		</joint>
 		<joint name="bodyb_yaw_joint">
 			<command_interface name="position"/>
 			<command_interface name="velocity"/>
@@ -91,89 +173,7 @@
 			<state_interface name="effort"/>
 		</joint>
 
-		<joint name="bodyf_pitch_joint">
-			<command_interface name="position"/>
-			<command_interface name="velocity"/>
-			<command_interface name="effort"/>
-			<command_interface name="kp"/>
-			<command_interface name="kd"/>
 
-			<state_interface name="position"/>
-			<state_interface name="velocity"/>
-			<state_interface name="effort"/>
-		</joint>
-
-		<joint name="LF_HAA">
-			<command_interface name="position"/>
-			<command_interface name="velocity"/>
-			<command_interface name="effort"/>
-			<command_interface name="kp"/>
-			<command_interface name="kd"/>
-
-			<state_interface name="position"/>
-			<state_interface name="velocity"/>
-			<state_interface name="effort"/>
-		</joint>
-
-		<joint name="LF_HFE">
-			<command_interface name="position"/>
-			<command_interface name="velocity"/>
-			<command_interface name="effort"/>
-			<command_interface name="kp"/>
-			<command_interface name="kd"/>
-
-			<state_interface name="position"/>
-			<state_interface name="velocity"/>
-			<state_interface name="effort"/>
-		</joint>
-
-		<joint name="LF_KFE">
-			<command_interface name="position"/>
-			<command_interface name="velocity"/>
-			<command_interface name="effort"/>
-			<command_interface name="kp"/>
-			<command_interface name="kd"/>
-
-			<state_interface name="position"/>
-			<state_interface name="velocity"/>
-			<state_interface name="effort"/>
-		</joint>
-
-		<joint name="RF_HAA">
-			<command_interface name="position"/>
-			<command_interface name="velocity"/>
-			<command_interface name="effort"/>
-			<command_interface name="kp"/>
-			<command_interface name="kd"/>
-
-			<state_interface name="position"/>
-			<state_interface name="velocity"/>
-			<state_interface name="effort"/>
-		</joint>
-
-		<joint name="RF_HFE">
-			<command_interface name="position"/>
-			<command_interface name="velocity"/>
-			<command_interface name="effort"/>
-			<command_interface name="kp"/>
-			<command_interface name="kd"/>
-
-			<state_interface name="position"/>
-			<state_interface name="velocity"/>
-			<state_interface name="effort"/>
-		</joint>
-		
-		<joint name="RF_KFE">
-			<command_interface name="position"/>
-			<command_interface name="velocity"/>
-			<command_interface name="effort"/>
-			<command_interface name="kp"/>
-			<command_interface name="kd"/>
-
-			<state_interface name="position"/>
-			<state_interface name="velocity"/>
-			<state_interface name="effort"/>
-		</joint>
 
 		<sensor name="imu_sensor">
 			<state_interface name="orientation.w"/>
@@ -189,10 +189,10 @@
 		</sensor>
 
 		<sensor name="foot_force">
-			<state_interface name="LH"/>
-			<state_interface name="RH"/>
 			<state_interface name="LF"/>
 			<state_interface name="RF"/>
+			<state_interface name="LH"/>
+			<state_interface name="RH"/>
 		</sensor>
 
 	</ros2_control>

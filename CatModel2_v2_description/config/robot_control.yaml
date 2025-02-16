@@ -79,6 +79,13 @@ CatModel2_v2_controller:
     update_rate: 100  # Hz
 
     joints:
+      - LF_HAA
+      - LF_HFE
+      - LF_KFE
+      - RF_HAA
+      - RF_HFE
+      - RF_KFE
+      - bodyf_pitch_joint
       - bodyb_yaw_joint
       - LH_HAA
       - LH_HFE
@@ -86,13 +93,6 @@ CatModel2_v2_controller:
       - RH_HAA
       - RH_HFE
       - RH_KFE
-      - bodyf_pitch_joint
-      - LF_HAA
-      - LF_HFE
-      - LF_KFE
-      - RF_HAA
-      - RF_HFE
-      - RF_KFE
 
     command_interfaces:
       - effort

@@ -185,20 +185,20 @@ namespace ocs2::legged_robot {
             joint_state.header.stamp = clock_->now();
             joint_state.name.resize(14);
             joint_state.position.resize(14);
-            joint_state.name[0] = "bodyb_yaw_joint";
-            joint_state.name[1] = "LH_HAA";
-            joint_state.name[2] = "LH_HFE";
-            joint_state.name[3] = "LH_KFE";
-            joint_state.name[4] = "RH_HAA";
-            joint_state.name[5] = "RH_HFE";
-            joint_state.name[6] = "RH_KFE";
-            joint_state.name[7] = "bodyf_pitch_joint";
-            joint_state.name[8] = "LF_HAA";
-            joint_state.name[9] = "LF_HFE";
-            joint_state.name[10] = "LF_KFE";
-            joint_state.name[11] = "RF_HAA";
-            joint_state.name[12] = "RF_HFE";
-            joint_state.name[13] = "RF_KFE";
+            joint_state.name[0] = "LF_HAA";
+            joint_state.name[1] = "LF_HFE";
+            joint_state.name[2] = "LF_KFE";
+            joint_state.name[3] = "RF_HAA";
+            joint_state.name[4] = "RF_HFE";
+            joint_state.name[5] = "RF_KFE";
+            joint_state.name[6] = "bodyf_pitch_joint";
+            joint_state.name[7] = "bodyb_yaw_joint";
+            joint_state.name[8] = "LH_HAA";
+            joint_state.name[9] = "LH_HFE";
+            joint_state.name[10] = "LH_KFE";
+            joint_state.name[11] = "RH_HAA";
+            joint_state.name[12] = "RH_HFE";
+            joint_state.name[13] = "RH_KFE";
             joint_state.position[0] = jointAngles[0];
             joint_state.position[1] = jointAngles[1];
             joint_state.position[2] = jointAngles[2];
@@ -222,7 +222,7 @@ namespace ocs2::legged_robot {
                                                      const vector_t &basePose) {
         geometry_msgs::msg::TransformStamped baseToWorldTransform;
         baseToWorldTransform.header = getHeaderMsg(frameId_, timeStamp);
-        baseToWorldTransform.child_frame_id = "base_link";
+        baseToWorldTransform.child_frame_id = "BF_Link";
 
         const Eigen::Quaternion<scalar_t> q_world_base =
                 getQuaternionFromEulerAnglesZyx(vector3_t(basePose.tail<3>()));
