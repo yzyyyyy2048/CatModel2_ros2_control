@@ -194,7 +194,7 @@ namespace ocs2::legged_robot {
     void KalmanFilterEstimate::loadSettings(const std::string &task_file, const bool verbose) {
         boost::property_tree::ptree pt;
         read_info(task_file, pt);
-        const std::string prefix = "kalmanFilter.";
+        std::string prefix = "kalmanFilter.";
         if (verbose) {
             std::cerr << "\n #### Kalman Filter Noise:";
             std::cerr << "\n #### =============================================================================\n";
@@ -207,5 +207,15 @@ namespace ocs2::legged_robot {
         loadData::loadPtreeValue(pt, footSensorNoisePosition_, prefix + "footSensorNoisePosition", verbose);
         loadData::loadPtreeValue(pt, footSensorNoiseVelocity_, prefix + "footSensorNoiseVelocity", verbose);
         loadData::loadPtreeValue(pt, footHeightSensorNoise_, prefix + "footHeightSensorNoise", verbose);
+        
+        prefix = "imuBias.";
+        if (verbose)
+        {
+            std::cerr << "\n #### imuBias:";
+            std::cerr << "\n #### =============================================================================\n";
+        }
+        loadData::loadPtreeValue(pt, imuBiasYaw_, prefix + "yaw", verbose);
+        loadData::loadPtreeValue(pt, imuBiasPitch_, prefix + "pitch", verbose);
+        loadData::loadPtreeValue(pt, imuBiasRoll_, prefix + "roll", verbose);
     }
 } // namespace legged

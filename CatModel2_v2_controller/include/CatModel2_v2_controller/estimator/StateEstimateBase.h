@@ -56,6 +56,10 @@ namespace ocs2::legged_robot {
         vector3_t zyx_offset_ = vector3_t::Zero();
         vector_t rbd_state_;
         
+        scalar_t imuBiasYaw_ = 0;
+        scalar_t imuBiasPitch_ = 0;
+        scalar_t imuBiasRoll_ = 0;
+
         Eigen::Quaternion<scalar_t> quat_;
         vector3_t angular_vel_local_, linear_accel_local_;
         matrix3_t orientationCovariance_, angularVelCovariance_, linearAccelCovariance_;

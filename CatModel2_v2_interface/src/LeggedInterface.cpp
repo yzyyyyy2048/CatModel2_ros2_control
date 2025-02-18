@@ -252,10 +252,13 @@ namespace legged {
         loadData::loadEigenMatrix(taskFile, "R", rTaskspace);
         matrix_t r = rTaskspace;
         // Joint velocities
+        // JV-VREF
         r.block(totalContactDim, totalContactDim, info.actuatedDofNum, info.actuatedDofNum) =
                 base2feetJac.transpose() * rTaskspace.block(totalContactDim, totalContactDim, info.actuatedDofNum,
                                                             info.actuatedDofNum) *
                 base2feetJac;
+        r(12,12) +=2.5;
+        r(19,19) +=5; 
         std::cout << "r 矩阵内容：" << std::endl;
         std::cout << r << std::endl;
         // 计算 SVD

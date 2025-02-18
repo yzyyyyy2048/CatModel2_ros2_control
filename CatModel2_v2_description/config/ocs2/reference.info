@@ -5,7 +5,7 @@ comHeight                           0.318
 
 defaultJointState
 {
-   (0,0)   0.00   ; bodyb_yaw_joint
+   (0,0)  -0.10   ; bodyb_yaw_joint
    (1,0)  -0.10   ; LH_HAA
    (2,0)   0.72   ; LH_HFE
    (3,0)  -1.44   ; LH_KFE
