@@ -107,10 +107,10 @@ CatModel2_v2_controller:
       - velocity
 
     feet:
-      - LH_FOOT
-      - RH_FOOT
       - LF_FOOT
       - RF_FOOT
+      - LH_FOOT
+      - RH_FOOT
 
     imu_name: "imu_sensor"
     base_name: "base"
@@ -129,10 +129,10 @@ CatModel2_v2_controller:
 
     foot_force_name: "foot_force"
     foot_force_interfaces:
-      - LH
-      - RH
       - LF
       - RF
+      - LH
+      - RH
 
 rl_quadruped_controller:
   ros__parameters:

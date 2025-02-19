@@ -256,6 +256,9 @@ namespace legged {
                 base2feetJac.transpose() * rTaskspace.block(totalContactDim, totalContactDim, info.actuatedDofNum,
                                                             info.actuatedDofNum) *
                 base2feetJac;
+
+        r(18,18) +=2.5;
+        r(19,19) +=5; 
         std::cout << "r 矩阵内容：" << std::endl;
         std::cout << r << std::endl;
         // 计算 SVD

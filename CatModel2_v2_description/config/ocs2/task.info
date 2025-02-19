@@ -154,7 +154,7 @@ initialState
    ;; Base Pose: [position, orientation] ;;
    (6,0)  0.0     ; p_base_x
    (7,0)  0.0     ; p_base_y
-   (8,0)  0.318    ; p_base_z
+   (8,0)  0.318   ; p_base_z
    (9,0)  0.0     ; theta_base_z
    (10,0) 0.0     ; theta_base_y
    (11,0) 0.0     ; theta_base_x
@@ -204,8 +204,8 @@ Q
   (15,15)  5.0     ; RF_HAA
   (16,16)  5.0     ; RF_HFE
   (17,17)  2.5     ; RF_KFE
-  (18,18)  0.1     ; bodyf_pitch_joint
-  (19,19)  0.1     ; bodyb_yaw_joint
+  (18,18)  5.0     ; bodyf_pitch_joint
+  (19,19)  5.0     ; bodyb_yaw_joint
   (20,20)  5.0     ; LH_HAA
   (21,21)  2.5     ; LH_HFE
   (22,22)  2.5     ; LH_KFE
@@ -294,8 +294,8 @@ torqueLimitsTask
    (3,0)   23.7   ; RF_HAA
    (4,0)   23.7   ; RF_HFE
    (5,0)   47.4   ; RF_KFE
-   (6,0)   2.0   ; bodyf_pitch_joint
-   (7,0)   2.0   ; bodyb_yaw_joint
+   (6,0)   10.0   ; bodyf_pitch_joint
+   (7,0)   10.0   ; bodyb_yaw_joint
    (8,0)   23.7   ; LH_HAA
    (9,0)   23.7   ; LH_HFE
    (10,0)  47.4   ; LH_KFE
