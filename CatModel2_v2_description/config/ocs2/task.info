@@ -154,7 +154,7 @@ initialState
    ;; Base Pose: [position, orientation] ;;
    (6,0)  0.0     ; p_base_x
    (7,0)  0.0     ; p_base_y
-   (8,0)  0.318   ; p_base_z
+   (8,0)  0.32   ; p_base_z
    (9,0)  0.0     ; theta_base_z
    (10,0) 0.0     ; theta_base_y
    (11,0) 0.0     ; theta_base_x
@@ -194,8 +194,8 @@ Q
   (7,7)   1000.0   ; p_base_y
   (8,8)   1500.0   ; p_base_z
   (9,9)   100.0    ; theta_base_z
-  (10,10) 300.0    ; theta_base_y
-  (11,11) 300.0    ; theta_base_x
+  (10,10) 400.0    ; theta_base_y
+  (11,11) 400.0    ; theta_base_x
 
   ;; Joint Positions: [LF, RF, LH, RH] ;;
   (12,12)  5.0     ; LF_HAA
@@ -204,8 +204,8 @@ Q
   (15,15)  5.0     ; RF_HAA
   (16,16)  5.0     ; RF_HFE
   (17,17)  2.5     ; RF_KFE
-  (18,18)  5.0     ; bodyf_pitch_joint
-  (19,19)  5.0     ; bodyb_yaw_joint
+  (18,18)  5.0    ; bodyf_pitch_joint
+  (19,19)  5.0    ; bodyb_yaw_joint
   (20,20)  5.0     ; LH_HAA
   (21,21)  2.5     ; LH_HFE
   (22,22)  2.5     ; LH_KFE
@@ -333,3 +333,11 @@ kalmanFilter
     footSensorNoiseVelocity     0.1
     footHeightSensorNoise       0.01
 }
+
+imuBias
+{
+   yaw    0.0 ; useless for relative yaw control
+   pitch  0.0 ;0.14
+   roll   0.0 ;0.02
+}
+

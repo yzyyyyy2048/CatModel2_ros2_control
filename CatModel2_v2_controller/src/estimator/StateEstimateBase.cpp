@@ -70,7 +70,11 @@ namespace ocs2::legged_robot {
         // angularVelCovariance_ = angularVelCovariance;
         // linearAccelCovariance_ = linearAccelCovariance;
 
-        const vector3_t zyx = quatToZyx(quat_) - zyx_offset_;
+        zyx_offset_(0) = imuBiasYaw_;
+        zyx_offset_(1) = imuBiasPitch_;
+        zyx_offset_(2) = imuBiasRoll_;
+
+        const vector3_t zyx = quatToZyx(quat_) + zyx_offset_;
         const vector3_t angularVelGlobal = getGlobalAngularVelocityFromEulerAnglesZyxDerivatives<scalar_t>(
             zyx, getEulerAnglesZyxDerivativesFromLocalAngularVelocity<scalar_t>(quatToZyx(quat_), angular_vel_local_));
         updateAngular(zyx, angularVelGlobal);
