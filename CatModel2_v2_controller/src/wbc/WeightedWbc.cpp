@@ -31,7 +31,7 @@ namespace ocs2::legged_robot {
                 constraints.f_; // clang-format on
 
         // Cost
-        Task weighedTask = formulateWeightedTasks(stateDesired, inputDesired, period);
+        Task weighedTask = formulateWeightedTasks(stateDesired, inputDesired, period, rbdStateMeasured);
         Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor> H =
                 weighedTask.a_.transpose() * weighedTask.a_;
         vector_t g = -weighedTask.a_.transpose() * weighedTask.b_;
@@ -49,6 +49,9 @@ namespace ocs2::legged_robot {
         vector_t qpSol(getNumDecisionVars());
 
         qpProblem.getPrimalSolution(qpSol.data());
+
+        output_torque = qpSol.tail(info_.actuatedDofNum);
+
         return qpSol;
     }
 
@@ -58,10 +61,11 @@ namespace ocs2::legged_robot {
     }
 
     Task WeightedWbc::formulateWeightedTasks(const vector_t &stateDesired, const vector_t &inputDesired,
-                                             scalar_t period) {
+                                             scalar_t period ,const vector_t &rbdStateMeasured) {
         return formulateSwingLegTask() * weightSwingLeg_ + formulateBaseAccelTask(stateDesired, inputDesired, period) *
                weightBaseAccel_ +
-               formulateContactForceTask(inputDesired) * weightContactForce_;
+               formulateContactForceTask(inputDesired) * weightContactForce_ + formulateSpinalJointTask(stateDesired, inputDesired, rbdStateMeasured)*10
+               + formulateTorquediffTask()*0.1;
     }
 
     void WeightedWbc::loadTasksSetting(const std::string &taskFile, bool verbose) {

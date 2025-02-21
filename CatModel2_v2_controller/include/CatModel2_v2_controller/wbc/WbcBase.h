@@ -9,6 +9,9 @@
 #include <ocs2_centroidal_model/PinocchioCentroidalDynamics.h>
 #include <CatModel2_v2_interface/gait/MotionPhaseDefinition.h>
 #include <ocs2_pinocchio_interface/PinocchioEndEffectorKinematics.h>
+#include "geometry_msgs/msg/pose_array.hpp"
+
+#include "rclcpp/rclcpp.hpp"
 
 namespace ocs2::legged_robot {
     // Decision Variables: x = [\dot u^T, F^T, \tau^T]^T
@@ -27,6 +30,7 @@ namespace ocs2::legged_robot {
         virtual vector_t update(const vector_t &stateDesired, const vector_t &inputDesired,
                                 const vector_t &rbdStateMeasured, size_t mode,
                                 scalar_t period);
+        vector_t output_torque;                        
 
     protected:
         void updateMeasured(const vector_t &rbdStateMeasured);
@@ -47,7 +51,11 @@ namespace ocs2::legged_robot {
 
         Task formulateSwingLegTask();
 
+        Task formulateSpinalJointTask(const vector_t &stateDesired, const vector_t &inputDesired, const vector_t &rbdStateMeasured);
+
         Task formulateContactForceTask(const vector_t &inputDesired) const;
+
+        Task formulateTorquediffTask();
 
         size_t num_decision_vars_;
         PinocchioInterface pinocchio_interface_measured_, pinocchio_interface_desired_;
@@ -64,5 +72,12 @@ namespace ocs2::legged_robot {
         // Task Parameters:
         vector_t torque_limits_;
         scalar_t friction_coeff_{}, swing_kp_{}, swing_kd_{};
+
+        // Task Parameters:velMeasure
+        rclcpp::Publisher<geometry_msgs::msg::PoseArray>::SharedPtr pos_measured_pub_;
+        rclcpp::Publisher<geometry_msgs::msg::PoseArray>::SharedPtr pos_desired_pub_;
+        rclcpp::Node::SharedPtr node_;  // 如果还没有节点需要添加
+
+        
     };
 } // namespace legged

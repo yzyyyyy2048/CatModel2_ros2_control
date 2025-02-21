@@ -53,9 +53,29 @@ namespace legged {
 
     controller_interface::return_type CatModel2Controller::update(const rclcpp::Time &time,
                                                                       const rclcpp::Duration &period) {
+
+        // 记录时间间隔 ----------------------------------------
+    // if (last_update_time_.nanoseconds() == 0) {
+    //     // 第一次调用，初始化时间
+    //     last_update_time_ = time;
+    // } else {
+    //     // 计算实际时间间隔
+    //     const auto time_diff = time - last_update_time_;
+    //     const double interval = time_diff.seconds();
+
+    //     // 输出到日志
+    //     RCLCPP_INFO_STREAM(
+    //         get_node()->get_logger(),
+    //         "实际时间间隔: " << interval << " 秒"
+    //     );
+    // }
+    // last_update_time_ = time; // 更新上次时间
+        
         // State Estimate
         updateStateEstimation(time, period);
 
+        // std::cout << "周期: " << period.seconds() << " 秒" << std::endl;
+        
         // Compute target trajectory
         ctrl_comp_.target_manager_->update();
 
@@ -145,6 +165,7 @@ namespace legged {
                                        mpc_mrt_interface_->getCommand());
 
         observation_publisher_->publish(ros_msg_conversions::createObservationMsg(ctrl_comp_.observation_));
+
 
         return controller_interface::return_type::OK;
     }

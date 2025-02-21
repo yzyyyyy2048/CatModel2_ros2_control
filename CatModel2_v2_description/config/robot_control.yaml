@@ -76,7 +76,7 @@ unitree_guide_controller:
 
 CatModel2_v2_controller:
   ros__parameters:
-    update_rate: 100  # Hz
+    update_rate: 200  # Hz
 
     joints:
       - LF_HAA

@@ -20,9 +20,10 @@ namespace ocs2::legged_robot {
         virtual Task formulateConstraints();
 
         virtual Task formulateWeightedTasks(const vector_t &stateDesired, const vector_t &inputDesired,
-                                            scalar_t period);
+                                            scalar_t period, const vector_t &rbdStateMeasured);
 
     private:
         scalar_t weightSwingLeg_, weightBaseAccel_, weightContactForce_;
+        
     };
 } // namespace legged

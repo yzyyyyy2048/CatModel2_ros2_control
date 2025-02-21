@@ -26,6 +26,12 @@ namespace ocs2::legged_robot {
         num_decision_vars_ = info_.generalizedCoordinatesNum + 3 * info_.numThreeDofContacts + info_.actuatedDofNum;
         q_measured_ = vector_t(info_.generalizedCoordinatesNum);
         v_measured_ = vector_t(info_.generalizedCoordinatesNum);
+
+        output_torque.setZero(info_.actuatedDofNum);
+
+        // node_ = rclcpp::Node::make_shared("wbc_base");
+        // pos_measured_pub_ = node_->create_publisher<geometry_msgs::msg::PoseArray>("swing_leg/positions_measured", 10);
+        // pos_desired_pub_ = node_->create_publisher<geometry_msgs::msg::PoseArray>("swing_leg/positions_desired", 10);
     }
 
     vector_t WbcBase::update(const vector_t &stateDesired, const vector_t &inputDesired,
@@ -183,12 +189,14 @@ namespace ocs2::legged_robot {
     }
 
     Task WbcBase::formulateBaseAccelTask(const vector_t &stateDesired, const vector_t &inputDesired, scalar_t period) {
-        matrix_t a(6+2, num_decision_vars_);
+        matrix_t a(6, num_decision_vars_);
         a.setZero();
         a.block(0, 0, 6, 6) = matrix_t::Identity(6, 6);
 
         vector_t jointAccel = centroidal_model::getJointVelocities(inputDesired - input_last_, info_) / period;
         input_last_ = inputDesired;
+
+        // std::cout << "input_last: \\" << input_last_.transpose() << std::endl;
         mapping_.setPinocchioInterface(pinocchio_interface_desired_);
 
         const auto &model = pinocchio_interface_desired_.getModel();
@@ -206,16 +214,8 @@ namespace ocs2::legged_robot {
         centroidalMomentumRate.noalias() -= ADot * vDesired;
         centroidalMomentumRate.noalias() -= Aj * jointAccel;
 
-        Eigen::Matrix<scalar_t, 8, 1> b = Eigen::Matrix<scalar_t, 8, 1>::Zero();
-        b.segment<6>(0) = AbInv *centroidalMomentumRate;
-        
-        b(6) = jointAccel(6);
-        b(7) = jointAccel(7);
 
-        a(6,12)= 1;
-        a(7,13)= 1;
-
-        // Vector6 b = AbInv * centroidalMomentumRate;
+        Vector6 b = AbInv * centroidalMomentumRate;
 
         return {a, b, matrix_t(), vector_t()};
     }
@@ -232,6 +232,7 @@ namespace ocs2::legged_robot {
         a.setZero();
         b.setZero();
         size_t j = 0;
+
         for (size_t i = 0; i < info_.numThreeDofContacts; ++i) {
             if (!contact_flag_[i]) {
                 vector3_t accel = swing_kp_ * (posDesired[i] - posMeasured[i]) + swing_kd_ * (
@@ -243,8 +244,84 @@ namespace ocs2::legged_robot {
             }
         }
 
+        a.block(0,0,3 * (info_.numThreeDofContacts - num_contacts_),6).array() = 0.0;
+
+    //     auto createPoseArrayMsg = [](const std::vector<vector3_t>& positions) {
+    //     geometry_msgs::msg::PoseArray msg;
+    //     msg.poses.resize(positions.size());
+    //     for (size_t i = 0; i < positions.size(); ++i) {
+    //         msg.poses[i].position.x = positions[i].x();
+    //         msg.poses[i].position.y = positions[i].y();
+    //         msg.poses[i].position.z = positions[i].z();
+    //         msg.poses[i].orientation.w = 1.0;  // 无旋转，设置为单位四元数
+    //         msg.poses[i].orientation.x = 0.0;
+    //         msg.poses[i].orientation.y = 0.0;
+    //         msg.poses[i].orientation.z = 0.0;
+    //     }
+    //     return msg;
+    // };
+
+    // // 发布消息
+    // pos_measured_pub_->publish(createPoseArrayMsg(posMeasured));
+    // pos_desired_pub_->publish(createPoseArrayMsg(posDesired));
+
         return {a, b, matrix_t(), vector_t()};
     }
+    
+    Task WbcBase::formulateSpinalJointTask(const vector_t &stateDesired, const vector_t &inputDesired, const vector_t &rbdStateMeasured) {
+    // 设置接口：使用当前脊椎关节的测量信息
+
+    double spinal_kp_ = 50;
+    double spinal_kd_ = 1.0;
+
+    double pitch_pos_desired = stateDesired[18];
+    double pitch_vel_desired = inputDesired[18];
+
+    double yaw_pos_desired = stateDesired[19];
+    double yaw_vel_desired = inputDesired[19];
+
+    double pitch_pos_measured = rbdStateMeasured.segment(6, info_.actuatedDofNum)[6];
+    double pitch_vel_measured = rbdStateMeasured.segment(
+            info_.generalizedCoordinatesNum + 6, info_.actuatedDofNum)[6];
+
+    double yaw_pos_measured = rbdStateMeasured.segment(6, info_.actuatedDofNum)[7];
+    double yaw_vel_measured = rbdStateMeasured.segment(
+            info_.generalizedCoordinatesNum + 6, info_.actuatedDofNum)[7];
+
+
+    // 定义优化矩阵a和b
+    matrix_t a(2, num_decision_vars_);
+    vector_t b(a.rows());
+    a.setZero();
+    b.setZero();
+
+    b(0) = spinal_kp_ * (pitch_pos_desired - pitch_pos_measured) + spinal_kd_ * (pitch_vel_desired - pitch_vel_measured);
+
+    b(1) = spinal_kp_ * (yaw_pos_desired - yaw_pos_measured) + spinal_kd_ * (yaw_vel_desired - yaw_vel_measured);
+
+    a(0,12) = 1;
+    a(1,13) = 1;
+
+    return {a, b, matrix_t(), vector_t()};
+}
+
+
+    Task WbcBase::formulateTorquediffTask() {
+    // 设置接口：使用当前脊椎关节的测量信息
+
+
+    // 定义优化矩阵a和b
+    matrix_t a(14, num_decision_vars_);
+    vector_t b(a.rows());
+    a.setZero();
+    b.setZero();
+
+    a.diagonal().tail(14).setOnes();
+    b = output_torque;
+
+    return {a, b, matrix_t(), vector_t()};
+}
+
 
     Task WbcBase::formulateContactForceTask(const vector_t &inputDesired) const {
         matrix_t a(3 * info_.numThreeDofContacts, num_decision_vars_);

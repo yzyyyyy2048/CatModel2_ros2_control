@@ -145,6 +145,9 @@ using namespace legged_robot;
         std::atomic_bool controller_running_{}, mpc_running_{};
         benchmark::RepeatedTimer mpc_timer_;
         benchmark::RepeatedTimer wbc_timer_;
+
+        rclcpp::Time last_update_time_ = rclcpp::Time(0, 0, RCL_ROS_TIME); // 记录上次更新时间
+        rclcpp::Node::SharedPtr wbc_node_;  // 如果还没有节点需要添加
     };
 }
 
