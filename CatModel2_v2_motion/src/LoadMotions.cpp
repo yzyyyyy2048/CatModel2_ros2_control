@@ -131,6 +131,13 @@ void verifyHeader(const std::vector<std::string>& provided) {
                                                    "base_euler_x",
                                                    "base_euler_y",
                                                    "base_euler_z",
+                                                   "jointAngle_LF_HAA",
+                                                   "jointAngle_LF_HFE",
+                                                   "jointAngle_LF_KFE",
+                                                   "jointAngle_RF_HAA",
+                                                   "jointAngle_RF_HFE",
+                                                   "jointAngle_RF_KFE",
+                                                   "jointAngle_pitch",
                                                    "jointAngle_yaw",
                                                    "jointAngle_LH_HAA",
                                                    "jointAngle_LH_HFE",
@@ -138,13 +145,6 @@ void verifyHeader(const std::vector<std::string>& provided) {
                                                    "jointAngle_RH_HAA",
                                                    "jointAngle_RH_HFE",
                                                    "jointAngle_RH_KFE",
-                                                   "jointAngle_pitch",
-                                                   "jointAngle_LF_HAA",
-                                                   "jointAngle_LF_HFE",
-                                                   "jointAngle_LF_KFE",
-                                                   "jointAngle_RF_HAA",
-                                                   "jointAngle_RF_HFE",
-                                                   "jointAngle_RF_KFE",
                                                   };
   verifyHeaderImpl(expectedHeader, provided);
 }

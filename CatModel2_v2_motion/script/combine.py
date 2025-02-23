@@ -34,6 +34,7 @@ def read_file(state_file, euler_file, joint_file, foot_file):
     # 为每一列生成合适的列名
     base_state.columns = ['base_positionInWorld_x', 'base_positionInWorld_y', 'base_positionInWorld_z']
     base_euler.columns = ['base_euler_x', 'base_euler_y', 'base_euler_z']
+    # 取决于所提供轨迹的关节顺序，不是最后希望得到的顺序
     joint_pos.columns = ['jointAngle_yaw',  # base
                          'jointAngle_LH_HAA', 'jointAngle_LH_HFE', 'jointAngle_LH_KFE',
                          'jointAngle_RH_HAA', 'jointAngle_RH_HFE', 'jointAngle_RH_KFE',
@@ -68,17 +69,18 @@ def add_timestamp(combined_df):
     # 将时间戳列添加到数据表中
     combined_df['time'] = timestamps
 
-    # 更改列的顺序
+    # 更改列的顺序 -- [最终希望的顺序]
     cols = ['time', 
             'contactflag_LF', 'contactflag_RF', 'contactflag_LH', 'contactflag_RH',
             'base_positionInWorld_x', 'base_positionInWorld_y', 'base_positionInWorld_z', 
             'base_euler_x', 'base_euler_y', 'base_euler_z',
+            'jointAngle_LF_HAA', 'jointAngle_LF_HFE', 'jointAngle_LF_KFE',
+            'jointAngle_RF_HAA', 'jointAngle_RF_HFE', 'jointAngle_RF_KFE',
+            'jointAngle_pitch',
             'jointAngle_yaw', 
             'jointAngle_LH_HAA', 'jointAngle_LH_HFE', 'jointAngle_LH_KFE',
             'jointAngle_RH_HAA', 'jointAngle_RH_HFE', 'jointAngle_RH_KFE',
-            'jointAngle_pitch',
-            'jointAngle_LF_HAA', 'jointAngle_LF_HFE', 'jointAngle_LF_KFE',
-            'jointAngle_RF_HAA', 'jointAngle_RF_HFE', 'jointAngle_RF_KFE']
+        ]
     combined_df = combined_df[cols]
 
     return combined_df
@@ -261,7 +263,7 @@ if __name__ == '__main__':
     # 定义目标旋转速度和位移速度，来自 reference.info
     TARGET_ROTATION_VELOCITY = 1.27 # new: 1.27 
     TARGET_DISPLACEMENT_VELOCITY = 0.5 # old: 0.8 
-    comHeight = 0.32 # old: 0.26
+    comHeight = 0.318 # old: 0.26
     
     combined_df = read_file(state_file, euler_file, joint_file, foot_file)
     
@@ -273,7 +275,7 @@ if __name__ == '__main__':
         if col not in ['base_euler_z',
                        'jointAngle_LF_HAA', 'jointAngle_LF_HFE', 'jointAngle_LF_KFE',
                        'jointAngle_RF_HAA', 'jointAngle_RF_HFE', 'jointAngle_RF_KFE',
-                       'jointAngle_pitch',
+                       'jointAngle_pitch',  'jointAngle_yaw',
                        'jointAngle_LH_HAA', 'jointAngle_LH_HFE', 'jointAngle_LH_KFE',
                        'jointAngle_RH_HAA', 'jointAngle_RH_HFE', 'jointAngle_RH_KFE'
                        ]:

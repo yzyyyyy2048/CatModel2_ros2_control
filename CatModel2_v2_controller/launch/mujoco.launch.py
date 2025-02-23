@@ -90,11 +90,26 @@ def launch_setup(context, *args, **kwargs):
         arguments=["CatModel2_v2_controller", "--controller-manager", "/controller_manager"]
     )
 
+    target_publisher = Node(
+        package='CatModel2_v2_dummy',
+        executable='CatModel2_target',
+        name='CatModel2_target',
+        output='screen',
+        prefix="gnome-terminal --",
+        parameters=[
+            {
+                'referenceFile': os.path.join(get_package_share_directory(package_description), 'config',
+                                                       'ocs2', 'reference.info'),
+            },
+        ]
+    )
+
     return [
         rviz,
         robot_state_publisher,
         controller_manager,
         joint_state_publisher,
+        target_publisher,
         RegisterEventHandler(
             event_handler=OnProcessExit(
                 target_action=joint_state_publisher,
