@@ -253,10 +253,10 @@ def write_file(interpolated_df, filename):
         
 if __name__ == '__main__':
     # file path
-    state_file = 'dog_zig_walk_001_new/root_state.txt'
-    euler_file = 'dog_zig_walk_001_new/root_euler_angles.txt'
-    joint_file = 'dog_zig_walk_001_new/q_final.txt'
-    foot_file = 'dog_zig_walk_001_new/foot_pos.txt'
+    state_file = 'new/root_state.txt'
+    euler_file = 'new/root_euler_angles.txt'
+    joint_file = 'new/q_final.txt'
+    foot_file = 'new/foot_pos.txt'
     output_file = 'combined_output_interpolated.csv'
     # threshold
     threshold = 0.002
