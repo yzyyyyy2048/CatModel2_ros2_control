@@ -24,6 +24,8 @@ namespace ocs2::legged_robot {
         loadData::loadCppDataType(reference_file, "targetRotationVelocity", target_rotation_velocity_);
         loadData::loadCppDataType(reference_file, "targetDisplacementVelocity", target_displacement_velocity_);
 
+        target_pub = node->create_publisher<std_msgs::msg::Float32MultiArray>("target_pose", 10);
+
         
         auto motionTrajectoriesCallback =
                 [this](const ocs2_msgs::msg::MpcTargetTrajectories &msg) {
@@ -124,8 +126,17 @@ namespace ocs2::legged_robot {
             // std::cout << "not change" << std::endl;
             // std::cout << targetPose << std::endl;
         }
+
+
     }
     lasttargetPose = targetPose;
+
+        std_msgs::msg::Float32MultiArray target_msg;
+
+    
+        target_msg.data = std::vector<float>(targetPose.data(), targetPose.data() + targetPose.size());
+
+        target_pub->publish(target_msg);
 
         // std::cout << "Z方向的位置: " << currentPose(2) << std::endl;
 

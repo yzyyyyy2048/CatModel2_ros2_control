@@ -120,7 +120,7 @@ namespace legged {
         
 
 
-        posDes_msg.data = std::vector<float>(pos_des.data(), pos_des.data() + pos_des.size());
+        posDes_msg.data = std::vector<float>(optimized_state.data(), optimized_state.data() + optimized_state.size());
         velDes_msg.data = std::vector<float>(vel_des.data(), vel_des.data() + vel_des.size());
         posCur_msg.data = std::vector<float>(posCur.data(), posCur.data() + posCur.size());
         velCur_msg.data = std::vector<float>(velCur.data(), velCur.data() + velCur.size());

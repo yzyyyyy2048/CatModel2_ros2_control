@@ -64,8 +64,8 @@ namespace ocs2::legged_robot {
                                              scalar_t period ,const vector_t &rbdStateMeasured) {
         return formulateSwingLegTask() * weightSwingLeg_ + formulateBaseAccelTask(stateDesired, inputDesired, period) *
                weightBaseAccel_ +
-               formulateContactForceTask(inputDesired) * weightContactForce_ + formulateSpinalJointTask(stateDesired, inputDesired, rbdStateMeasured)*10
-               + formulateTorquediffTask()*0.1;
+               formulateContactForceTask(inputDesired) * weightContactForce_ + formulateSpinalJointTask(stateDesired, inputDesired, rbdStateMeasured)*0
+               + formulateTorquediffTask()*0;
     }
 
     void WeightedWbc::loadTasksSetting(const std::string &taskFile, bool verbose) {

@@ -11,6 +11,7 @@
 #include <ocs2_mpc/SystemObservation.h>
 #include <ocs2_oc/synchronized_module/ReferenceManagerInterface.h>
 #include <ocs2_msgs/msg/mpc_target_trajectories.hpp>
+#include "std_msgs/msg/float32_multi_array.hpp"
 
 struct CtrlComponent;
 
@@ -70,6 +71,8 @@ namespace ocs2::legged_robot {
         std::mutex motionTrajectoryMutex_;
         std::unique_ptr<TargetTrajectories> motionTrajectoryPtr_;
         rclcpp::Subscription<ocs2_msgs::msg::MpcTargetTrajectories>::SharedPtr motion_trajectories_subscriber_;
+
+        rclcpp::Publisher<std_msgs::msg::Float32MultiArray>::SharedPtr target_pub;
     };
 }
 
