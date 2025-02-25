@@ -4,4 +4,6 @@ motionList
 {
     [0] demo_motion
     [1] new
+    [2] test
+    [3] test2
 }
