@@ -142,7 +142,7 @@ namespace legged {
                 ctrl_comp_.joint_position_command_interface_[i].get().set_value(0);
                 ctrl_comp_.joint_velocity_command_interface_[i].get().set_value(0);
                 ctrl_comp_.joint_kp_command_interface_[i].get().set_value(0.0);
-                ctrl_comp_.joint_kd_command_interface_[i].get().set_value(0.35);
+                ctrl_comp_.joint_kd_command_interface_[i].get().set_value(0.0);
             }
             return controller_interface::return_type::ERROR;
         }

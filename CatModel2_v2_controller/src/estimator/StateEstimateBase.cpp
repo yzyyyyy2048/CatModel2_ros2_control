@@ -75,6 +75,7 @@ namespace ocs2::legged_robot {
         zyx_offset_(2) = imuBiasRoll_;
 
         const vector3_t zyx = quatToZyx(quat_) + zyx_offset_;
+        // std::cout << "zyx 的值是: " << zyx << std::endl;
         const vector3_t angularVelGlobal = getGlobalAngularVelocityFromEulerAnglesZyxDerivatives<scalar_t>(
             zyx, getEulerAnglesZyxDerivativesFromLocalAngularVelocity<scalar_t>(quatToZyx(quat_), angular_vel_local_));
         updateAngular(zyx, angularVelGlobal);
