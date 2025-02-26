@@ -338,6 +338,7 @@ namespace legged {
 
         ctrl_comp_.target_manager_ = std::make_shared<TargetManager>(ctrl_comp_,
                                                                      legged_interface_->getReferenceManagerPtr(),
+                                                                     get_node(),
                                                                      task_file_, reference_file_);
     }
 

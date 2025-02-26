@@ -6,7 +6,7 @@
 
 #include <ocs2_core/misc/LoadData.h>
 #include <ocs2_robotic_tools/common/RotationTransforms.h>
-
+#include <ocs2_ros_interfaces/common/RosMsgConversions.h>
 #include "CatModel2_v2_controller/control/CtrlComponent.h"
 
 
@@ -14,6 +14,7 @@
 namespace ocs2::legged_robot {
     TargetManager::TargetManager(CtrlComponent &ctrl_component,
                                  const std::shared_ptr<ReferenceManagerInterface> &referenceManagerPtr,
+                                 const rclcpp_lifecycle::LifecycleNode::SharedPtr &node,
                                  const std::string &task_file,
                                  const std::string &reference_file)
         : ctrl_component_(ctrl_component),
@@ -24,6 +25,23 @@ namespace ocs2::legged_robot {
         loadData::loadCppDataType(task_file, "mpc.timeHorizon", time_to_target_);
         loadData::loadCppDataType(reference_file, "targetRotationVelocity", target_rotation_velocity_);
         loadData::loadCppDataType(reference_file, "targetDisplacementVelocity", target_displacement_velocity_);
+
+
+        
+        auto motionTrajectoriesCallback =
+                [this](const ocs2_msgs::msg::MpcTargetTrajectories &msg) {
+            motion_targetTrajectories =
+                    ros_msg_conversions::readTargetTrajectoriesMsg(msg);
+            RCLCPP_INFO(rclcpp::get_logger("target_manager"), "Motion Trajectory is received.!!!!!");
+            RCLCPP_INFO(rclcpp::get_logger("target_manager"), "Time size: %d", motion_targetTrajectories.timeTrajectory.size());
+            motionTrajectoryReceived_ = true;
+        };
+
+        motion_trajectories_subscriber_ =
+                node->create_subscription<ocs2_msgs::msg::MpcTargetTrajectories>(
+                    "legged_robot_mpc_target", 1, motionTrajectoriesCallback);
+
+        RCLCPP_INFO(rclcpp::get_logger("target_manager"), "target_manager is ready.");
         
     //     if(flag_setup_){  // Setup
     //     if (z_coeff_(0) < 1.0){
@@ -63,6 +81,16 @@ namespace ocs2::legged_robot {
 
 
 void TargetManager::update() {
+    if (motionTrajectoryReceived_) {
+            RCLCPP_INFO(rclcpp::get_logger("target_manager"), "Time size2: %d", motion_targetTrajectories.timeTrajectory.size());
+            referenceManagerPtr_->setTargetTrajectories(std::move(motion_targetTrajectories));
+            motionTrajectoryRunning_ = true;
+            motionTrajectoryReceived_ = false;
+            return;
+        }
+        if (motionTrajectoryRunning_) {
+            return;
+        }
     vector_t cmdGoal = vector_t::Zero(6);
     cmdGoal[0] = ctrl_component_.control_inputs_.ly * target_displacement_velocity_;
     cmdGoal[1] = -ctrl_component_.control_inputs_.lx * target_displacement_velocity_;

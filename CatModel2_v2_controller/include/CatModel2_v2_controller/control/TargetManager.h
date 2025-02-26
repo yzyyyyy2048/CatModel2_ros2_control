@@ -4,13 +4,14 @@
 
 #ifndef TARGETMANAGER_H
 #define TARGETMANAGER_H
-
+#include "rclcpp/rclcpp.hpp"
+#include <rclcpp_lifecycle/lifecycle_node.hpp>
 
 #include <memory>
 #include <ocs2_mpc/SystemObservation.h>
 #include <ocs2_oc/synchronized_module/ReferenceManagerInterface.h>
 #include "rclcpp/rclcpp.hpp"
-
+#include <ocs2_msgs/msg/mpc_target_trajectories.hpp>
 #include <ocs2_msgs/msg/mpc_observation.hpp>
 
 struct CtrlComponent;
@@ -23,6 +24,7 @@ namespace ocs2::legged_robot {
 
         TargetManager(CtrlComponent &ctrl_component,
                       const std::shared_ptr<ReferenceManagerInterface> &referenceManagerPtr,
+                      const rclcpp_lifecycle::LifecycleNode::SharedPtr &node,
                       const std::string& task_file,
                       const std::string& reference_file);
 
@@ -77,6 +79,12 @@ namespace ocs2::legged_robot {
         double ramp_start_time_ = 0.0;         // 缓慢启动的开始时间
         double initial_height_ = 0.0;          // 启动时的初始高度
         double target_height_speed_ = 0.0;     // 高度变化的速度（m/s）
+
+
+        bool motionTrajectoryReceived_{false};
+        bool motionTrajectoryRunning_{false};
+        TargetTrajectories motion_targetTrajectories;
+        rclcpp::Subscription<ocs2_msgs::msg::MpcTargetTrajectories>::SharedPtr motion_trajectories_subscriber_;
     };
 }
 
