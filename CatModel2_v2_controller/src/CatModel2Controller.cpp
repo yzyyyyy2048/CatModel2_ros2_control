@@ -115,7 +115,7 @@ namespace legged {
         std_msgs::msg::Float32MultiArray wbc_msg;
 
         vector_t posCur = ctrl_comp_.observation_.state;
-        vector_t velCur = measured_rbd_state_.tail(14);
+        vector_t velCur = measured_rbd_state_.tail(20);
 
         
 

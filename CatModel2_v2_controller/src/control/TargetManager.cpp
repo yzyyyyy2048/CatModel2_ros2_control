@@ -112,7 +112,7 @@ namespace ocs2::legged_robot {
                 vector_t target(6);
                 target(0) = currentPose(0) + cmd_vel_rot(0) * time_to_target_;
                 target(1) = currentPose(1) + cmd_vel_rot(1) * time_to_target_;
-                target(2) = command_height_ + ctrl_component_.control_inputs_.ry * command_height_ * 3.0;
+                target(2) = command_height_ + ctrl_component_.control_inputs_.ry * command_height_ * 3.0*0;
                 target(3) = currentPose(3) + cmdGoal(3) * time_to_target_;
                 target(4) = 0;
                 target(5) = 0;

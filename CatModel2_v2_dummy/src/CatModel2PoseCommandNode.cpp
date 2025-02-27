@@ -30,6 +30,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <ocs2_core/Types.h>
 #include <ocs2_core/misc/LoadData.h>
 #include <ocs2_ros_interfaces/command/TargetTrajectoriesKeyboardPublisher.h>
+#include <ocs2_robotic_tools/common/RotationTransforms.h>
+#include <ocs2_ros_interfaces/common/RosMsgConversions.h>
 
 #include <string>
 
@@ -62,18 +64,21 @@ scalar_t estimateTimeToTarget(const vector_t &desiredBaseDisplacement) {
 TargetTrajectories commandLineToTargetTrajectories(
     const vector_t &commadLineTarget, const SystemObservation &observation) {
     const vector_t currentPose = observation.state.segment<6>(6);
+    const Eigen::Matrix<scalar_t, 3, 1> zyx = currentPose.tail(3);
+    vector_t cmd_vel_rot = getRotationMatrixFromZyxEulerAngles(zyx) * commadLineTarget.head(3);
+
     const vector_t targetPose = [&]() {
         vector_t target(6);
         // base p_x, p_y are relative to current state
-        target(0) = currentPose(0) + commadLineTarget(0);
-        target(1) = currentPose(1) + commadLineTarget(1);
+        target(0) = currentPose(0) + cmd_vel_rot(0);
+        target(1) = currentPose(1) + cmd_vel_rot(1);
         // base z relative to the default height
-        target(2) = comHeight + commadLineTarget(2);
+        target(2) = comHeight + cmd_vel_rot(2);
         // theta_z relative to current
         target(3) = currentPose(3) + commadLineTarget(3) * M_PI / 180.0;
         // theta_y, theta_x
-        target(4) = currentPose(4);
-        target(5) = currentPose(5);
+        target(4) = 0;
+        target(5) = 0;
         return target;
     }();
 

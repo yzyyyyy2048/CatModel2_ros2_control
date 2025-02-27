@@ -329,15 +329,15 @@ kalmanFilter
     imuProcessNoisePosition     0.02
     imuProcessNoiseVelocity     0.02
     footProcessNoisePosition    0.002
-    footSensorNoisePosition     0.005
+    footSensorNoisePosition     0.001
     footSensorNoiseVelocity     0.1
-    footHeightSensorNoise       0.01
+    footHeightSensorNoise       0.001
 }
 
 imuBias
 {
    yaw    0.0     ; useless for relative yaw control
-   pitch  0.0    ; -0.01
-   roll   0.0    ; 0.03
+   pitch  0.0     ; -0.01
+   roll   0.0     ; 0.03
 }
 
