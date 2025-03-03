@@ -1,9 +1,11 @@
 #include "hardware_CatModel2_mujoco/HardwareCatModel2.h"
 #include <rclcpp/logging.hpp>
 #include "crc32.h"
+#include <iostream>
 
 #define TOPIC_LOWCMD "rt/lowcmd"
 #define TOPIC_LOWSTATE "rt/lowstate"
+#define TOPIC_HIGHSTATE "rt/sportmodestate"
 
 using namespace unitree::robot;
 using hardware_interface::return_type;
@@ -27,6 +29,8 @@ rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn Hardwa
     imu_states_.assign(10, 0);
     foot_force_.assign(4, 0);
 
+    ground_truth_.assign(6, 0);
+
     for (const auto &joint: info_.joints) {
         for (const auto &interface: joint.state_interfaces) {
             joint_interfaces[interface.name].push_back(joint.name);
@@ -49,6 +53,15 @@ rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn Hardwa
         },
         1);
     initLowCmd();
+    
+    high_state_subscriber_ =
+            std::make_shared<ChannelSubscriber<unitree_go::msg::dds_::SportModeState_> >(
+                TOPIC_HIGHSTATE);
+    high_state_subscriber_->InitChannel(
+        [this](auto &&PH1) {
+            highStateMessageHandle(std::forward<decltype(PH1)>(PH1));
+        },
+        1);
 
 
     return SystemInterface::on_init(info);
@@ -83,6 +96,15 @@ std::vector<hardware_interface::StateInterface> HardwareCatModel2::export_state_
     for (uint i = 0; i < info_.sensors[1].state_interfaces.size(); i++) {
         state_interfaces.emplace_back(
             info_.sensors[1].name, info_.sensors[1].state_interfaces[i].name, &foot_force_[i]);
+    }
+
+        // export odometer state interface
+    if (info_.sensors.size() > 2) {
+        // export high state interface
+        for (uint i = 0; i < info_.sensors[2].state_interfaces.size(); i++) {
+            state_interfaces.emplace_back(
+                info_.sensors[2].name, info_.sensors[2].state_interfaces[i].name, &ground_truth_[i]);
+        }
     }
 
 
@@ -132,6 +154,25 @@ return_type HardwareCatModel2::read(const rclcpp::Time & /*time*/, const rclcpp:
     imu_states_[8] = low_state_.imu_state().accelerometer()[1];
     imu_states_[9] = low_state_.imu_state().accelerometer()[2];
 
+    ground_truth_[0] = high_state_.position()[0];
+    ground_truth_[1] = high_state_.position()[1];
+    ground_truth_[2] = high_state_.position()[2];
+
+    ground_truth_[3] = high_state_.velocity()[0];
+    ground_truth_[4] = high_state_.velocity()[1];
+    ground_truth_[5] = high_state_.velocity()[2];
+
+    // RCLCPP_INFO(get_logger(), "ground_truth: %f %f %f %f %f %f", ground_truth_[0], ground_truth_[1], ground_truth_[2],
+    //             ground_truth_[3], ground_truth_[4], ground_truth_[5]);
+
+    // std::cout << "ground_truth: " 
+    //       << ground_truth_[0] << " " 
+    //       << ground_truth_[1] << " " 
+    //       << ground_truth_[2] << " " 
+    //       << ground_truth_[3] << " " 
+    //       << ground_truth_[4] << " " 
+    //       << ground_truth_[5] << std::endl;
+
     // contact states
     foot_force_[0] = low_state_.foot_force()[0];
     foot_force_[1] = low_state_.foot_force()[1];
@@ -177,6 +218,10 @@ void HardwareCatModel2::initLowCmd() {
 
 void HardwareCatModel2::lowStateMessageHandle(const void *messages) {
     low_state_ = *static_cast<const unitree_go::msg::dds_::LowState_ *>(messages);
+}
+
+void HardwareCatModel2::highStateMessageHandle(const void *messages) {
+    high_state_ = *static_cast<const unitree_go::msg::dds_::SportModeState_ *>(messages);
 }
 
 #include "pluginlib/class_list_macros.hpp"

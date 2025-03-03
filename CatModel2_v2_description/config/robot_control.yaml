@@ -134,6 +134,15 @@ CatModel2_v2_controller:
       - LH
       - RH
 
+    odom_name: "odometer"
+    odom_interfaces:
+      - position.x
+      - position.y
+      - position.z
+      - velocity.x
+      - velocity.y
+      - velocity.z
+
 rl_quadruped_controller:
   ros__parameters:
     update_rate: 200  # Hz

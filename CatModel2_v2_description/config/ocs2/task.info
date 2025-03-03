@@ -204,8 +204,8 @@ Q
   (15,15)  5.0     ; RF_HAA
   (16,16)  5.0     ; RF_HFE
   (17,17)  2.5     ; RF_KFE
-  (18,18)  10      ; bodyf_pitch_joint
-  (19,19)  10.0    ; bodyb_yaw_joint
+  (18,18)  5.0      ; bodyf_pitch_joint
+  (19,19)  5.0    ; bodyb_yaw_joint
   (20,20)  5.0     ; LH_HAA
   (21,21)  2.5     ; LH_HFE
   (22,22)  2.5     ; LH_KFE
@@ -326,12 +326,12 @@ weight
 kalmanFilter
 {
     footRadius                  0.02
-    imuProcessNoisePosition     0.02
-    imuProcessNoiseVelocity     0.02
-    footProcessNoisePosition    0.002
-    footSensorNoisePosition     0.001
+    imuProcessNoisePosition     0.002
+    imuProcessNoiseVelocity     0.002
+    footProcessNoisePosition    0.1
+    footSensorNoisePosition     0.1
     footSensorNoiseVelocity     0.1
-    footHeightSensorNoise       0.001
+    footHeightSensorNoise       0.1
 }
 
 imuBias

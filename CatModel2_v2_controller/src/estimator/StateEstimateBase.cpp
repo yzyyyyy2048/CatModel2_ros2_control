@@ -24,6 +24,9 @@ namespace ocs2::legged_robot {
           rbd_state_(vector_t::Zero(2 * info_.generalizedCoordinatesNum)), node_(std::move(node)) {
         odom_pub_ = node_->create_publisher<nav_msgs::msg::Odometry>("odom", 10);
         pose_pub_ = node_->create_publisher<geometry_msgs::msg::PoseWithCovarianceStamped>("pose", 10);
+
+        ground_truth_pos_pub = node_->create_publisher<std_msgs::msg::Float32MultiArray>("ground_truth_pos", 10);
+        ground_truth_vel_pub = node_->create_publisher<std_msgs::msg::Float32MultiArray>("ground_truth_vel", 10);
     }
 
     void StateEstimateBase::updateJointStates() {
@@ -42,7 +45,8 @@ namespace ocs2::legged_robot {
     void StateEstimateBase::updateContact() {
         const size_t size = ctrl_component_.foot_force_state_interface_.size();
         for (int i = 0; i < size; i++) {
-            contact_flag_[i] = ctrl_component_.foot_force_state_interface_[i].get().get_value() > 0.1;
+            // contact_flag_[i] = ctrl_component_.foot_force_state_interface_[i].get().get_value() > 0.1;
+            // std::cout << "contact_flag_[" << i << "]: " << contact_flag_[i]<< std::endl;
         }
     }
 
@@ -65,6 +69,27 @@ namespace ocs2::legged_robot {
             ctrl_component_.imu_state_interface_[8].get().get_value(),
             ctrl_component_.imu_state_interface_[9].get().get_value()
         };
+
+        groundTruth_pos = {
+            ctrl_component_.odom_state_interface_[0].get().get_value(),
+            ctrl_component_.odom_state_interface_[1].get().get_value(),
+            ctrl_component_.odom_state_interface_[2].get().get_value()
+        };
+
+        groundTruth_vel = {
+            ctrl_component_.odom_state_interface_[3].get().get_value(),
+            ctrl_component_.odom_state_interface_[4].get().get_value(),
+            ctrl_component_.odom_state_interface_[5].get().get_value()
+        };
+
+        std_msgs::msg::Float32MultiArray groundTruth_pos_msg;
+        groundTruth_pos_msg.data = std::vector<float>(groundTruth_pos.begin(), groundTruth_pos.end());
+        ground_truth_pos_pub->publish(groundTruth_pos_msg);
+
+        std_msgs::msg::Float32MultiArray groundTruth_vel_msg;
+        groundTruth_vel_msg.data = std::vector<float>(groundTruth_vel.begin(), groundTruth_vel.end());
+        ground_truth_vel_pub->publish(groundTruth_vel_msg);
+        
 
         // orientationCovariance_ = orientationCovariance;
         // angularVelCovariance_ = angularVelCovariance;

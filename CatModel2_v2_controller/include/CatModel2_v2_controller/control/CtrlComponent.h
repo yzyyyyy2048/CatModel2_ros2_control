@@ -41,6 +41,10 @@ struct CtrlComponent {
     std::vector<std::reference_wrapper<hardware_interface::LoanedStateInterface> >
     foot_force_state_interface_;
 
+
+    std::vector<std::reference_wrapper<hardware_interface::LoanedStateInterface> >
+    odom_state_interface_;
+
     control_input_msgs::msg::Inputs control_inputs_;
     ocs2::SystemObservation observation_;
     int frequency_{};

@@ -102,6 +102,9 @@ using namespace legged_robot;
         std::string foot_force_name_;
         std::vector<std::string> foot_force_interface_types_;
 
+        std::string odom_name_;
+        std::vector<std::string> odom_interface_types_;
+
         double default_kp_ = 0;
         double default_kd_ = 3;
 

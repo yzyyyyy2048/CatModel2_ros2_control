@@ -39,6 +39,9 @@ namespace legged {
                 conf.names.push_back(joint_name + "/" += interface_type);
             }
         }
+        for (const auto &interface_type: odom_interface_types_) {
+                conf.names.push_back(odom_name_ + "/" += interface_type);
+            }
 
         for (const auto &interface_type: imu_interface_types_) {
             conf.names.push_back(imu_name_ + "/" += interface_type);
@@ -115,7 +118,7 @@ namespace legged {
         std_msgs::msg::Float32MultiArray wbc_msg;
 
         vector_t posCur = ctrl_comp_.observation_.state;
-        vector_t velCur = measured_rbd_state_.tail(20);
+        vector_t velCur = measured_rbd_state_;
 
         
 
@@ -196,6 +199,9 @@ namespace legged {
         foot_force_name_ = auto_declare<std::string>("foot_force_name", foot_force_name_);
         foot_force_interface_types_ =
                 auto_declare<std::vector<std::string> >("foot_force_interfaces", state_interface_types_);
+
+        odom_name_ = auto_declare<std::string>("odom_name", odom_name_);
+        odom_interface_types_ = auto_declare<std::vector<std::string> >("odom_interfaces", state_interface_types_);        
 
         // PD gains
         default_kp_ = auto_declare<double>("default_kp", default_kp_);
@@ -282,9 +288,11 @@ namespace legged {
                 ctrl_comp_.imu_state_interface_.emplace_back(interface);
             } else if (interface.get_prefix_name() == foot_force_name_) {
                 ctrl_comp_.foot_force_state_interface_.emplace_back(interface);
-            } else {
+            }  else if (interface.get_prefix_name() == odom_name_) {
+                ctrl_comp_.odom_state_interface_.emplace_back(interface);
+            }   else {
                 state_interface_map_[interface.get_interface_name()]->push_back(interface);
-            }
+            } 
         }
 
         if (mpc_running_ == false) {

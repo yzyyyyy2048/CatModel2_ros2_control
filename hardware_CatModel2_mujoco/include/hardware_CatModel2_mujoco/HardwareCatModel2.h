@@ -7,8 +7,10 @@
 
 #include <unitree/idl/go2/LowState_.hpp>
 #include <unitree/idl/go2/LowCmd_.hpp>
+#include <unitree/idl/go2/SportModeState_.hpp>
 #include <unitree/robot/channel/channel_publisher.hpp>
 #include <unitree/robot/channel/channel_subscriber.hpp>
+#include <rclcpp/rclcpp.hpp>
 
 class HardwareCatModel2 final : public hardware_interface::SystemInterface {
 public:
@@ -35,6 +37,7 @@ protected:
 
     std::vector<double> imu_states_;
     std::vector<double> foot_force_;
+    std::vector<double> ground_truth_;
 
     std::unordered_map<std::string, std::vector<std::string> > joint_interfaces = {
         {"position", {}},
@@ -46,13 +49,17 @@ protected:
     void initLowCmd();
 
     void lowStateMessageHandle(const void *messages);
+    void highStateMessageHandle(const void *messages);
+
 
     unitree_go::msg::dds_::LowCmd_ low_cmd_{}; // default init
     unitree_go::msg::dds_::LowState_ low_state_{}; // default init
+    unitree_go::msg::dds_::SportModeState_ high_state_{}; // default init
 
     /*publisher*/
     unitree::robot::ChannelPublisherPtr<unitree_go::msg::dds_::LowCmd_> low_cmd_publisher_;
     /*subscriber*/
+    unitree::robot::ChannelSubscriberPtr<unitree_go::msg::dds_::SportModeState_> high_state_subscriber_;
     unitree::robot::ChannelSubscriberPtr<unitree_go::msg::dds_::LowState_> lows_tate_subscriber_;
 };
 

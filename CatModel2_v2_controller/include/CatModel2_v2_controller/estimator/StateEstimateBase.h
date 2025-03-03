@@ -15,6 +15,7 @@
 #include <CatModel2_v2_interface/gait/MotionPhaseDefinition.h>
 #include <ocs2_pinocchio_interface/PinocchioEndEffectorKinematics.h>
 #include <rclcpp_lifecycle/lifecycle_node.hpp>
+#include <std_msgs/msg/float32_multi_array.hpp>
 
 struct CtrlComponent;
 
@@ -64,9 +65,15 @@ namespace ocs2::legged_robot {
         vector3_t angular_vel_local_, linear_accel_local_;
         matrix3_t orientationCovariance_, angularVelCovariance_, linearAccelCovariance_;
 
+        vector3_t groundTruth_pos;
+        vector3_t groundTruth_vel;
+
         rclcpp::Publisher<nav_msgs::msg::Odometry>::SharedPtr odom_pub_;
         rclcpp::Publisher<geometry_msgs::msg::PoseWithCovarianceStamped>::SharedPtr pose_pub_;
         rclcpp_lifecycle::LifecycleNode::SharedPtr node_;
+
+        rclcpp::Publisher<std_msgs::msg::Float32MultiArray>::SharedPtr ground_truth_pos_pub;
+        rclcpp::Publisher<std_msgs::msg::Float32MultiArray>::SharedPtr ground_truth_vel_pub;
     };
 
     template<typename T>
