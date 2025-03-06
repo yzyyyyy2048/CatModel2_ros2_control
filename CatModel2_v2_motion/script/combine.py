@@ -200,13 +200,13 @@ def judge_stance(foot_pos_in_world):
             
         
     # 绘制波谷
-    plt.plot(foot_pos_in_world.iloc[:, 2], label='LF')
-    plt.plot(foot_pos_in_world.iloc[:, 5], label='RF')
+    # plt.plot(foot_pos_in_world.iloc[:, 2], label='LF')
+    # plt.plot(foot_pos_in_world.iloc[:, 5], label='RF')
     # plt.plot(foot_pos_in_world.iloc[:, 8], label='LH')
     # plt.plot(foot_pos_in_world.iloc[:, 11], label='RH')
-    plt.scatter(record, foot_pos_in_world.iloc[record, 2], c='r', label='valleys')
-    plt.legend()
-    plt.show()
+    # plt.scatter(record, foot_pos_in_world.iloc[record, 2], c='r', label='valleys')
+    # plt.legend()
+    # plt.show()
     return contact_flag
 
 def draw_foot_pos(foot_pos_in_world):
@@ -241,6 +241,23 @@ def add_contact_flag(df):
     # 将接触状态数据添加到数据表中
     df = pd.concat([df, contact_flag], axis=1)
     return df
+
+def judge_center_of_each_circle(df):
+    base_x = df['base_positionInWorld_x']
+    base_y = df['base_positionInWorld_y']
+
+    peaks_down, _ = find_peaks(-base_y)  # 波谷
+    peaks_up,   _ = find_peaks( base_y)  # 波峰
+    plt.plot(base_x, base_y)
+    plt.plot(base_x[peaks_down], base_y[peaks_down], 'ro')  # 用红色标记波谷
+    plt.plot(base_x[peaks_up  ], base_y[peaks_up  ], 'go')  # 用绿色标记波峰
+    plt.show()
+
+    # 中心坐标
+
+    print("Center of each circle: ")
+    for i in range(len(peaks_down)):
+        print(round((base_x[peaks_down[i]]), 2), round((base_x[peaks_up[i]]), 2))
     
 
 def write_file(interpolated_df, filename):
@@ -253,16 +270,16 @@ def write_file(interpolated_df, filename):
         
 if __name__ == '__main__':
     # file path
-    state_file = 'new/root_state.txt'
-    euler_file = 'new/root_euler_angles.txt'
-    joint_file = 'new/q_final.txt'
-    foot_file = 'new/foot_pos.txt'
+    state_file = 'dog_zig_walk_001_new/root_state.txt'
+    euler_file = 'dog_zig_walk_001_new/root_euler_angles.txt'
+    joint_file = 'dog_zig_walk_001_new/q_final.txt'
+    foot_file = 'dog_zig_walk_001_new/foot_pos.txt'
     output_file = 'combined_output_interpolated.csv'
     # threshold
     threshold = 0.002
     # 定义目标旋转速度和位移速度，来自 reference.info
-    TARGET_ROTATION_VELOCITY = 1.27 # new: 1.27 
-    TARGET_DISPLACEMENT_VELOCITY = 0.5 # old: 0.8 
+    TARGET_ROTATION_VELOCITY = 0.78 # new: 1.27 
+    TARGET_DISPLACEMENT_VELOCITY = 0.3 # old: 0.8 
     comHeight = 0.318 # old: 0.26
     
     combined_df = read_file(state_file, euler_file, joint_file, foot_file)
@@ -285,7 +302,14 @@ if __name__ == '__main__':
         
     combined_df = add_contact_flag(combined_df)
     combined_df = add_timestamp(combined_df)
+    # 只取前1500行
+    combined_df = combined_df[:5116]
     write_file(combined_df, output_file)
+
+    # with open('combined_output_interpolated.csv', 'r') as file:
+    #     combined_df = pd.read_csv(file, sep=', ')
+
+    # judge_center_of_each_circle(combined_df)
     
         
     

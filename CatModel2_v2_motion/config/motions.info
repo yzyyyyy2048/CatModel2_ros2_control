@@ -3,7 +3,6 @@ dt      0.05;
 motionList
 {
     [0] demo_motion
-    [1] new
-    [2] test
-    [3] test2
+    [1] slow_test
+    [2] slow
 }
