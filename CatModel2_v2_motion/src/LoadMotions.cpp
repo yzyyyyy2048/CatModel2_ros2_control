@@ -107,7 +107,7 @@ std::pair<ocs2::TargetTrajectories, ModeSequenceTemplate> readMotion(const CsvDa
 
     // State trajectory
     targetTrajectories.stateTrajectory.push_back(vector_t(STATE_DIM));
-    targetTrajectories.stateTrajectory.back() << vector_t::Zero(6), basePositionInWorld, eulerXYZ[2], 0, 0, jointPositions;
+    targetTrajectories.stateTrajectory.back() << vector_t::Zero(6), basePositionInWorld, eulerXYZ[2], 0, 0, -0.10, 0.72, -1.44, 0.10, 0.72, -1.44, 0, 0, -0.10, 0.72, -1.44, 0.1, 0.72, -1.44;
 
     // Input trajectory
     targetTrajectories.inputTrajectory.push_back(vector_t(INPUT_DIM));

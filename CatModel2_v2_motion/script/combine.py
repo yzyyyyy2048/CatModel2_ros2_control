@@ -210,6 +210,7 @@ def judge_stance(foot_pos_in_world):
     return contact_flag
 
 def draw_foot_pos(foot_pos_in_world):
+    base_positon = pd.DataFrame(foot_pos_in_world[:, :3])
     foot_pos_in_world = pd.DataFrame(foot_pos_in_world)
     # plt.plot(foot_pos_in_world.iloc[:, 0], foot_pos_in_world.iloc[:, 1], label='LF')
     # plt.plot(foot_pos_in_world.iloc[:, 3], foot_pos_in_world.iloc[:, 4], label='RF')
@@ -218,8 +219,13 @@ def draw_foot_pos(foot_pos_in_world):
     # plt.legend()
     # plt.show()
     
+    # 绘制世界系x坐标变化
+    plt.plot(base_positon.iloc[:, 0], base_positon.iloc[:, 1], marker='o', linestyle='None')
+
+    # 画所有点
+    plt.scatter(base_positon.iloc[0, 0], base_positon.iloc[0, 1], c='r', label='start')
     # 绘制四条腿的z坐标变化
-    plt.plot(foot_pos_in_world.iloc[:, 2], label='LF')
+    # plt.plot(foot_pos_in_world.iloc[:, 2], label='LF')
     # plt.plot(foot_pos_in_world.iloc[:, 5], label='RF')
     # plt.plot(foot_pos_in_world.iloc[:, 8], label='LH')
     # plt.plot(foot_pos_in_world.iloc[:, 11], label='RH')
@@ -228,7 +234,7 @@ def draw_foot_pos(foot_pos_in_world):
 
 def add_contact_flag(df):
     foot_pos_in_world = get_foot_pos_in_world(df)
-    # draw_foot_pos(foot_pos_in_world)
+    draw_foot_pos(foot_pos_in_world)
     contact_flag = judge_stance(foot_pos_in_world)
     contact_flag = pd.DataFrame(contact_flag)
     contact_flag.columns = ['contactflag_LF', 'contactflag_RF', 'contactflag_LH', 'contactflag_RH']
@@ -270,13 +276,13 @@ def write_file(interpolated_df, filename):
         
 if __name__ == '__main__':
     # file path
-    state_file = 'dog_zig_walk_001_new/root_state.txt'
-    euler_file = 'dog_zig_walk_001_new/root_euler_angles.txt'
-    joint_file = 'dog_zig_walk_001_new/q_final.txt'
-    foot_file = 'dog_zig_walk_001_new/foot_pos.txt'
+    state_file = 'new/root_state.txt'
+    euler_file = 'new/root_euler_angles.txt'
+    joint_file = 'new/q_final.txt'
+    foot_file = 'new/foot_pos.txt'
     output_file = 'combined_output_interpolated.csv'
     # threshold
-    threshold = 0.002
+    # threshold = 0.002
     # 定义目标旋转速度和位移速度，来自 reference.info
     TARGET_ROTATION_VELOCITY = 0.78 # new: 1.27 
     TARGET_DISPLACEMENT_VELOCITY = 0.3 # old: 0.8 
@@ -285,25 +291,26 @@ if __name__ == '__main__':
     combined_df = read_file(state_file, euler_file, joint_file, foot_file)
     
     # 使用滑动窗口对所有列进行平滑处理
-    combined_df = combined_df.rolling(window=28, min_periods=1).mean()
+    combined_df[:500] = combined_df[:500].rolling(window=30, min_periods=1).mean()
 
     # 依次对每一列进行插值
-    for col in combined_df.columns:
-        if col not in ['base_euler_z',
-                       'jointAngle_LF_HAA', 'jointAngle_LF_HFE', 'jointAngle_LF_KFE',
-                       'jointAngle_RF_HAA', 'jointAngle_RF_HFE', 'jointAngle_RF_KFE',
-                       'jointAngle_pitch',  'jointAngle_yaw',
-                       'jointAngle_LH_HAA', 'jointAngle_LH_HFE', 'jointAngle_LH_KFE',
-                       'jointAngle_RH_HAA', 'jointAngle_RH_HFE', 'jointAngle_RH_KFE'
-                       ]:
-            continue
-        interpolated_df = interpolate_by_col(combined_df, threshold, col)
-        combined_df = interpolated_df
+    # for col in combined_df.columns:
+    #     if col not in ['base_euler_z',
+    #                    'jointAngle_LF_HAA', 'jointAngle_LF_HFE', 'jointAngle_LF_KFE',
+    #                    'jointAngle_RF_HAA', 'jointAngle_RF_HFE', 'jointAngle_RF_KFE',
+    #                    'jointAngle_pitch',  'jointAngle_yaw',
+    #                    'jointAngle_LH_HAA', 'jointAngle_LH_HFE', 'jointAngle_LH_KFE',
+    #                    'jointAngle_RH_HAA', 'jointAngle_RH_HFE', 'jointAngle_RH_KFE',
+    #                 #    'base_positionInWorld_x', 'base_positionInWorld_y'
+    #                    ]:
+    #         continue
+    #     interpolated_df = interpolate_by_col(combined_df, threshold, col)
+    #     combined_df = interpolated_df
         
     combined_df = add_contact_flag(combined_df)
     combined_df = add_timestamp(combined_df)
     # 只取前1500行
-    combined_df = combined_df[:5116]
+    # combined_df = combined_df[:5120]
     write_file(combined_df, output_file)
 
     # with open('combined_output_interpolated.csv', 'r') as file:
