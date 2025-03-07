@@ -5,7 +5,7 @@ comHeight                           0.31
 
 defaultJointState
 {
-   (0,0)  -0.10   ; LF_HAA
+   (0,0)   -0.10   ; LF_HAA
    (1,0)   0.72   ; LF_HFE
    (2,0)  -1.44   ; LF_KFE
    (3,0)   0.10   ; RF_HAA
