@@ -45,7 +45,19 @@ add_library(${PROJECT_NAME} SHARED
         src/control/GaitManager.cpp
         src/control/TargetManager.cpp
 
+        src/plotdata/my_publisher.cpp
+
+        src/parameter/parameter_tuning_receiver.cpp
+        
+        src/unittest/unittest_control.cpp
+
+        # src/vmc/qp_solver.cpp
+        # src/vmc/qpoases_interface.cpp
+        # src/vmc/vm_control.cpp
+
 )
+
+
 target_include_directories(${PROJECT_NAME}
         PUBLIC
         ${qpOASES_INCLUDE_DIR}
@@ -56,6 +68,7 @@ target_include_directories(${PROJECT_NAME}
 ament_target_dependencies(${PROJECT_NAME}
         ${CONTROLLER_INCLUDE_DEPENDS}
 )
+target_link_libraries(${PROJECT_NAME} yaml-cpp)
 pluginlib_export_plugin_description_file(controller_interface CatModel2_v2_controller.xml)
 
 install(

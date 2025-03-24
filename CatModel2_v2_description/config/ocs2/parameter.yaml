@@ -1,0 +1,29 @@
+swing_test_leg: !int -1
+swing_test_type: !int 0
+swing_test_K: !float 0.0
+swing_test_Freq: !float 1.0
+swing_test_pos: [0.0, 0.0, -0.25, 0.0, -0.0, -0.25, 0.0, -0.0, -0.25, 0.0, -0.0, -0.25]
+
+swing_test_joint_kp: !float 20.0
+swing_test_joint_pos: [0.1, 0.8, -1.5, -0.1, 0.8, -1.5, 0.1, 0.8, -1.5, -0.1, 0.8, -1.5]
+
+capture_alpha_swing_x: !float 0.5
+capture_alpha_swing_y: !float 0.5
+alpha_swing_x: !float 0.5
+alpha_swing_y: !float 0.5
+foot_height: !float 0.15
+foot_stamp: !float 0.01
+
+foot_position_stand: [0.0, 0.1, 0.0, 0.0, -0.1, 0.0, 0.0, 0.1, 0.0, 0.0, -0.1, 0.0]
+kp_lin_foot_vmc: [2000.0, 2000.0, 2000.0]
+kd_lin_foot_vmc: [0.0, 0.0, 0.0]
+swing_inertia_vmc: [0.1, 0.1, 0.1]
+
+weight_root_vmc: [1.0, 1.0, 1.0, 5.0, 5.0, 5.0]
+weight_force_vmc: !float 0.01
+
+kp_lin_root_vmc: [1000.0, 1000.0, 5000.0]
+kd_lin_root_vmc: [100.0, 100.0, 100.0]
+kp_ang_root_vmc: [200.0, 200.0, 200.0]
+kd_ang_root_vmc: [10.0, 10.0, 10.0]
+root_height: !float 0.4

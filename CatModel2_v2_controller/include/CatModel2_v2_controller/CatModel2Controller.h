@@ -132,6 +132,9 @@ using namespace legged_robot;
         std::shared_ptr<LeggedInterface> legged_interface_;
         std::shared_ptr<PinocchioEndEffectorKinematics> eeKinematicsPtr_;
 
+        // Unittest control
+        std::shared_ptr<UnittestControl> unittest_control_;
+
         // Whole Body Control
         std::shared_ptr<WbcBase> wbc_;
         std::shared_ptr<SafetyChecker> safety_checker_;

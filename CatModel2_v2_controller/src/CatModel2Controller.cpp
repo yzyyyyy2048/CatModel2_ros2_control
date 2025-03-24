@@ -236,6 +236,9 @@ namespace legged {
         // Safety Checker
         safety_checker_ = std::make_shared<SafetyChecker>(legged_interface_->getCentroidalModelInfo());
 
+        my_pub_ptr_ = std::make_shared<MyPublisher>();
+        my_pub_ptr_->setArrayLength(100);
+
         return CallbackReturn::SUCCESS;
     }
 
