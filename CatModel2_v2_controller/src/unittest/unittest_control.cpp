@@ -91,10 +91,12 @@ namespace ocs2::legged_robot {
         const auto &model = pinocchio_interface_measured_.getModel();
         const auto &data = pinocchio_interface_measured_.getData();
 
-        std::vector<std::string> hip_names = {"FL_hip_joint", "FR_hip_joint", "RL_hip_joint", "RR_hip_joint"};
+        std::vector<std::string> hip_names = {"LF_HAA", "RF_HAA", "LH_HAA", "RH_HAA"};
         std::vector<int> hip_ids;
         hip_ids.resize(hip_names.size());
         vector_t torque_swing = vector_t::Zero(info_.actuatedDofNum);
+
+        torque_swing = swing_test_joint_kp * ( swing_test_joint_pos - q_measured_.segment(6,info_.actuatedDofNum) );
 
         ee_kinematics_->setPinocchioInterface(pinocchio_interface_measured_);
         std::vector<vector3_t> foot_pos_world = ee_kinematics_->getPosition(vector_t());
@@ -124,9 +126,9 @@ namespace ocs2::legged_robot {
 
             vector_t acc_lin_base = (kp_lin_foot_vmc.array() * (pos_ref_base - pos_base).array()) - (kd_lin_foot_vmc.array() * (vel_base).array());
             vector_t ddq = Eigen::JacobiSVD<matrix_t>(j_leg, Eigen::ComputeFullU | Eigen::ComputeFullV).solve( acc_lin_base );
-            torque_swing.segment(3*leg, 3) = swing_inertia_vmc.array() * ddq.array();
-            if (leg != swing_test_leg) {
-                torque_swing.segment(3*leg, 3) = swing_test_joint_kp * ( swing_test_joint_pos.segment<3>(3*leg) - q_measured_.segment<3>(hip_ids[leg]) );
+
+            if (leg == swing_test_leg) {
+            torque_swing.segment(hip_ids[leg]-hip_ids[0], 3) = swing_inertia_vmc.array() * ddq.array();    
             }
         }
         return torque_swing;
@@ -145,7 +147,7 @@ namespace ocs2::legged_robot {
         const auto &model = pinocchio_interface_measured_.getModel();
         auto &data = pinocchio_interface_measured_.getData();
 
-        auto frame_id = model.getFrameId("trunk");
+        // auto frame_id = model.getFrameId("trunk");
         
         // For floating base EoM task
         forwardKinematics(model, data, q_measured_, v_measured_);

@@ -30,6 +30,32 @@ namespace legged {
         return conf;
     }
 
+    void CatModel2Controller::setupParameter() {
+        control_parameter_thread_ = std::thread([&] {
+            // // Set the thread affinity to CPU
+            // cpu_set_t cpuset;
+            // CPU_ZERO(&cpuset);
+            // CPU_SET(6, &cpuset);
+            // if (sched_setaffinity(0, sizeof(cpuset), &cpuset) == -1)
+            // {
+            //     std::cerr << "Failed to set parameter thread affinity" << std::endl;
+            //     return;
+            // }
+
+            // // Set the thread priority to the highest real-time priority
+            // struct sched_param params;
+            // params.sched_priority = sched_get_priority_max(SCHED_FIFO);
+            // if (sched_setscheduler(0, SCHED_FIFO, &params) == -1)
+            // {
+            //     std::cerr << "Failed to set parameter thread priority" << std::endl;
+            //     return;
+            // }
+
+            ParameterTuningReceiver parameter_tuning_receiver(control_parameter_ptr_);
+            parameter_tuning_receiver.run();
+        });
+    }
+
     controller_interface::InterfaceConfiguration CatModel2Controller::state_interface_configuration() const {
         controller_interface::InterfaceConfiguration conf = {config_type::INDIVIDUAL, {}};
 
@@ -97,6 +123,8 @@ namespace legged {
         // Whole body control
         ctrl_comp_.observation_.input = optimized_input;
 
+        vector_t torque_test = unittest_control_->update(measured_rbd_state_, ctrl_comp_.observation_.time);
+
         wbc_timer_.startTimer();
         vector_t x = wbc_->update(optimized_state, optimized_input, measured_rbd_state_, planned_mode,
                                   period.seconds());
@@ -150,15 +178,23 @@ namespace legged {
             return controller_interface::return_type::ERROR;
         }
 
+        // for (int i = 0; i < joint_names_.size(); i++) {
+        //     ctrl_comp_.joint_torque_command_interface_[i].get().set_value(torque(i));
+        //     ctrl_comp_.joint_position_command_interface_[i].get().set_value(pos_des(i));
+        //     ctrl_comp_.joint_velocity_command_interface_[i].get().set_value(vel_des(i));
+        //     ctrl_comp_.joint_kp_command_interface_[i].get().set_value(default_kp_);
+        //     ctrl_comp_.joint_kd_command_interface_[i].get().set_value(default_kd_);
+        //     // if (i == 0 || i==7) {
+        //     //     ctrl_comp_.joint_torque_command_interface_[i].get().set_value(0);
+        //     // }
+        // }
+        
         for (int i = 0; i < joint_names_.size(); i++) {
-            ctrl_comp_.joint_torque_command_interface_[i].get().set_value(torque(i));
-            ctrl_comp_.joint_position_command_interface_[i].get().set_value(pos_des(i));
-            ctrl_comp_.joint_velocity_command_interface_[i].get().set_value(vel_des(i));
+            ctrl_comp_.joint_torque_command_interface_[i].get().set_value(torque_test[i]);
+            ctrl_comp_.joint_position_command_interface_[i].get().set_value(0.0 * pos_des(i));
+            ctrl_comp_.joint_velocity_command_interface_[i].get().set_value(0.0 * vel_des(i));
             ctrl_comp_.joint_kp_command_interface_[i].get().set_value(default_kp_);
             ctrl_comp_.joint_kd_command_interface_[i].get().set_value(default_kd_);
-            // if (i == 0 || i==7) {
-            //     ctrl_comp_.joint_torque_command_interface_[i].get().set_value(0);
-            // }
         }
 
         
@@ -238,6 +274,17 @@ namespace legged {
 
         my_pub_ptr_ = std::make_shared<MyPublisher>();
         my_pub_ptr_->setArrayLength(100);
+
+        std::string parameter_file = "/home/yzy2/CatModel2_ros2_control_ws/src/CatModel2_v2_description/config/ocs2/parameter.yaml";
+        control_parameter_ptr_ = std::make_shared<ControlParameter>(parameter_file);
+
+        setupParameter();
+
+        // Unittest control
+        unittest_control_ = std::make_shared<UnittestControl>(legged_interface_->getPinocchioInterface(),
+                                             legged_interface_->getCentroidalModelInfo(),
+                                             *eeKinematicsPtr_,
+                                             control_parameter_ptr_);
 
         return CallbackReturn::SUCCESS;
     }
@@ -430,6 +477,8 @@ namespace legged {
         ctrl_comp_.observation_.mode = ctrl_comp_.estimator_->getMode();
     }
 }
+
+
 
 #include "pluginlib/class_list_macros.hpp"
 PLUGINLIB_EXPORT_CLASS(legged::CatModel2Controller, controller_interface::ControllerInterface);

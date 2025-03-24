@@ -15,6 +15,11 @@
 #include "CatModel2_v2_controller/control/CtrlComponent.h"
 #include "std_msgs/msg/float32_multi_array.hpp"
 
+#include <CatModel2_v2_controller/plotdata/my_publisher.hpp>
+#include <CatModel2_v2_controller/parameter/parameter_tuning_receiver.hpp>
+#include "CatModel2_v2_controller/unittest/unittest_control.hpp"
+
+
 namespace legged {
 using namespace ocs2;
 using namespace legged_robot;
@@ -71,6 +76,8 @@ using namespace legged_robot;
 
         void updateStateEstimation(const rclcpp::Time &time,
                                    const rclcpp::Duration &period);
+
+        void setupParameter();
 
         CtrlComponent ctrl_comp_;
         std::vector<std::string> joint_names_;
@@ -133,7 +140,16 @@ using namespace legged_robot;
         std::shared_ptr<PinocchioEndEffectorKinematics> eeKinematicsPtr_;
 
         // Unittest control
+
         std::shared_ptr<UnittestControl> unittest_control_;
+        
+        std::shared_ptr<MyPublisher> my_pub_ptr_;
+
+        std::shared_ptr<ControlParameter> control_parameter_ptr_;
+
+        std::thread control_parameter_thread_;
+
+        std::shared_ptr<PinocchioInterface> pinocchio_interface_pub_ptr_;
 
         // Whole Body Control
         std::shared_ptr<WbcBase> wbc_;
