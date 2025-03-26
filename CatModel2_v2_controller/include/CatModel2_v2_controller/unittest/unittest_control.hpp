@@ -19,7 +19,7 @@ namespace ocs2::legged_robot {
                 const PinocchioEndEffectorKinematics &eeKinematics, const std::shared_ptr<ControlParameter>& control_parameter_ptr);
 
         vector_t update(const vector_t &rbdStateMeasured,
-                                scalar_t currentTime);
+                                scalar_t currentTime, float *pub_data);
 
     protected:
         void updateMeasured(const vector_t &rbdStateMeasured);

@@ -28,7 +28,7 @@ namespace ocs2::legged_robot {
     }
 
     vector_t UnittestControl::update(const vector_t &rbdStateMeasured,
-                             scalar_t currentTime) {
+                             scalar_t currentTime, float *pub_data) {
 
         for (int leg = 0; leg < contact_flag_.size(); ++leg) {
             contact_flag_[leg] = true;
@@ -126,6 +126,20 @@ namespace ocs2::legged_robot {
 
             vector_t acc_lin_base = (kp_lin_foot_vmc.array() * (pos_ref_base - pos_base).array()) - (kd_lin_foot_vmc.array() * (vel_base).array());
             vector_t ddq = Eigen::JacobiSVD<matrix_t>(j_leg, Eigen::ComputeFullU | Eigen::ComputeFullV).solve( acc_lin_base );
+            
+            pub_data[6*leg] = pos_ref_base[0]; 
+
+            pub_data[6*leg+1] = pos_ref_base[1]; 
+
+            pub_data[6*leg+2] = pos_ref_base[2]; 
+
+            pub_data[6*leg+3] = pos_base[0]; 
+
+            pub_data[6*leg+4] = pos_base[1]; 
+
+            pub_data[6*leg+5] = pos_base[2]; 
+
+
 
             if (leg == swing_test_leg) {
             torque_swing.segment(hip_ids[leg]-hip_ids[0], 3) = swing_inertia_vmc.array() * ddq.array();    

@@ -123,7 +123,9 @@ namespace legged {
         // Whole body control
         ctrl_comp_.observation_.input = optimized_input;
 
-        vector_t torque_test = unittest_control_->update(measured_rbd_state_, ctrl_comp_.observation_.time);
+        float array_test[100] = {0.0};
+
+        vector_t torque_test = unittest_control_->update(measured_rbd_state_, ctrl_comp_.observation_.time, array_test);
 
         wbc_timer_.startTimer();
         vector_t x = wbc_->update(optimized_state, optimized_input, measured_rbd_state_, planned_mode,
@@ -204,6 +206,14 @@ namespace legged {
                                        mpc_mrt_interface_->getCommand());
 
         observation_publisher_->publish(ros_msg_conversions::createObservationMsg(ctrl_comp_.observation_));
+
+        
+
+        array_test[99] = static_cast<float>(ctrl_comp_.observation_.time);
+     
+        my_pub_ptr_->inputArray(array_test);
+        my_pub_ptr_->publishArray();
+    
 
 
         return controller_interface::return_type::OK;

@@ -4,8 +4,8 @@ swing_test_K: !float 0.0
 swing_test_Freq: !float 1.0
 swing_test_pos: [0.0, 0.0, -0.25, 0.0, -0.0, -0.25, 0.0, -0.0, -0.25, 0.0, -0.0, -0.25]
 
-swing_test_joint_kp: !float 20.0
-swing_test_joint_pos: [0.1, 0.8, -1.5, -0.1, 0.8, -1.5, 0, 0, 0.1, 0.8, -1.5, -0.1, 0.8, -1.5]
+swing_test_joint_kp: !float 50.0
+swing_test_joint_pos: [0, 0.8, -1.5, 0, 0.8, -1.5, 0, 0, 0, 0.8, -1.5, 0, 0.8, -1.5]
 
 capture_alpha_swing_x: !float 0.5
 capture_alpha_swing_y: !float 0.5
