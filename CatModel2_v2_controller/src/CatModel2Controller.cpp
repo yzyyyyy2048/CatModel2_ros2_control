@@ -158,7 +158,7 @@ namespace legged {
         posCur_msg.data = std::vector<float>(posCur.data(), posCur.data() + posCur.size());
         velCur_msg.data = std::vector<float>(velCur.data(), velCur.data() + velCur.size());
 
-        wbc_msg.data = std::vector<float>(torque.data(), torque.data() + torque.size());
+        wbc_msg.data = std::vector<float>(torque_test.data(), torque_test.data() + torque_test.size());
 
         posDes_pub->publish(posDes_msg);
         velDes_pub->publish(velDes_msg);
